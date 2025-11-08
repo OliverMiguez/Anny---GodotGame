@@ -5,7 +5,7 @@ class_name MainCharacter
 enum main_character_states {IDLE,WALKING,HITTING,SHOOTING,RUNNING,TAKINGGUN,ROLLING,JUMPING,FALLING,CROUCHING,TAKINGDAMAGE,DEAD}
 var current_state = main_character_states.IDLE # Estado inicial
 
-@export var speed = 100 # Velocidad del player
+@export var speed = 70 # Velocidad del player
 @export var jump_force = 300 # Fuerza con la que salta el player 
 @export var running_speed = 160 # Velocidad cuando el player está en el estado de correr
 @export var speed_null = 0 # Para administrar la velocidad del player por ejemplo cuando se agacha, para evitar que se mueva
@@ -46,7 +46,7 @@ func _physics_process(delta):
 
 		# Estado Walking
 		main_character_states.WALKING:
-			player_movement()
+			player_movement() # Cuando entra en este estado, permite el movimiento
 			if not is_on_floor():
 				current_state = main_character_states.FALLING # FALLING
 			else:
@@ -177,7 +177,7 @@ func enter_run():
 	
 # Restablece la velocidad cuando no corre
 func exit_run():
-	speed = 100
+	speed = 70
 
 func take_gun():
 	pass

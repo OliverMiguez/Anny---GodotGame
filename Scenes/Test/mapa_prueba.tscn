@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bondak2y8miye"]
+[gd_scene load_steps=6 format=3 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Texture2D" uid="uid://qjb1ak8ybaij" path="res://Art/ParalaxBackground/Menu/ParalaxBackground-1.png" id="1_0swn8"]
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
 [ext_resource type="Texture2D" uid="uid://dhcyiyhugn3t" path="res://Art/ParalaxBackground/Menu/ParalaxBackground-2.png" id="2_fub7l"]
 [ext_resource type="PackedScene" uid="uid://24wdatym248p" path="res://Scenes/MainCharacter/main_character.tscn" id="3_rmeiw"]
-[ext_resource type="AudioStream" uid="uid://dvbojfogbvtry" path="res://Music/What the hell is happening.wav" id="5_mh7lf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swn8"]
 size = Vector2(413, 52)
@@ -34,7 +33,6 @@ position = Vector2(200, 216)
 shape = SubResource("RectangleShape2D_0swn8")
 
 [node name="PruebaMusica" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_mh7lf")
 autoplay = true
 
 [connection signal="finished" from="PruebaMusica" to="." method="_on_prueba_musica_finished"]

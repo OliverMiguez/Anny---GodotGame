@@ -138,8 +138,7 @@ size = Vector2(11, 20)
 
 [node name="MainCharacter" type="CharacterBody2D"]
 script = ExtResource("1_i00kt")
-speed = 70
-running_speed = 170
+running_speed = 400
 
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ygope")
