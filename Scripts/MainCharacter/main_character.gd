@@ -58,9 +58,20 @@ func _physics_process(delta):
 				elif Input.is_action_pressed("Shift") and velocity.x != 0: # RUNNING
 					enter_run()
 					current_state = main_character_states.RUNNING
-				elif Input.is_action_pressed("Down_Input") and velocity.x == 0: # CROUCHING
-					current_state = main_character_states.CROUCHING
-					crouch_no_velocity()
+
+        elif Input.is_action_pressed("Down_Input"):  # CROUCHING
+					# Comprobamos el INPUT, no solo la velocidad.
+					var movement_input_active = Input.is_action_pressed("Left_Input") or Input.is_action_pressed("Right_Input")
+					
+					if not movement_input_active: # si no se detectó ningún Input
+						current_state = main_character_states.CROUCHING
+						crouch_no_velocity() # Esto fuerza velocity.x = 0
+					else:
+						# Si hay input de movimiento, sigue caminando o deja que el 
+						# estado CROUCHING NO se active. 
+						# El código continuará abajo y permanecerá en WALKING.
+						pass
+
 				else:
 					current_state = main_character_states.WALKING # WALKING
 					
@@ -68,6 +79,7 @@ func _physics_process(delta):
 		main_character_states.CROUCHING:
 					# El jugador PERMANECE en este estado mientras Down_Input esté presionado.
 					if not Input.is_action_pressed("Down_Input") and is_on_floor():
+
 						# 1. Restaura la velocidad (variable speed, aunque player_movement la usará)
 						crouch_velocity() 
 						
@@ -79,9 +91,11 @@ func _physics_process(delta):
 							current_state = main_character_states.WALKING
 						else:
 							current_state = main_character_states.IDLE
+
 					# Si Down_Input sigue presionado, no hacemos nada más, 
 					# y player_movement() mantendrá la velocidad en 0.
-		#Estado Hitting
+
+    #Estado Hitting
 		main_character_states.HITTING:
 			punch()
 			
@@ -139,7 +153,7 @@ func _physics_process(delta):
 		main_character_states.DEAD:
 			pass
 
-
+	player_movement()
 	player_animations() # Llama a la función que permite el ejecutar la animaciones del player 
 
 
