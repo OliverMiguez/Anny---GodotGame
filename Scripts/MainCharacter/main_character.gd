@@ -5,9 +5,9 @@ class_name MainCharacter
 enum main_character_states {IDLE,WALKING,HITTING,SHOOTING,RUNNING,TAKINGGUN,ROLLING,JUMPING,FALLING,CROUCHING,TAKINGDAMAGE,DEAD}
 var current_state = main_character_states.IDLE # Estado inicial
 
-@export var speed = 70 # Velocidad del player
+@export var speed = 100 # Velocidad del player
 @export var jump_force = 300 # Fuerza con la que salta el player 
-@export var running_speed = 200 # Velocidad cuando el player está en el estado de correr
+@export var running_speed = 300 # Velocidad cuando el player está en el estado de correr
 @export var speed_null = 0 # Para administrar la velocidad del player por ejemplo cuando se agacha, para evitar que se mueva
 const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
 
