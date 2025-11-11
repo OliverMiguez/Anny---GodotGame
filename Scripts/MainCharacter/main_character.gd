@@ -25,6 +25,7 @@ func _physics_process(delta):
 	match  current_state:
 		#Estado IDLE
 		main_character_states.IDLE:
+			print("Idle")
 			player_movement()
 			if not is_on_floor(): # FALLING
 				current_state = main_character_states.FALLING
@@ -45,6 +46,7 @@ func _physics_process(delta):
 
 		# Estado Walking
 		main_character_states.WALKING:
+			print("Walking")
 			player_movement() # Cuando entra en este estado, permite el movimiento
 			if not is_on_floor():
 				current_state = main_character_states.FALLING # FALLING
@@ -76,6 +78,7 @@ func _physics_process(delta):
 					
 
 		main_character_states.CROUCHING:
+					print("Crouching")
 					# El jugador PERMANECE en este estado mientras Down_Input esté presionado.
 					if not Input.is_action_pressed("Down_Input") and is_on_floor():
 
@@ -104,6 +107,7 @@ func _physics_process(delta):
 		
 		# Estado Running
 		main_character_states.RUNNING:
+			print("Running")
 			if not is_on_floor():
 				exit_run()
 				current_state = main_character_states.FALLING # Falling
@@ -130,11 +134,14 @@ func _physics_process(delta):
 
 		# Estado Jumping
 		main_character_states.JUMPING:
+			print("Jumping")
 			if velocity.y > 0: # Cuando empieza a caer (la velocidad Y es positiva)
 				current_state = main_character_states.FALLING
 
 		# Estado Falling
 		main_character_states.FALLING:
+			print("Falling")
+			exit_run()
 			if is_on_floor():
 				if velocity.x == 0:
 					current_state = main_character_states.IDLE
