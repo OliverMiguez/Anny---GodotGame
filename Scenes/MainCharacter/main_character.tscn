@@ -31,21 +31,21 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("3_iomaa")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ka8x8"]
-atlas = ExtResource("3_ka8x8")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ygope"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bk1fc"]
 atlas = ExtResource("3_ka8x8")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bk1fc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygope"]
 atlas = ExtResource("3_ka8x8")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b45ms"]
+atlas = ExtResource("3_ka8x8")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dl21"]
 atlas = ExtResource("3_ka8x8")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b841a"]
 atlas = ExtResource("3_ka8x8")
@@ -99,21 +99,21 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ka8x8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ygope")
-}, {
-"duration": 1.0,
+"duration": 0.61,
 "texture": SubResource("AtlasTexture_bk1fc")
 }, {
-"duration": 1.0,
+"duration": 0.61,
+"texture": SubResource("AtlasTexture_ygope")
+}, {
+"duration": 0.61,
+"texture": SubResource("AtlasTexture_b45ms")
+}, {
+"duration": 0.61,
 "texture": SubResource("AtlasTexture_1dl21")
 }],
 "loop": true,
 "name": &"Run",
-"speed": 8.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -141,8 +141,9 @@ script = ExtResource("1_i00kt")
 
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ygope")
-animation = &"Crouch"
+animation = &"Run"
 autoplay = "Idle"
+frame_progress = 0.5074577
 
 [node name="MainCharacterCollishion" type="CollisionShape2D" parent="."]
 position = Vector2(-4.5, 5)

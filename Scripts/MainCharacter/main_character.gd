@@ -7,14 +7,13 @@ var current_state = main_character_states.IDLE # Estado inicial
 
 @export var speed = 100 # Velocidad del player
 @export var jump_force = 300 # Fuerza con la que salta el player 
-@export var running_speed = 160 # Velocidad cuando el player está en el estado de correr
+@export var running_speed = 300 # Velocidad cuando el player está en el estado de correr
 @export var speed_null = 0 # Para administrar la velocidad del player por ejemplo cuando se agacha, para evitar que se mueva
 const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
 
 @onready var main_character_animations = $MainCharacterAnimations # Animaciones del MainCharacter 
 
 @onready var jump_sound = $JumpSound # Sonido que hace cuando salta
-
 
 
 ## Se ejecuta en cada frame 
@@ -26,6 +25,7 @@ func _physics_process(delta):
 	match  current_state:
 		#Estado IDLE
 		main_character_states.IDLE:
+
 			player_movement()
 			if not is_on_floor(): # FALLING
 				current_state = main_character_states.FALLING
@@ -46,7 +46,8 @@ func _physics_process(delta):
 
 		# Estado Walking
 		main_character_states.WALKING:
-			player_movement()
+			player_movement() # Cuando entra en este estado, permite el movimiento
+
 			if not is_on_floor():
 				current_state = main_character_states.FALLING # FALLING
 			else:
@@ -58,9 +59,10 @@ func _physics_process(delta):
 				elif Input.is_action_pressed("Shift") and velocity.x != 0: # RUNNING
 					enter_run()
 					current_state = main_character_states.RUNNING
-				elif Input.is_action_pressed("Down_Input") and velocity.x == 0: # CROUCHING
+
+				elif Input.is_action_pressed("Down_Input"):  # CROUCHING
 					current_state = main_character_states.CROUCHING
-					crouch_no_velocity()
+
 				else:
 					current_state = main_character_states.WALKING # WALKING
 					
@@ -68,6 +70,8 @@ func _physics_process(delta):
 		main_character_states.CROUCHING:
 					# El jugador PERMANECE en este estado mientras Down_Input esté presionado.
 					if not Input.is_action_pressed("Down_Input") and is_on_floor():
+
+
 						# 1. Restaura la velocidad (variable speed, aunque player_movement la usará)
 						crouch_velocity() 
 						
@@ -79,9 +83,12 @@ func _physics_process(delta):
 							current_state = main_character_states.WALKING
 						else:
 							current_state = main_character_states.IDLE
+
 					# Si Down_Input sigue presionado, no hacemos nada más, 
 					# y player_movement() mantendrá la velocidad en 0.
-		#Estado Hitting
+
+	#Estado Hitting
+
 		main_character_states.HITTING:
 			punch()
 			
@@ -91,6 +98,7 @@ func _physics_process(delta):
 		
 		# Estado Running
 		main_character_states.RUNNING:
+			print("Running")
 			if not is_on_floor():
 				exit_run()
 				current_state = main_character_states.FALLING # Falling
@@ -98,10 +106,9 @@ func _physics_process(delta):
 				exit_run()
 				current_state = main_character_states.IDLE # IDLE
 			elif Input.is_action_just_pressed("Up_Input") and is_on_floor():
-				exit_run()
 				current_state = main_character_states.JUMPING # JUMPING
 				jump()
-			elif velocity.x != 0:
+			elif velocity.x != 0 and not Input.is_action_pressed("Shift"):
 				exit_run()
 				current_state = main_character_states.WALKING # WALKING
 			elif Input.is_action_pressed("Down_Input") and is_on_floor():
@@ -118,11 +125,14 @@ func _physics_process(delta):
 
 		# Estado Jumping
 		main_character_states.JUMPING:
+			print("Jumping")
 			if velocity.y > 0: # Cuando empieza a caer (la velocidad Y es positiva)
 				current_state = main_character_states.FALLING
 
 		# Estado Falling
 		main_character_states.FALLING:
+			print("Falling")
+			exit_run()
 			if is_on_floor():
 				if velocity.x == 0:
 					current_state = main_character_states.IDLE
@@ -139,7 +149,7 @@ func _physics_process(delta):
 		main_character_states.DEAD:
 			pass
 
-
+	player_movement()
 	player_animations() # Llama a la función que permite el ejecutar la animaciones del player 
 
 
@@ -193,13 +203,31 @@ func fall():
 ## Otros métodos
 # Se ejecuta cuando se detecta un Input del teclado para mover al main-character
 func player_movement():
-	# Evita mover al player cuando está agachado
-	if current_state == main_character_states.CROUCHING:
-		velocity.x = 0
+	var direction := Input.get_action_strength("Right_Input") - Input.get_action_strength("Left_Input")
+	var max_velocity_speed = speed # Para establecer la velocidades correctamente en cada estados
+	
+	if current_state == main_character_states.RUNNING:
+		max_velocity_speed = running_speed # Establece la velocidad de carrera cuando detecte el estado de carrera del player
 	else:
-		# Movimiento horizontal
-		var direction := Input.get_action_strength("Right_Input") - Input.get_action_strength("Left_Input")
-		velocity.x = direction * speed
+		max_velocity_speed = speed
+	
+	if is_on_floor():
+			if current_state == main_character_states.CROUCHING:
+				velocity.x = 0
+			else:
+				# Reinicia a la velocidad standar de caminar
+				velocity.x = direction * max_velocity_speed
+				
+				# Si no hay input, ir a 0 (deceleración instantánea/rápida en el suelo)
+				if direction == 0:
+					velocity.x = 0
+	elif current_state == main_character_states.JUMPING or current_state == main_character_states.FALLING:
+		# Si hay input, ajusta ligeramente la velocidad, sino, se mantiene la inercia.
+		if direction != 0:
+			# Aquí usar 'lerp' para un control aéreo suave
+			velocity.x = lerp(velocity.x, direction * max_velocity_speed, 0.1)
+
+
 	
 	# Mover al personaje
 	move_and_slide()
@@ -209,18 +237,32 @@ func player_animations():
 	if current_state == main_character_states.JUMPING or current_state == main_character_states.FALLING:
 		main_character_animations.play("Jump")
 		
-	if velocity.x > 0: 
-		main_character_animations.play("Walk")
-		main_character_animations.flip_h = false
-	elif velocity.x < 0: 
-		main_character_animations.play("Walk")
-		main_character_animations.flip_h = true
+	if current_state == main_character_states.WALKING:
+		if velocity.x > 0: 
+			main_character_animations.play("Walk")
+			main_character_animations.flip_h = false
+		elif velocity.x < 0: 
+			main_character_animations.play("Walk")
+			main_character_animations.flip_h = true
+			
+
 	elif velocity.x == 0 and is_on_floor(): 
 		main_character_animations.play("Idle")
 		
+	
 	if Input.is_action_pressed("Down_Input"):
 		main_character_animations.play("Crouch")
 		
+		
+	if current_state == main_character_states.RUNNING:
+		if velocity.x > 0:
+			main_character_animations.play("Run")
+			main_character_animations.flip_h = false
+		elif velocity.x < 0:
+			main_character_animations.play("Run")
+			main_character_animations.flip_h = true
+		
+
 ## Gravedad que afecta al player 
 func gravity(delta):
 	velocity.y = velocity.y +(GRAVITY_VALUE * delta)
