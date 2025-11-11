@@ -20,8 +20,9 @@ buses/default_bus_layout="res://AudioBus/default_bus_layout.tres"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1908
+window/size/viewport_height=1080
+window/size/borderless=true
 window/stretch/scale_mode="integer"
 
 [file_customization]
