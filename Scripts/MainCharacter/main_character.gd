@@ -25,7 +25,7 @@ func _physics_process(delta):
 	match  current_state:
 		#Estado IDLE
 		main_character_states.IDLE:
-			print("Idle")
+
 			player_movement()
 			if not is_on_floor(): # FALLING
 				current_state = main_character_states.FALLING
@@ -46,8 +46,8 @@ func _physics_process(delta):
 
 		# Estado Walking
 		main_character_states.WALKING:
-			print("Walking")
 			player_movement() # Cuando entra en este estado, permite el movimiento
+
 			if not is_on_floor():
 				current_state = main_character_states.FALLING # FALLING
 			else:
@@ -62,14 +62,15 @@ func _physics_process(delta):
 
 				elif Input.is_action_pressed("Down_Input"):  # CROUCHING
 					current_state = main_character_states.CROUCHING
+
 				else:
 					current_state = main_character_states.WALKING # WALKING
 					
 
 		main_character_states.CROUCHING:
-					print("Crouching")
 					# El jugador PERMANECE en este estado mientras Down_Input esté presionado.
 					if not Input.is_action_pressed("Down_Input") and is_on_floor():
+
 
 						# 1. Restaura la velocidad (variable speed, aunque player_movement la usará)
 						crouch_velocity() 
@@ -87,6 +88,7 @@ func _physics_process(delta):
 					# y player_movement() mantendrá la velocidad en 0.
 
 	#Estado Hitting
+
 		main_character_states.HITTING:
 			punch()
 			
@@ -225,6 +227,7 @@ func player_movement():
 			# Aquí usar 'lerp' para un control aéreo suave
 			velocity.x = lerp(velocity.x, direction * max_velocity_speed, 0.1)
 
+
 	
 	# Mover al personaje
 	move_and_slide()
@@ -242,6 +245,7 @@ func player_animations():
 			main_character_animations.play("Walk")
 			main_character_animations.flip_h = true
 			
+
 	elif velocity.x == 0 and is_on_floor(): 
 		main_character_animations.play("Idle")
 		
@@ -258,6 +262,7 @@ func player_animations():
 			main_character_animations.play("Run")
 			main_character_animations.flip_h = true
 		
+
 ## Gravedad que afecta al player 
 func gravity(delta):
 	velocity.y = velocity.y +(GRAVITY_VALUE * delta)
