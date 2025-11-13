@@ -226,7 +226,7 @@ func player_movement():
 		# Si hay input, ajusta ligeramente la velocidad, sino, se mantiene la inercia.
 		if direction != 0:
 			# Aquí usar 'lerp' para un control aéreo suave
-			velocity.x = lerp(velocity.x, direction * max_velocity_speed, 0.1)
+			velocity.x = lerp(velocity.x, direction * max_velocity_speed, 0.01)
 
 	
 	# Mover al personaje

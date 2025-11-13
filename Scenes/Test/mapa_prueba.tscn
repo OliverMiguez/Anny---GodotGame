@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://bondak2y8miye"]
+[gd_scene load_steps=22 format=4 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
 [ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/Map.png" id="2_0swn8"]
@@ -1916,6 +1916,24 @@ size = Vector2(33, 729)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mh7lf"]
 size = Vector2(38, 830.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adf8g"]
+size = Vector2(530, 43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmekn"]
+size = Vector2(31.75, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84ol0"]
+size = Vector2(471, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mm8s7"]
+size = Vector2(217, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myp8n"]
+size = Vector2(380, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2jc8"]
+size = Vector2(561.5, 26)
+
 [node name="MapaPrueba" type="Node2D"]
 position = Vector2(248, -49)
 script = ExtResource("1_rmeiw")
@@ -1941,7 +1959,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
 
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
-position = Vector2(629, 934.00006)
+position = Vector2(320, 144.00006)
 scale = Vector2(3, 3)
 
 [node name="PruebaMusica" type="AudioStreamPlayer2D" parent="."]
@@ -1972,5 +1990,45 @@ position = Vector2(2, 68)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Left_wall"]
 position = Vector2(278, 452.25)
 shape = SubResource("RectangleShape2D_mh7lf")
+
+[node name="Ceiling up blue" type="StaticBody2D" parent="Colisiones"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Ceiling up blue"]
+position = Vector2(528, 235.5)
+shape = SubResource("RectangleShape2D_adf8g")
+
+[node name="Blue1" type="StaticBody2D" parent="Colisiones"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Blue1"]
+position = Vector2(775.75, 277)
+shape = SubResource("RectangleShape2D_kmekn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Colisiones/Blue1"]
+position = Vector2(775.125, 437)
+shape = SubResource("RectangleShape2D_kmekn")
+
+[node name="Blue2" type="StaticBody2D" parent="Colisiones"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Blue2"]
+position = Vector2(532, 442.5)
+shape = SubResource("RectangleShape2D_84ol0")
+
+[node name="Ceiling up red" type="StaticBody2D" parent="Colisiones"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Ceiling up red"]
+position = Vector2(1203.5, 322)
+shape = SubResource("RectangleShape2D_mm8s7")
+
+[node name="Ceiling up red2" type="StaticBody2D" parent="Colisiones"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Ceiling up red2"]
+position = Vector2(1500, 332)
+shape = SubResource("RectangleShape2D_myp8n")
+
+[node name="Red1" type="StaticBody2D" parent="Colisiones"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Red1"]
+position = Vector2(1403.25, 659)
+shape = SubResource("RectangleShape2D_i2jc8")
 
 [connection signal="finished" from="PruebaMusica" to="." method="_on_prueba_musica_finished"]
