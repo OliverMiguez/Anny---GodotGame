@@ -1917,7 +1917,7 @@ size = Vector2(33, 729)
 size = Vector2(38, 830.5)
 
 [node name="MapaPrueba" type="Node2D"]
-position = Vector2(248, -49)
+position = Vector2(416, -49)
 script = ExtResource("1_rmeiw")
 
 [node name="ToCompleteTheMap" type="TileMapLayer" parent="."]
@@ -1941,36 +1941,40 @@ scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
 
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
-position = Vector2(629, 934.00006)
+position = Vector2(443, 194.00006)
 scale = Vector2(3, 3)
 
-[node name="PruebaMusica" type="AudioStreamPlayer2D" parent="."]
+[node name="MusicTest" type="AudioStreamPlayer2D" parent="."]
 autoplay = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_fub7l")
 
-[node name="Colisiones" type="Node" parent="."]
+[node name="Collisions" type="Node" parent="."]
 
-[node name="Floor1" type="StaticBody2D" parent="Colisiones"]
+[node name="Floor1" type="StaticBody2D" parent="Collisions"]
 position = Vector2(754, 744)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Floor1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floor1"]
 position = Vector2(226.75, 217)
 shape = SubResource("RectangleShape2D_0swn8")
 
-[node name="Right_wall" type="StaticBody2D" parent="Colisiones"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collisions/Floor1"]
+position = Vector2(220, -505)
+shape = SubResource("RectangleShape2D_0swn8")
+
+[node name="Right_wall" type="StaticBody2D" parent="Collisions"]
 position = Vector2(2, 62)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Right_wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Right_wall"]
 position = Vector2(1686.5, 511.5)
 shape = SubResource("RectangleShape2D_rmeiw")
 
-[node name="Left_wall" type="StaticBody2D" parent="Colisiones"]
+[node name="Left_wall" type="StaticBody2D" parent="Collisions"]
 position = Vector2(2, 68)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Colisiones/Left_wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Left_wall"]
 position = Vector2(278, 452.25)
 shape = SubResource("RectangleShape2D_mh7lf")
 
-[connection signal="finished" from="PruebaMusica" to="." method="_on_prueba_musica_finished"]
+[connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]

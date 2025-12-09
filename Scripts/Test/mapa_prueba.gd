@@ -1,5 +1,5 @@
 extends Node2D
-@onready var prueba_musica = $PruebaMusica
+@onready var prueba_musica = $MusicTest
 func _ready():
 	prueba_musica.play()
 
