@@ -1,11 +1,17 @@
-[gd_scene load_steps=23 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=29 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
 [ext_resource type="Texture2D" uid="uid://cyima13s8unkp" path="res://Art/MainCharacter/Crouch/main-character-crouch.png" id="2_gy7ys"]
-[ext_resource type="Texture2D" uid="uid://mb252yw27321" path="res://Art/MainCharacter/Jump/MainCharacter-Jump.png" id="3_iomaa"]
 [ext_resource type="Texture2D" uid="uid://cb2uui7jk2gg8" path="res://Art/MainCharacter/Walk/MainCharacter-Walk.png" id="3_ka8x8"]
+[ext_resource type="Texture2D" uid="uid://dngjpvui8cjbl" path="res://Art/MainCharacter/Jump/NewJump/pixilart-sprite.png" id="4_l6ccf"]
 [ext_resource type="AudioStream" uid="uid://b34bqwip5ttl" path="res://SoundEffects/JumpEffectSound/JumpSound.mp3" id="5_iomaa"]
+[ext_resource type="Script" uid="uid://ck2mg5sw1ieog" path="res://Scripts/GeneralStates/Util/State_Machine.gd" id="7_b841a"]
+[ext_resource type="Script" uid="uid://rscgxd7ldbe3" path="res://Scripts/MainCharacter/States/IdleState.gd" id="8_vyxe4"]
+[ext_resource type="Script" uid="uid://x87sfans3ncm" path="res://Scripts/MainCharacter/States/RunningState.gd" id="9_7tkxx"]
+[ext_resource type="Script" uid="uid://b1ch5ly3ytfev" path="res://Scripts/MainCharacter/States/WalkingState.gd" id="9_vyxe4"]
+[ext_resource type="Script" uid="uid://dy2s574dxbvka" path="res://Scripts/MainCharacter/States/CrouchingState.gd" id="11_7tkxx"]
+[ext_resource type="Script" uid="uid://c155xdk1v514i" path="res://Scripts/MainCharacter/States/JumpingState.gd" id="12_l6ccf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cri0l"]
 atlas = ExtResource("2_gy7ys")
@@ -28,7 +34,7 @@ atlas = ExtResource("2_cctys")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nlix5"]
-atlas = ExtResource("3_iomaa")
+atlas = ExtResource("4_l6ccf")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bk1fc"]
@@ -133,23 +139,64 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlix5"]
-size = Vector2(11, 20)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6ccf"]
+radius = 5.5
+height = 20.0
 
 [node name="MainCharacter" type="CharacterBody2D"]
 script = ExtResource("1_i00kt")
+jump_force = 325
 
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_ygope")
-animation = &"Run"
+animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.5074577
 
-[node name="MainCharacterCollishion" type="CollisionShape2D" parent="."]
+[node name="MainCharacterCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-4.5, 5)
-shape = SubResource("RectangleShape2D_nlix5")
+shape = SubResource("CapsuleShape2D_l6ccf")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_iomaa")
 volume_db = -12.117
 bus = &"JumpSound"
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("father", "animation_player", "current_state")]
+script = ExtResource("7_b841a")
+father = NodePath("..")
+animation_player = NodePath("../MainCharacterAnimations")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "crouch_state", "jump_state", "father")]
+script = ExtResource("8_vyxe4")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
+crouch_state = NodePath("../Crouch")
+jump_state = NodePath("../Jump")
+father = NodePath("../..")
+
+[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "father")]
+script = ExtResource("9_vyxe4")
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+jump_state = NodePath("../Jump")
+father = NodePath("../..")
+
+[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "father")]
+script = ExtResource("9_7tkxx")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+jump_state = NodePath("../Jump")
+father = NodePath("../..")
+
+[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "jump_state", "father")]
+script = ExtResource("11_7tkxx")
+walk_state = NodePath("../Walk")
+jump_state = NodePath("../Jump")
+father = NodePath("../..")
+
+[node name="Jump" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "father")]
+script = ExtResource("12_l6ccf")
+idle_state = NodePath("../Idle")
+father = NodePath("../..")
