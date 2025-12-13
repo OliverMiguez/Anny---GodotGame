@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=37 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cb2uui7jk2gg8" path="res://Art/MainCharacter/Walk/MainCharacter-Walk.png" id="3_ka8x8"]
 [ext_resource type="Texture2D" uid="uid://dngjpvui8cjbl" path="res://Art/MainCharacter/Jump/NewJump/pixilart-sprite.png" id="4_l6ccf"]
 [ext_resource type="AudioStream" uid="uid://b34bqwip5ttl" path="res://SoundEffects/JumpEffectSound/JumpSound.mp3" id="5_iomaa"]
+[ext_resource type="Texture2D" uid="uid://bqdeld4pnus1b" path="res://Art/MainCharacter/Roll/MainCharacterRoll.jpg" id="6_ygope"]
 [ext_resource type="Script" uid="uid://ck2mg5sw1ieog" path="res://Scripts/GeneralStates/Util/State_Machine.gd" id="7_b841a"]
 [ext_resource type="Script" uid="uid://rscgxd7ldbe3" path="res://Scripts/MainCharacter/States/IdleState.gd" id="8_vyxe4"]
 [ext_resource type="Script" uid="uid://x87sfans3ncm" path="res://Scripts/MainCharacter/States/RunningState.gd" id="9_7tkxx"]
@@ -68,6 +69,34 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_l6ccf"]
 atlas = ExtResource("3_ka8x8")
 region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1eljo"]
+atlas = ExtResource("6_ygope")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv7m8"]
+atlas = ExtResource("6_ygope")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5w7m"]
+atlas = ExtResource("6_ygope")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oojbf"]
+atlas = ExtResource("6_ygope")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3prao"]
+atlas = ExtResource("6_ygope")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfij6"]
+atlas = ExtResource("6_ygope")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqt27"]
+atlas = ExtResource("6_ygope")
+region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ygope"]
 animations = [{
@@ -137,6 +166,32 @@ animations = [{
 "loop": true,
 "name": &"Walk",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1eljo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qv7m8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5w7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oojbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3prao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfij6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqt27")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6ccf"]
@@ -150,9 +205,8 @@ jump_force = 325
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_ygope")
-animation = &"Idle"
+animation = &"Run"
 autoplay = "Idle"
-frame_progress = 0.5074577
 
 [node name="MainCharacterCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-4.5, 5)
