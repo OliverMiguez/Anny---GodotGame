@@ -37,10 +37,12 @@ func _input(event: InputEvent) -> void:
 	
 	# Rodar
 	elif Input.is_action_pressed("ui_left") and Input.is_action_just_pressed("ui_down"):
-		velocity.x = -200
+		if is_on_floor():
+			velocity.x = -200
 		
 	elif Input.is_action_pressed("ui_right") and Input.is_action_just_pressed("ui_down"):
-		velocity.x = 200
+		if is_on_floor():
+			velocity.x = 200
 	
 	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down"):
 		velocity.x = 100
