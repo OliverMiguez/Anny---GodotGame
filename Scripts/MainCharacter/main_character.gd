@@ -4,7 +4,7 @@ class_name MainCharacter
 @export var speed = 100 # Velocidad del player
 @export var jump_force = 300 # Fuerza con la que salta el player 
 @export var running_speed = 300 # Velocidad cuando el player está en el estado de correr
-@export var rolling_speed = 150 # Velocidad con la que rodará
+@export var rolling_speed = 177 # Velocidad de rodar
 
 const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
 
