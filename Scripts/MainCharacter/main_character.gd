@@ -33,7 +33,17 @@ func _input(event: InputEvent) -> void:
 	# Correr a la derecha
 	elif Input.is_action_pressed("ui_right") and Input.is_action_pressed("Shift"):
 		velocity.x =running_speed
-
+	
+	# Rodar
+	elif Input.is_action_pressed("ui_left") and Input.is_action_just_pressed("ui_down"):
+		velocity.x = -200
+		
+	elif Input.is_action_pressed("ui_right") and Input.is_action_just_pressed("ui_down"):
+		velocity.x = 200
+	
+	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down"):
+		velocity.x = 100
+		
 	# Andar a la derecha
 	elif Input.is_action_pressed("ui_right"):
 		velocity.x=100

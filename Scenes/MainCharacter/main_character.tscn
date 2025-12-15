@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=37 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -6,12 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://cb2uui7jk2gg8" path="res://Art/MainCharacter/Walk/MainCharacter-Walk.png" id="3_ka8x8"]
 [ext_resource type="Texture2D" uid="uid://dngjpvui8cjbl" path="res://Art/MainCharacter/Jump/NewJump/pixilart-sprite.png" id="4_l6ccf"]
 [ext_resource type="AudioStream" uid="uid://b34bqwip5ttl" path="res://SoundEffects/JumpEffectSound/JumpSound.mp3" id="5_iomaa"]
+[ext_resource type="Texture2D" uid="uid://3w5w5k0wjv1d" path="res://Art/MainCharacter/Roll/Roll.png" id="5_ygope"]
 [ext_resource type="Script" uid="uid://ck2mg5sw1ieog" path="res://Scripts/GeneralStates/Util/State_Machine.gd" id="7_b841a"]
 [ext_resource type="Script" uid="uid://rscgxd7ldbe3" path="res://Scripts/MainCharacter/States/IdleState.gd" id="8_vyxe4"]
 [ext_resource type="Script" uid="uid://x87sfans3ncm" path="res://Scripts/MainCharacter/States/RunningState.gd" id="9_7tkxx"]
 [ext_resource type="Script" uid="uid://b1ch5ly3ytfev" path="res://Scripts/MainCharacter/States/WalkingState.gd" id="9_vyxe4"]
 [ext_resource type="Script" uid="uid://dy2s574dxbvka" path="res://Scripts/MainCharacter/States/CrouchingState.gd" id="11_7tkxx"]
 [ext_resource type="Script" uid="uid://c155xdk1v514i" path="res://Scripts/MainCharacter/States/JumpingState.gd" id="12_l6ccf"]
+[ext_resource type="Script" uid="uid://d4nbwpn5km5yg" path="res://Scripts/MainCharacter/States/RollingState.gd" id="14_nlix5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cri0l"]
 atlas = ExtResource("2_gy7ys")
@@ -36,6 +38,30 @@ region = Rect2(96, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_nlix5"]
 atlas = ExtResource("4_l6ccf")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qv7m8"]
+atlas = ExtResource("5_ygope")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5w7m"]
+atlas = ExtResource("5_ygope")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oojbf"]
+atlas = ExtResource("5_ygope")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3prao"]
+atlas = ExtResource("5_ygope")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfij6"]
+atlas = ExtResource("5_ygope")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqt27"]
+atlas = ExtResource("5_ygope")
+region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bk1fc"]
 atlas = ExtResource("3_ka8x8")
@@ -105,6 +131,29 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qv7m8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5w7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oojbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3prao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfij6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqt27")
+}],
+"loop": true,
+"name": &"Roll",
+"speed": 10.0
+}, {
+"frames": [{
 "duration": 0.61,
 "texture": SubResource("AtlasTexture_bk1fc")
 }, {
@@ -140,7 +189,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6ccf"]
-radius = 5.5
+radius = 4.5
 height = 20.0
 
 [node name="MainCharacter" type="CharacterBody2D"]
@@ -176,11 +225,12 @@ crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
 father = NodePath("../..")
 
-[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "father")]
+[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "roll_state", "father")]
 script = ExtResource("9_vyxe4")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
+roll_state = NodePath("../Rol")
 father = NodePath("../..")
 
 [node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "father")]
@@ -190,13 +240,27 @@ walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
 father = NodePath("../..")
 
-[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "jump_state", "father")]
+[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "jump_state", "roll_state", "father")]
 script = ExtResource("11_7tkxx")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
+roll_state = NodePath("../Rol")
 father = NodePath("../..")
 
 [node name="Jump" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "father")]
 script = ExtResource("12_l6ccf")
 idle_state = NodePath("../Idle")
 father = NodePath("../..")
+
+[node name="Rol" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state")]
+script = ExtResource("14_nlix5")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
+crouch_state = NodePath("../Crouch")
+
+[node name="RollTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="RollTimer" to="FSM/Rol" method="_on_roll_timer_timeout"]
