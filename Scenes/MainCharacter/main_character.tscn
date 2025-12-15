@@ -195,6 +195,7 @@ height = 20.0
 [node name="MainCharacter" type="CharacterBody2D"]
 script = ExtResource("1_i00kt")
 jump_force = 325
+rolling_speed = 175
 
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
