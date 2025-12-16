@@ -27,8 +27,17 @@ func _physics_process(delta):
 
 ## Movimientos del player
 func _input(event: InputEvent) -> void:
+	
+	if Input.is_action_pressed("Shift") and Input.is_action_just_pressed("ui_down")and Input.is_action_pressed("ui_right"):
+		if is_on_floor():
+			velocity.x = 320
+			velocity.y = -300
+	elif Input.is_action_pressed("Shift") and Input.is_action_just_pressed("ui_down")and Input.is_action_pressed("ui_left"):
+		if is_on_floor():
+			velocity.x = -320
+			velocity.y = -300
 	# Correr a la izquierda
-	if Input.is_action_pressed("ui_left") and Input.is_action_pressed("Shift"):
+	elif Input.is_action_pressed("ui_left") and Input.is_action_pressed("Shift"):
 		velocity.x =-running_speed
 	
 	# Correr a la derecha
@@ -43,7 +52,8 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_pressed("ui_right") and Input.is_action_just_pressed("ui_down"):
 		if is_on_floor():
 			velocity.x = 200
-	
+
+	# Arregla un bug
 	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down"):
 		velocity.x = 100
 		

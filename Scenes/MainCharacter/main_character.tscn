@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=48 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://dy2s574dxbvka" path="res://Scripts/MainCharacter/States/CrouchingState.gd" id="11_7tkxx"]
 [ext_resource type="Script" uid="uid://c155xdk1v514i" path="res://Scripts/MainCharacter/States/JumpingState.gd" id="12_l6ccf"]
 [ext_resource type="Script" uid="uid://d4nbwpn5km5yg" path="res://Scripts/MainCharacter/States/RollingState.gd" id="14_nlix5"]
+[ext_resource type="Script" uid="uid://cnq563rgh3dwe" path="res://Scripts/MainCharacter/States/PlanchaState.gd" id="16_1dl21"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cri0l"]
 atlas = ExtResource("2_gy7ys")
@@ -174,7 +175,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6r0ik")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_fvqa4")
 }, {
 "duration": 1.0,
@@ -197,7 +198,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Plancha",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -258,8 +259,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6ccf"]
-radius = 4.5
-height = 20.0
+radius = 2.5
+height = 18.0
 
 [node name="MainCharacter" type="CharacterBody2D"]
 script = ExtResource("1_i00kt")
@@ -267,11 +268,11 @@ jump_force = 325
 rolling_speed = 175
 
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -1)
+position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_ygope")
-animation = &"Plancha"
+animation = &"Walk"
 autoplay = "Idle"
-frame_progress = 0.61308277
+frame_progress = 0.3467834
 
 [node name="MainCharacterCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-4.5, 5)
@@ -304,11 +305,12 @@ jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
 father = NodePath("../..")
 
-[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "father")]
+[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "plancha_state", "father")]
 script = ExtResource("9_7tkxx")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
+plancha_state = NodePath("../Plancha")
 father = NodePath("../..")
 
 [node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "jump_state", "roll_state", "father")]
@@ -330,8 +332,21 @@ walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 
+[node name="Plancha" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state", "jump_state")]
+script = ExtResource("16_1dl21")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
+crouch_state = NodePath("../Crouch")
+jump_state = NodePath("../Jump")
+
 [node name="RollTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
+[node name="PlanchaTimer" type="Timer" parent="."]
+wait_time = 0.9
+one_shot = true
+
 [connection signal="timeout" from="RollTimer" to="FSM/Rol" method="_on_roll_timer_timeout"]
+[connection signal="timeout" from="PlanchaTimer" to="FSM/Plancha" method="_on_plancha_timer_timeout"]
