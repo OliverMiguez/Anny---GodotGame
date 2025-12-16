@@ -9,7 +9,7 @@ func on_enter():
 	animation_player.play("Run")
 
 func state_process(_delta: float) -> void:
-	if father.velocity.x != 0 and Input.is_action_pressed("Shift") and Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_pressed("Shift") and Input.is_action_just_pressed("ui_down") and father.velocity.x != 0:
 		next_state = plancha_state
 	
 	elif father.velocity.x != 0 and not Input.is_action_pressed("Shift"):

@@ -64,4 +64,10 @@ shape = SubResource("RectangleShape2D_mh7lf")
 [node name="Box" parent="." instance=ExtResource("5_rmeiw")]
 position = Vector2(65, 79)
 
+[node name="Box2" parent="." instance=ExtResource("5_rmeiw")]
+position = Vector2(1226, 102)
+
+[node name="Box3" parent="." instance=ExtResource("5_rmeiw")]
+position = Vector2(605, 87)
+
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]

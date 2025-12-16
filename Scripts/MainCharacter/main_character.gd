@@ -13,6 +13,7 @@ const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
 
 @onready var jump_sound = $JumpSound # Sonido que hace cuando salta
 
+@onready var plancha_cooldown: Timer = $Plancha_cooldown
 var can_jump = true # Para evitar saltar infinitamente
 
 
@@ -102,4 +103,12 @@ func flip_animation():
 		main_character_collision.position.x = 4.5
 
 
+# Función que llama el estado "Plancha" al terminar
+func start_plancha_cooldown():
+	can_jump = false # Deshabilita la habilidad
+	plancha_cooldown.start()
+
+## Cooldown para la plancha, para evitar errores
+func _on_plancha_cooldown_timeout() -> void:
+	can_jump = true
 	

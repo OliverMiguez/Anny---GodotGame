@@ -196,7 +196,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_20f75")
 }],
-"loop": true,
+"loop": false,
 "name": &"Plancha",
 "speed": 10.0
 }, {
@@ -270,9 +270,10 @@ rolling_speed = 175
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_ygope")
-animation = &"Walk"
+animation = &"Plancha"
 autoplay = "Idle"
-frame_progress = 0.3467834
+frame = 8
+frame_progress = 1.0
 
 [node name="MainCharacterCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-4.5, 5)
@@ -344,9 +345,10 @@ jump_state = NodePath("../Jump")
 wait_time = 0.5
 one_shot = true
 
-[node name="PlanchaTimer" type="Timer" parent="."]
-wait_time = 0.9
+[node name="Plancha_cooldown" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
+[connection signal="animation_finished" from="MainCharacterAnimations" to="FSM/Plancha" method="_on_main_character_animations_animation_finished"]
 [connection signal="timeout" from="RollTimer" to="FSM/Rol" method="_on_roll_timer_timeout"]
-[connection signal="timeout" from="PlanchaTimer" to="FSM/Plancha" method="_on_plancha_timer_timeout"]
+[connection signal="timeout" from="Plancha_cooldown" to="." method="_on_plancha_cooldown_timeout"]
