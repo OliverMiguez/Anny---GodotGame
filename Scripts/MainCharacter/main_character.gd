@@ -111,4 +111,7 @@ func start_plancha_cooldown():
 ## Cooldown para la plancha, para evitar errores
 func _on_plancha_cooldown_timeout() -> void:
 	can_jump = true
-	
+
+## Para hacer referencia del MainCharacter en otros scripts
+func MainCharacter():
+	pass

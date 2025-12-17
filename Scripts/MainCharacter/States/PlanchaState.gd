@@ -6,13 +6,10 @@ extends "res://Scripts/GeneralStates/Util/State.gd"
 @export var jump_state:State
 
 func on_enter():
-	# 1. Reproducir la animación.
 	animation_player.play("Plancha")
-	
-	# 2. Esperar a que la animación termine.
 	await animation_player.animation_finished 
 	
-	# 3. Al terminar el await, ejecutamos la transición final.
+	# Al terminar el await, ejecutamos la transición final.
 	var current_movement: float = father.velocity.x
 	
 	# Transición a RUN
@@ -33,15 +30,8 @@ func state_process(_delta: float) -> void:
 	if father.velocity.x == 0 and father.is_on_floor():
 		next_state = idle_state
 
-func _on_plancha_cooldown_timeout() -> void:
-	pass # Replace with function body.
 
-
-
-
-
-
-
+## POR SI ACASO LO DE ARRIBA NO FUNCIONA
 #func on_enter():
 	#animation_player.play("Plancha")
 	#await animation_player.animation_finished
