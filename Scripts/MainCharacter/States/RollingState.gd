@@ -16,15 +16,9 @@ func state_process(_delta: float) -> void:
 	if father.velocity.x == 0:
 		next_state = idle_state
 
-# Para cambiar al estado walk sin problemas
-# El bug está aqui <----
-# Me imagino que es porque las animaciones se buguean
 func _on_roll_timer_timeout() -> void:
 	if father.velocity.x == 0 and Input.is_action_pressed("ui_down"):
 		next_state = crouch_state
-		
-	#elif father.velocity.x != 0:
-		#next_state = walk_state
 
 	else:
 		next_state = idle_state
