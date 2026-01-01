@@ -20,10 +20,6 @@ func on_enter():
 	elif current_movement != 0:
 		next_state = walk_state
 		
-	
-	if is_instance_valid(father) and "start_plancha_cooldown" in father:
-		father.start_plancha_cooldown()
-
 
 func state_process(_delta: float) -> void:
 	# Esta sigue siendo la única interrupción temprana por física.

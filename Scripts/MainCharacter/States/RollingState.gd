@@ -23,8 +23,8 @@ func _on_roll_timer_timeout() -> void:
 	if father.velocity.x == 0 and Input.is_action_pressed("ui_down"):
 		next_state = crouch_state
 		
-	elif father.velocity.x != 0:
-		next_state = walk_state
+	#elif father.velocity.x != 0:
+		#next_state = walk_state
 
 	else:
 		next_state = idle_state
