@@ -4,6 +4,7 @@ class_name MainCharacter
 @export var speed = 100 # Velocidad del player
 @export var jump_force = 300 # Fuerza con la que salta el player 
 @export var running_speed = 300 # Velocidad cuando el player está en el estado de correr
+@export var rolling_speed = 177 # Velocidad de rodar
 
 const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
 
@@ -12,6 +13,7 @@ const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
 
 @onready var jump_sound = $JumpSound # Sonido que hace cuando salta
 
+@onready var plancha_cooldown: Timer = $Plancha_cooldown
 var can_jump = true # Para evitar saltar infinitamente
 
 
@@ -26,14 +28,36 @@ func _physics_process(delta):
 
 ## Movimientos del player
 func _input(event: InputEvent) -> void:
+	
+	if Input.is_action_pressed("Shift") and Input.is_action_just_pressed("ui_down")and Input.is_action_pressed("ui_right"):
+		if is_on_floor():
+			velocity.x = 320
+			velocity.y = -300
+	elif Input.is_action_pressed("Shift") and Input.is_action_just_pressed("ui_down")and Input.is_action_pressed("ui_left"):
+		if is_on_floor():
+			velocity.x = -320
+			velocity.y = -300
 	# Correr a la izquierda
-	if Input.is_action_pressed("ui_left") and Input.is_action_pressed("Shift"):
+	elif Input.is_action_pressed("ui_left") and Input.is_action_pressed("Shift"):
 		velocity.x =-running_speed
 	
 	# Correr a la derecha
 	elif Input.is_action_pressed("ui_right") and Input.is_action_pressed("Shift"):
 		velocity.x =running_speed
+	
+	# Rodar
+	elif Input.is_action_pressed("ui_left") and Input.is_action_just_pressed("ui_down"):
+		if is_on_floor():
+			velocity.x = -200
+		
+	elif Input.is_action_pressed("ui_right") and Input.is_action_just_pressed("ui_down"):
+		if is_on_floor():
+			velocity.x = 200
 
+	# Arregla un bug
+	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down"):
+		velocity.x = 100
+		
 	# Andar a la derecha
 	elif Input.is_action_pressed("ui_right"):
 		velocity.x=100
@@ -79,4 +103,15 @@ func flip_animation():
 		main_character_collision.position.x = 4.5
 
 
-	
+# Función que llama el estado "Plancha" al terminar
+func start_plancha_cooldown():
+	can_jump = false # Deshabilita la habilidad
+	plancha_cooldown.start()
+
+## Cooldown para la plancha, para evitar errores
+func _on_plancha_cooldown_timeout() -> void:
+	can_jump = true
+
+## Para hacer referencia del MainCharacter en otros scripts
+func MainCharacter():
+	pass

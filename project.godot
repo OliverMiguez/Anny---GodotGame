@@ -18,10 +18,6 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout="res://AudioBus/default_bus_layout.tres"
 
-[autoload]
-
-GirarSprite="*res://Scripts/Utility/girarSprite.gd"
-
 [display]
 
 window/size/viewport_width=1908
@@ -32,7 +28,9 @@ window/stretch/scale_mode="integer"
 [file_customization]
 
 folder_colors={
-"res://Art/": "red",
+"res://Art/": "pink",
+"res://AudioBus/": "gray",
+"res://Config/": "red",
 "res://Music/": "blue",
 "res://Scenes/": "orange",
 "res://Scripts/": "yellow",
@@ -64,6 +62,11 @@ Up_Input={
 Shift={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+Space={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
 ]
 }
 
