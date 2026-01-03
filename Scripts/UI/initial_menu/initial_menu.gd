@@ -35,6 +35,6 @@ func _on_popup_menu_id_pressed(id):
 func _on_popup_menu_index_pressed(index):
 	print(index)
 
-
+## Maneja la música en el menu
 func _on_audio_stream_player_2d_finished():
 	audio_stream_player_2d.play()

@@ -29,9 +29,8 @@ func _physics_process(_delta):
 func _on_prueba_musica_finished():
 	prueba_musica.play()
 
-## Puertas de la izquierda
+## Puertas 
 # Puerta de abajo
-
 func _on_left_door_down_body_entered(body: Node2D) -> void:
 	print("Prueba: Algo entro en el area")
 	if body is MainCharacter:
