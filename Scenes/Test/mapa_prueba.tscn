@@ -227,6 +227,32 @@ position = Vector2(1475, 45)
 [node name="Box3" parent="Objects/Box" instance=ExtResource("5_rmeiw")]
 position = Vector2(854, 30)
 
+[node name="DEBUG" type="Node" parent="."]
+
+[node name="RondaActual" type="Label" parent="DEBUG"]
+offset_left = 909.0
+offset_top = 173.0
+offset_right = 949.0
+offset_bottom = 269.0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 70
+
+[node name="DeathButtonPlayer" type="Button" parent="DEBUG"]
+offset_left = 11.0
+offset_top = 65.0
+offset_right = 150.0
+offset_bottom = 96.0
+text = "MATA AL PLAYER"
+
+[node name="DeathButtonEnemy" type="Button" parent="DEBUG"]
+offset_left = 9.0
+offset_top = 19.0
+offset_right = 199.0
+offset_bottom = 50.0
+text = "MATA A LOS ENEMIGOS"
+
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
 [connection signal="body_entered" from="Doors/LeftDoorDown" to="." method="_on_left_door_down_body_entered"]
 [connection signal="body_exited" from="Doors/LeftDoorDown" to="." method="_on_left_door_down_body_exited"]
+[connection signal="pressed" from="DEBUG/DeathButtonPlayer" to="." method="_on_death_button_pressed"]
+[connection signal="pressed" from="DEBUG/DeathButtonEnemy" to="." method="_on_death_button_enemy_pressed"]

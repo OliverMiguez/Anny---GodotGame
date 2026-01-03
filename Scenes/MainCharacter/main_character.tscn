@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=63 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -22,6 +22,18 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_cri0l"]
 atlas = ExtResource("2_gy7ys")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swlis"]
+atlas = ExtResource("5_bk1fc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygdqu"]
+atlas = ExtResource("5_bk1fc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50rqs"]
+atlas = ExtResource("5_bk1fc")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wl7ps"]
 atlas = ExtResource("3_cri0l")
@@ -183,6 +195,20 @@ animations = [{
 }],
 "loop": true,
 "name": &"Crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swlis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygdqu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50rqs")
+}],
+"loop": true,
+"name": &"Death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -357,10 +383,9 @@ rolling_speed = 175
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_ygope")
-animation = &"Shoot"
+animation = &"Death"
 autoplay = "Idle"
-frame = 2
-frame_progress = 1.0
+frame_progress = 0.53823245
 
 [node name="MainCharacterCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-4.5, 5)
