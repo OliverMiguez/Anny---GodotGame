@@ -10,7 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Anny"
+config/name="Come and Fight"
+config/version="0.2"
+run/main_scene="uid://33dxx3gjhep8"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,8 +24,7 @@ buses/default_bus_layout="res://AudioBus/default_bus_layout.tres"
 
 window/size/viewport_width=1908
 window/size/viewport_height=964
-window/size/borderless=true
-window/stretch/scale_mode="integer"
+window/size/mode=3
 
 [file_customization]
 
