@@ -1,2 +1,2 @@
-# Anny---GodotGame
-Juego estilo plataformas de disparos con toques de juegos tipo Roguelike
+# Come and Fight
+Juego estilo plataformas de disparos con toques del estilo Roguelike

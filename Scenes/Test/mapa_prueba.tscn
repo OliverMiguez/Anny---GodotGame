@@ -251,6 +251,17 @@ offset_right = 199.0
 offset_bottom = 50.0
 text = "MATA A LOS ENEMIGOS"
 
+[node name="SpawnPoints" type="Node" parent="."]
+
+[node name="Spawn1" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1205, 240)
+
+[node name="Spawn2" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(947, 856)
+
+[node name="Spawn3" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1380, 851)
+
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
 [connection signal="body_entered" from="Doors/LeftDoorDown" to="." method="_on_left_door_down_body_entered"]
 [connection signal="body_exited" from="Doors/LeftDoorDown" to="." method="_on_left_door_down_body_exited"]
