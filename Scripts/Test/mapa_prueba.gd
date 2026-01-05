@@ -42,8 +42,7 @@ var valor_spawneo_obtenido = 0
 func _ready():
 	
 	prueba_musica.play() # Inicia la musica
-	randomSpawn() # Genera inicialmente los objetos del mapa aleatoriamente
-	
+	start_round() # Inicia la ronda
 # En cada frame del juego
 func _physics_process(_delta):
 	ronda_actual_label.text = str(ronda_actual) # Muestra en el label la ronda actual

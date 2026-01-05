@@ -72,6 +72,10 @@ func _input(event: InputEvent) -> void:
 	# Agacharse
 	elif Input.is_action_pressed("ui_down"):
 		velocity.x = 0
+	# Disparar
+	elif Input.is_action_just_pressed("ShootAction"):
+		velocity.x = 0
+		velocity.y = 0
 		
 	# Importante para frenar al player y que no camine infinitamente
 	else:
