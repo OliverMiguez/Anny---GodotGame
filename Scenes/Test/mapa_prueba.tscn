@@ -170,7 +170,7 @@ debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
 [node name="Doors" type="Node" parent="."]
 
-[node name="LeftDoorDown" type="Area2D" parent="Doors"]
+[node name="LeftDoorDown" type="Area2D" parent="Doors" groups=["spawned"]]
 
 [node name="LeftDoorDownCollision" type="CollisionShape2D" parent="Doors/LeftDoorDown"]
 modulate = Color(0.24988595, 0.00027492284, 0.73154354, 1)
@@ -257,7 +257,5 @@ position = Vector2(947, 856)
 position = Vector2(1380, 851)
 
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
-[connection signal="body_entered" from="Doors/LeftDoorDown" to="." method="_on_left_door_down_body_entered"]
-[connection signal="body_exited" from="Doors/LeftDoorDown" to="." method="_on_left_door_down_body_exited"]
 [connection signal="pressed" from="DEBUG/DeathButtonPlayer" to="." method="_on_death_button_pressed"]
 [connection signal="pressed" from="DEBUG/DeathButtonEnemy" to="." method="_on_death_button_enemy_pressed"]

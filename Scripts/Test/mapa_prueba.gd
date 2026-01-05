@@ -41,14 +41,9 @@ var valor_spawneo_obtenido = 0
 
 func _ready():
 	
-	#var punto1 = spawn_1.position
-	#print(punto1)
-	print("Almacen_spawners: ", almacen_spawners)
-
-	prueba_musica.play()
-	print("Prueba: Entro en el mapa")
-	randomSpawn() # Obtiene una posición de spawneo aleatoria
-
+	prueba_musica.play() # Inicia la musica
+	randomSpawn() # Genera inicialmente los objetos del mapa aleatoriamente
+	
 # En cada frame del juego
 func _physics_process(_delta):
 	ronda_actual_label.text = str(ronda_actual) # Muestra en el label la ronda actual
@@ -72,32 +67,45 @@ func instantiateBoxInMap():
 	 # Combierte el packedScene(box_packed_scene) en un nodo con el que podremos modificar su posición
 	var box_instancia = box_packed_scene.instantiate()
 	add_child(box_instancia) # Añade la instancia a la escena
+	box_instancia.add_to_group("spawned")
 	print("Objeto spawneado correctamente")
 	print(valor_spawneo_obtenido)
 	box_instancia.position = valor_spawneo_obtenido
 
-## Puertas 
-# Puerta de abajo
-func _on_left_door_down_body_entered(body: Node2D) -> void:
-	print("Prueba: Algo entro en el area")
-	if body is MainCharacter:
-		print("ENTRO EL MAINCHARACTER")
-		if Input.is_action_just_pressed("Space"):
-			MainCharacter.position = marker_2_left_up.position
-
-func _on_left_door_down_body_exited(body: Node2D) -> void:
-	print("Prueba: Algo salió del area")
-	if body is MainCharacter:
-		print("SALIO EL MAINCHARACTER")
+## Limpia los objetos instanciados de la escena
+func clear_spawned():
+	for obj in get_tree().get_nodes_in_group("spawned"):
+		obj.queue_free()
+	
+## Reinicia la ronda a 1
+func start_round():
+	ronda_actual = 1
+	clear_spawned() # Elimina los objetos que se instanciaron en rondas anteriores
+	randomSpawn() # Permite spawnear aleatoriamente controlado los objetos por el mapa( de momento una caja)
 
 ## Si este botón se presiona mata al player (DEBUG)
 func _on_death_button_pressed():
 	print("El player a muerto")
-	# Mostrariamos ademas la ventana de derrota
-	ronda_actual = 1
-
+	start_round() # Reinicia las rondas del juego
 ## Simula la muerte de un enemigo inexistente o mata a los enemigos que existan (DEBUG)
 func _on_death_button_enemy_pressed():
 	print("Todos los enemigos han muerto")
 	# Mostrariamos una ventana de victoria
 	ronda_actual += 1 # Aumenta de ronda si se matan a todos los enemigos
+
+
+
+
+### Puertas 
+## Puerta de abajo
+#func _on_left_door_down_body_entered(body: Node2D) -> void:
+	#print("Prueba: Algo entro en el area")
+	#if body is MainCharacter:
+		#print("ENTRO EL MAINCHARACTER")
+		#if Input.is_action_just_pressed("Space"):
+			#MainCharacter.position = marker_2_left_up.position
+#
+#func _on_left_door_down_body_exited(body: Node2D) -> void:
+	#print("Prueba: Algo salió del area")
+	#if body is MainCharacter:
+		#print("SALIO EL MAINCHARACTER")
