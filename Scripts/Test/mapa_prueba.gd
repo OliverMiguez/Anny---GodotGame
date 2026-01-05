@@ -12,12 +12,24 @@ extends Node2D
 @onready var spawn_2 = $SpawnPoints/Spawn2
 @onready var spawn_3 = $SpawnPoints/Spawn3
 
-
 # Array que recoge los puntos de spawneo (para escoger uno aleatoriamente)
-var almacen_spawners:Array =[spawn_1, spawn_2, spawn_3]
+# Sin @onready, este array se inicializa antes de que las variables spawn_X
+# hayan sido asignadas, por lo que su valor en ese momento es null.
+
+# Al usar @onready, forzamos a que el array se construya cuando el nodo
+# ya está en el árbol y las referencias spawn_1, spawn_2 y spawn_3
+# ya contienen los Marker2D correctos.
+@onready var almacen_spawners =[spawn_1.position, spawn_2.position, spawn_3.position]
 
 # Variable para administrar el control de rondas
 var ronda_actual = 1
+
+# Precargamos un objeto para ver el funcionamiento del spawneo aleatorio controlado(DEBUG)
+# Para spawnear un objeto en x punto del mapa que yo quiera aleatoriamente(Marker2d)
+var box_packed_scene = preload("res://Scenes/Objects/Box/box.tscn") # No es un nodo, es un PackedScene
+
+# Valor aleatorio en el que spawneará el objeto o enemigo
+var valor_spawneo_obtenido = 0
 
 #(DEBUG)
 # Label que muestra la ronda actual 
@@ -28,6 +40,7 @@ var ronda_actual = 1
 
 
 func _ready():
+	
 	#var punto1 = spawn_1.position
 	#print(punto1)
 	print("Almacen_spawners: ", almacen_spawners)
@@ -49,6 +62,19 @@ func randomSpawn():
 	var indice_valor_obtenido_spawn = randi() % tamaño_almacen_spawners # El indice del array obtenido aleatoriamente
 	print("Indice obtenido: ", indice_valor_obtenido_spawn)
 	print("Posición obtenida: ", almacen_spawners[indice_valor_obtenido_spawn])
+	valor_spawneo_obtenido = almacen_spawners[indice_valor_obtenido_spawn]
+	print("Valor de spawneo :",valor_spawneo_obtenido)
+	instantiateBoxInMap() # Permite instanciar un objeto(en este caso una caja)
+
+	
+## Permite instanciar la caja en el mapa en la posición deseada
+func instantiateBoxInMap():
+	 # Combierte el packedScene(box_packed_scene) en un nodo con el que podremos modificar su posición
+	var box_instancia = box_packed_scene.instantiate()
+	add_child(box_instancia) # Añade la instancia a la escena
+	print("Objeto spawneado correctamente")
+	print(valor_spawneo_obtenido)
+	box_instancia.position = valor_spawneo_obtenido
 
 ## Puertas 
 # Puerta de abajo

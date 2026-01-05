@@ -219,13 +219,7 @@ position = Vector2(1635, 880)
 [node name="Box" type="Node" parent="Objects"]
 
 [node name="Box" parent="Objects/Box" instance=ExtResource("5_rmeiw")]
-position = Vector2(651, 41)
-
-[node name="Box2" parent="Objects/Box" instance=ExtResource("5_rmeiw")]
-position = Vector2(1475, 45)
-
-[node name="Box3" parent="Objects/Box" instance=ExtResource("5_rmeiw")]
-position = Vector2(854, 30)
+position = Vector2(594, 893)
 
 [node name="DEBUG" type="Node" parent="."]
 
