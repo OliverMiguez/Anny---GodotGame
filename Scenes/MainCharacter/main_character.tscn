@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=62 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -163,14 +163,6 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_7vxhh"]
 atlas = ExtResource("9_b45ms")
 region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tpgdm"]
-atlas = ExtResource("9_b45ms")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k3oa0"]
-atlas = ExtResource("9_b45ms")
-region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b841a"]
 atlas = ExtResource("3_ka8x8")
@@ -343,12 +335,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7vxhh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tpgdm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k3oa0")
 }],
 "loop": false,
 "name": &"Shoot",
@@ -386,7 +372,6 @@ position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_ygope")
 animation = &"Shoot"
 autoplay = "Idle"
-frame = 2
 frame_progress = 1.0
 
 [node name="MainCharacterCollision" type="CollisionShape2D" parent="."]
@@ -459,12 +444,9 @@ run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
 
-[node name="Shoot" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state")]
+[node name="Shoot" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state")]
 script = ExtResource("19_1eljo")
 idle_state = NodePath("../Idle")
-walk_state = NodePath("../Walk")
-run_state = NodePath("../Run")
-crouch_state = NodePath("../Crouch")
 
 [node name="RollTimer" type="Timer" parent="."]
 wait_time = 0.5

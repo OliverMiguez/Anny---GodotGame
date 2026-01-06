@@ -16,14 +16,16 @@ const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
 @onready var plancha_cooldown: Timer = $Plancha_cooldown
 var can_jump = true # Para evitar saltar infinitamente
 
-
+var ammo_packed_scene = preload("res://Scenes/MainCharacter/Ammo/ammo.tscn") # PackedSecne
+# Nodo de la bala (para poder instanciar la bala)
+var ammo_scene: Ammo 
 ##Función que se ejecuta en cada frame 
 func _physics_process(delta):
 	# Aplica gravedad al player  cuando no este en el suelo
 	if not is_on_floor():
 		gravity(delta)
 		
-	flip_animation()
+	flip_animation() # Gira el sprite del player según su movimiento
 	move_and_slide() # Permite el movimiento en el player (OBLIGATORIO)
 
 ## Movimientos del player
@@ -72,10 +74,19 @@ func _input(event: InputEvent) -> void:
 	# Agacharse
 	elif Input.is_action_pressed("ui_down"):
 		velocity.x = 0
+		
 	# Disparar
 	elif Input.is_action_just_pressed("ShootAction"):
 		velocity.x = 0
 		velocity.y = 0
+		instanciate_ammo() # Instancia la bala en pantalla cuando se dispara
+
+	
+	elif Input.is_action_pressed("ShootAction"):
+		velocity.x = 0
+		velocity.y = 0
+		instanciate_ammo() # Instancia la bala en pantalla cuando se dispara
+
 		
 	# Importante para frenar al player y que no camine infinitamente
 	else:
@@ -122,3 +133,16 @@ func _on_plancha_cooldown_timeout() -> void:
 ## Para hacer referencia del MainCharacter en otros scripts
 func MainCharacter():
 	pass
+
+## Instancia la bala en pantalla cuando se dispara
+func instanciate_ammo():
+	# Uso get_parent() para que la bala no herede el movimiento del player
+	ammo_scene = ammo_packed_scene.instantiate() # Transforma el PackedScene de la bala a un Node
+	get_parent().add_child(ammo_scene) # Añade la escena al árbol de nodos del player
+	ammo_scene.global_position = global_position
+	
+	# Dirección según hacia dónde mira el player
+	if main_character_animations.flip_h:
+		ammo_scene.direction = -1
+	else:
+		ammo_scene.direction = 1
