@@ -19,6 +19,11 @@ var can_jump = true # Para evitar saltar infinitamente
 var ammo_packed_scene = preload("res://Scenes/MainCharacter/Ammo/ammo.tscn") # PackedSecne
 # Nodo de la bala (para poder instanciar la bala)
 var ammo_scene: Ammo 
+
+# Posición en la que spawnea la bala
+@onready var ammo_spawn_point = $AmmoSpawnPoint
+
+
 ##Función que se ejecuta en cada frame 
 func _physics_process(delta):
 	# Aplica gravedad al player  cuando no este en el suelo
@@ -138,9 +143,9 @@ func MainCharacter():
 func instanciate_ammo():
 	# Uso get_parent() para que la bala no herede el movimiento del player
 	ammo_scene = ammo_packed_scene.instantiate() # Transforma el PackedScene de la bala a un Node
-	ammo_scene.global_position = global_position
-	ammo_scene.direction = Vector2.LEFT if main_character_animations.flip_h else Vector2.RIGHT # Modificar el movimiento de la bala
 	get_parent().add_child(ammo_scene) # Añade la escena al árbol de nodos del player
+	ammo_scene.global_position = ammo_spawn_point.global_position
+	ammo_scene.direction = Vector2.LEFT if main_character_animations.flip_h else Vector2.RIGHT # Modificar el movimiento de la bala
 	print("Posición global de la bala: ",ammo_scene.global_position)
 	
 	

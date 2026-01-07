@@ -456,6 +456,9 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="AmmoSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(11, 0)
+
 [connection signal="animation_finished" from="MainCharacterAnimations" to="FSM/Plancha" method="_on_main_character_animations_animation_finished"]
 [connection signal="timeout" from="RollTimer" to="FSM/Rol" method="_on_roll_timer_timeout"]
 [connection signal="timeout" from="Plancha_cooldown" to="." method="_on_plancha_cooldown_timeout"]
