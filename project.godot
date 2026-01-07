@@ -37,6 +37,11 @@ folder_colors={
 "res://SoundEffects/": "teal"
 }
 
+[global_group]
+
+Enemigos="Recogerá todos los enemigos del jugador"
+Balas="Munición de las armas"
+
 [input]
 
 Left_Input={

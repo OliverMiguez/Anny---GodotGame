@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pn83n"]
 size = Vector2(8, 2)
 
-[node name="Ammo" type="Node2D"]
+[node name="Ammo" type="Node2D" groups=["Balas"]]
 script = ExtResource("1_pn83n")
 
 [node name="AmmoSprite" type="Sprite2D" parent="."]
@@ -18,3 +18,6 @@ texture = ExtResource("1_g7lho")
 [node name="AmmoAreaCollision" type="CollisionShape2D" parent="AmmoArea2D"]
 shape = SubResource("RectangleShape2D_pn83n")
 debug_color = Color(0.8581646, 0.046140797, 5.7756904e-07, 0.41960785)
+
+[connection signal="body_entered" from="AmmoArea2D" to="." method="_on_ammo_area_2d_body_entered"]
+[connection signal="body_exited" from="AmmoArea2D" to="." method="_on_ammo_area_2d_body_exited"]

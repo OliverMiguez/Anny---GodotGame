@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bondak2y8miye"]
+[gd_scene load_steps=20 format=3 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
 [ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/BattleMap/Map.png" id="2_0swn8"]
 [ext_resource type="Texture2D" uid="uid://b64hkho4prp4o" path="res://Art/MapArt/City/Sprite-Sheet.jpg" id="2_fub7l"]
 [ext_resource type="PackedScene" uid="uid://24wdatym248p" path="res://Scenes/MainCharacter/main_character.tscn" id="3_rmeiw"]
+[ext_resource type="PackedScene" uid="uid://7q8wr7ety064" path="res://Scenes/Enemys/Test/enemy.tscn" id="5_mh7lf"]
 [ext_resource type="PackedScene" uid="uid://dxoou5h36a4hy" path="res://Scenes/Objects/Box/box.tscn" id="5_rmeiw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swn8"]
@@ -55,7 +56,6 @@ scale = Vector2(3.0220127, 3.2352026)
 texture = ExtResource("2_fub7l")
 
 [node name="Map" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(737, 545)
 scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
@@ -65,6 +65,10 @@ position = Vector2(420, 751)
 scale = Vector2(3, 3)
 speed = 150
 running_speed = 250
+
+[node name="Enemy" parent="." instance=ExtResource("5_mh7lf")]
+position = Vector2(726, 794)
+scale = Vector2(3, 3)
 
 [node name="MusicTest" type="AudioStreamPlayer2D" parent="."]
 autoplay = true
