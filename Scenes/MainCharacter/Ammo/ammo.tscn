@@ -1,11 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dv4in30q2ojgw"]
+[gd_scene load_steps=4 format=3 uid="uid://dv4in30q2ojgw"]
 
 [ext_resource type="Texture2D" uid="uid://caa3myaqk0wgx" path="res://Art/MainCharacter/Ammo/AmmoSprite.png" id="1_g7lho"]
 [ext_resource type="Script" uid="uid://w87fw8tcp654" path="res://Scripts/MainCharacter/Ammo/ammo2.gd" id="1_pn83n"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pn83n"]
+size = Vector2(8, 2)
+
 [node name="Ammo" type="Node2D"]
 script = ExtResource("1_pn83n")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AmmoSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_g7lho")
+
+[node name="AmmoArea2D" type="Area2D" parent="."]
+
+[node name="AmmoAreaCollision" type="CollisionShape2D" parent="AmmoArea2D"]
+shape = SubResource("RectangleShape2D_pn83n")
+debug_color = Color(0.8581646, 0.046140797, 5.7756904e-07, 0.41960785)

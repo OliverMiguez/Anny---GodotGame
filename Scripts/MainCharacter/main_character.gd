@@ -138,11 +138,9 @@ func MainCharacter():
 func instanciate_ammo():
 	# Uso get_parent() para que la bala no herede el movimiento del player
 	ammo_scene = ammo_packed_scene.instantiate() # Transforma el PackedScene de la bala a un Node
-	get_parent().add_child(ammo_scene) # Añade la escena al árbol de nodos del player
 	ammo_scene.global_position = global_position
+	ammo_scene.direction = Vector2.LEFT if main_character_animations.flip_h else Vector2.RIGHT # Modificar el movimiento de la bala
+	get_parent().add_child(ammo_scene) # Añade la escena al árbol de nodos del player
+	print("Posición global de la bala: ",ammo_scene.global_position)
 	
-	# Dirección según hacia dónde mira el player
-	if main_character_animations.flip_h:
-		ammo_scene.direction = -1
-	else:
-		ammo_scene.direction = 1
+	

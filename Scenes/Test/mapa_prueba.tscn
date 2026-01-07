@@ -55,6 +55,7 @@ scale = Vector2(3.0220127, 3.2352026)
 texture = ExtResource("2_fub7l")
 
 [node name="Map" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(737, 545)
 scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
