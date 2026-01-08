@@ -40,9 +40,12 @@ var valor_spawneo_obtenido = 0
 
 
 func _ready():
-	
 	prueba_musica.play() # Inicia la musica
 	start_round() # Inicia la ronda
+	
+	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
+	RoundManager.connect("cambio_ronda",Callable(self,"on_cambio_ronda")) 
+	
 # En cada frame del juego
 func _physics_process(_delta):
 	ronda_actual_label.text = str(ronda_actual) # Muestra en el label la ronda actual
@@ -92,7 +95,8 @@ func _on_death_button_enemy_pressed():
 	# Mostrariamos una ventana de victoria
 	ronda_actual += 1 # Aumenta de ronda si se matan a todos los enemigos
 
-
+func on_cambio_ronda():
+	ronda_actual += 1
 
 
 ### Puertas 

@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout="res://AudioBus/default_bus_layout.tres"
 
+[autoload]
+
+RoundManager="*res://Scripts/Globals/RoundManager.gd"
+
 [display]
 
 window/size/viewport_width=1908

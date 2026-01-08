@@ -6,6 +6,7 @@ const GRAVITY_VALUE = 980
 @export var enemy_life = 100 
 @onready var label_life = $LabelLife
 
+
 func _ready():
 	print("Enemigo presente")
 	show_life()
@@ -30,7 +31,10 @@ func death():
 	# OJO EN EL MAPA TENEMOS QUE IDENTIFICAR CUANTOS ENEMIGOS HAY PARA CAMBIAR DE RONDA
 	print("Enemigo muerto, enviado señal de victoria")
 	queue_free()
-	
+	# enviar señal al mapa para cambiar de rondas
+	RoundManager.player_wins_round = true # Como el enemigo perdió se envia un valor true
+	RoundManager.emit_signal("cambio_ronda",true) # 1º nombre de la señal del singelton 2º el valor a enviar
+	print("Señal emitida")
 func show_life():
 	label_life.text = str(enemy_life)
 
