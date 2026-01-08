@@ -7,11 +7,11 @@ const GRAVITY_VALUE = 980
 @onready var label_life = $LabelLife
 
 func _ready():
+	print("Enemigo presente")
 	show_life()
 	
 func _physics_process(delta):
-	show_life()
-	
+	show_life() #esto funciona bien
 	if not is_on_floor():
 		gravity(delta)
 	
@@ -20,15 +20,10 @@ func _physics_process(delta):
 func gravity(delta):
 	velocity.y = velocity.y +(GRAVITY_VALUE * delta)
 
-	# Cuando recibe daño o una bala colisiona
-func _on_damage_area_body_entered(body):
-	if body.is_in_group("Balas"):
-		receive_damage()
-
 func receive_damage():
 	enemy_life -= 10
 	label_life.text = str(enemy_life)
-	if enemy_life <= 0:
+	if enemy_life <= 0: 
 		death()
 		
 func death():
@@ -38,3 +33,10 @@ func death():
 	
 func show_life():
 	label_life.text = str(enemy_life)
+
+
+func _on_hit_box_area_entered(area):
+	if area.is_in_group("Balas"):
+		print("Bala recibida correctamente por el enemigo !!!")
+		print("Modificando la vida del enemigo tras recibir el disparo...")
+		receive_damage()

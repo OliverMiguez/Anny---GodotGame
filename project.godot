@@ -24,6 +24,7 @@ buses/default_bus_layout="res://AudioBus/default_bus_layout.tres"
 
 window/size/viewport_width=1908
 window/size/viewport_height=964
+window/stretch/mode="viewport"
 
 [file_customization]
 
@@ -83,6 +84,8 @@ ShootAction={
 [layer_names]
 
 2d_physics/layer_1="MainCharacter"
+2d_physics/layer_2="Enemy"
+2d_physics/layer_3="Ammo"
 
 [rendering]
 

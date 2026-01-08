@@ -81,6 +81,8 @@ height = 18.0
 size = Vector2(15, 22)
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemigos"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_5ujov")
 
 [node name="LabelLife" type="Label" parent="."]
@@ -100,11 +102,14 @@ position = Vector2(-4, 7)
 shape = SubResource("CapsuleShape2D_74ebr")
 debug_color = Color(0.6147076, 0.35900617, 1, 0.41960785)
 
-[node name="DamageArea" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." groups=["Enemigos"]]
+collision_layer = 2
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-4.5, 5)
 shape = SubResource("RectangleShape2D_5ujov")
 debug_color = Color(0.5885618, 0, 0.10899121, 0.41960785)
 
-[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
