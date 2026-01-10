@@ -1,3 +1,4 @@
+# hola soy gemini
 extends Node
 
 # Variable para registrar si todos los enemigos han muerto
