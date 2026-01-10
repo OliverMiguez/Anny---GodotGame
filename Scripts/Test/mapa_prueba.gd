@@ -7,15 +7,25 @@ extends Node2D
 @onready var marker_3_right_up: Marker2D = $Doors/Markers/Marker3RightUp
 @onready var marker_4_right_down: Marker2D = $Doors/Markers/Marker4RightDown
 
-# Puntos de spawn (donde spawnearan los enemigos)
+# Puntos de spawn (donde spawnearan los objetos)
 @onready var spawn_1 = $SpawnPoints/Spawn1
 @onready var spawn_2 = $SpawnPoints/Spawn2
 @onready var spawn_3 = $SpawnPoints/Spawn3
 
+# Puntos de spawn (donde spawnean los enemigos)
+@onready var enemy_spawn_1 = $EnemySpawnPoints/EnemySpawn1
+@onready var enemy_spawn_2 = $EnemySpawnPoints/EnemySpawn2
+@onready var enemy_spawn_3 = $EnemySpawnPoints/EnemySpawn3
+@onready var enemy_spawn_4 = $EnemySpawnPoints/EnemySpawn4
+@onready var enemy_spawn_5 = $EnemySpawnPoints/EnemySpawn5
+
+var packed_scene_enemy = preload("res://Scenes/Enemys/Test/enemy.tscn")
+@onready var almacen_spawners_enemys = [enemy_spawn_1.position, ]
+
+
 # Array que recoge los puntos de spawneo (para escoger uno aleatoriamente)
 # Sin @onready, este array se inicializa antes de que las variables spawn_X
 # hayan sido asignadas, por lo que su valor en ese momento es null.
-
 # Al usar @onready, forzamos a que el array se construya cuando el nodo
 # ya está en el árbol y las referencias spawn_1, spawn_2 y spawn_3
 # ya contienen los Marker2D correctos.
@@ -44,8 +54,7 @@ func _ready():
 	start_round() # Inicia la ronda
 	
 	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
-	RoundManager.connect("cambio_ronda",Callable(self,"on_cambio_ronda")) 
-	
+	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda)
 # En cada frame del juego
 func _physics_process(_delta):
 	ronda_actual_label.text = str(ronda_actual) # Muestra en el label la ronda actual
@@ -95,8 +104,12 @@ func _on_death_button_enemy_pressed():
 	# Mostrariamos una ventana de victoria
 	ronda_actual += 1 # Aumenta de ronda si se matan a todos los enemigos
 
-func on_cambio_ronda():
-	ronda_actual += 1
+
+	
+func _on_RoundManager_cambio_ronda(valor):
+	if valor == true:
+		ronda_actual += 1
+	
 
 
 ### Puertas 
