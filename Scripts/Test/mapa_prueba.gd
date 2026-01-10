@@ -20,8 +20,14 @@ extends Node2D
 @onready var enemy_spawn_5 = $EnemySpawnPoints/EnemySpawn5
 
 var packed_scene_enemy = preload("res://Scenes/Enemys/Test/enemy.tscn")
-@onready var almacen_spawners_enemys = [enemy_spawn_1.position, ]
-
+# Recoge las posiciones de donde podrán spawnear los enemigos
+@onready var almacen_spawners_enemys = [
+	enemy_spawn_1.position,
+	enemy_spawn_2.position,
+	enemy_spawn_3.position,
+	enemy_spawn_4.position,
+	enemy_spawn_5.position
+	]
 
 # Array que recoge los puntos de spawneo (para escoger uno aleatoriamente)
 # Sin @onready, este array se inicializa antes de que las variables spawn_X

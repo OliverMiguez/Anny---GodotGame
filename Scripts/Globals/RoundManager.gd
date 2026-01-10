@@ -1,4 +1,3 @@
-# hola soy gemini
 extends Node
 
 # Variable para registrar si todos los enemigos han muerto
@@ -13,3 +12,6 @@ func change_round():
 		player_wins_round = true
 		cambio_ronda.emit(player_wins_round)
 		player_wins_round = false
+		
+#PRUEBA CON GEMINICLI
+#PRUEBA CON COMMITS
