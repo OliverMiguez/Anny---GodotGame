@@ -146,6 +146,6 @@ func instanciate_ammo():
 	get_parent().add_child(ammo_scene) # Añade la escena al árbol de nodos del player
 	ammo_scene.global_position = ammo_spawn_point.global_position
 	ammo_scene.direction = Vector2.LEFT if main_character_animations.flip_h else Vector2.RIGHT # Modificar el movimiento de la bala
-	print("Posición global de la bala: ",ammo_scene.global_position)
+	#print("Posición global de la bala: ",ammo_scene.global_position)
 	
 	

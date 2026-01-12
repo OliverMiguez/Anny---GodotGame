@@ -2,7 +2,6 @@ extends Node
 
 # Variable para registrar si todos los enemigos han muerto
 var player_wins_round = false
-
 # Señal con la que enviamos al mapa un valor para revisar si tiene que cambiar de ronda
 signal cambio_ronda(valor)
 
