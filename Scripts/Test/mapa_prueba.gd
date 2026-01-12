@@ -19,6 +19,7 @@ extends Node2D
 @onready var enemy_spawn_4 = $EnemySpawnPoints/EnemySpawn4
 @onready var enemy_spawn_5 = $EnemySpawnPoints/EnemySpawn5
 
+# Recoge la escena del enemigo en un PackedScene
 var packed_scene_enemy = preload("res://Scenes/Enemys/Test/enemy.tscn")
 # Recoge las posiciones de donde podrán spawnear los enemigos
 @onready var almacen_spawners_enemys = [
@@ -46,6 +47,7 @@ var box_packed_scene = preload("res://Scenes/Objects/Box/box.tscn") # No es un n
 
 # Valor aleatorio en el que spawneará el objeto o enemigo
 var valor_spawneo_obtenido = 0
+var valor_spawneo_obtenido_enemigo = 0
 
 #(DEBUG)
 # Label que muestra la ronda actual 
@@ -78,6 +80,13 @@ func randomSpawn():
 	print("Valor de spawneo :",valor_spawneo_obtenido)
 	instantiateBoxInMap() # Permite instanciar un objeto(en este caso una caja)
 
+func randomSpawnEnemy():
+	var enemy_position_almacen = almacen_spawners_enemys.size()
+	var valor_de_posicion_obtenido = randi() %  enemy_position_almacen
+	print("Valor donde spawnea el enemigo en escena: ", valor_de_posicion_obtenido)
+	valor_spawneo_obtenido_enemigo = almacen_spawners_enemys[valor_de_posicion_obtenido]
+	instanciateEnemyInMap()
+	print("Procediendo a instanciar al enemigo en escena")
 	
 ## Permite instanciar la caja en el mapa en la posición deseada
 func instantiateBoxInMap():
@@ -89,6 +98,15 @@ func instantiateBoxInMap():
 	print(valor_spawneo_obtenido)
 	box_instancia.position = valor_spawneo_obtenido
 
+## Permite instanciar al enemigo en escnea
+func instanciateEnemyInMap():
+	var enemy_instancia = packed_scene_enemy.instantiate()
+	get_parent().add_child(enemy_instancia)
+	enemy_instancia.add_to_group("Enemigos")
+	print("Se spawneo el enemigo")
+	enemy_instancia.position = valor_spawneo_obtenido_enemigo
+	print("El enemigo spawneo en esta posicion: ", enemy_instancia)
+
 ## Limpia los objetos instanciados de la escena
 func clear_spawned():
 	for obj in get_tree().get_nodes_in_group("spawned"):
@@ -99,7 +117,8 @@ func start_round():
 	ronda_actual = 1
 	clear_spawned() # Elimina los objetos que se instanciaron en rondas anteriores
 	randomSpawn() # Permite spawnear aleatoriamente controlado los objetos por el mapa( de momento una caja)
-
+	randomSpawnEnemy() # Permite coger una posición aleatoria donde spawnear el enemigo
+	
 ## Si este botón se presiona mata al player (DEBUG)
 func _on_death_button_pressed():
 	print("El player a muerto")
