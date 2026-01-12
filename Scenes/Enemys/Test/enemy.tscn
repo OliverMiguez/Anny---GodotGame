@@ -81,6 +81,7 @@ height = 18.0
 size = Vector2(15, 22)
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemigos"]]
+scale = Vector2(3, 3)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_5ujov")

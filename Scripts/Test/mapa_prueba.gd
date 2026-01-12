@@ -19,6 +19,7 @@ extends Node2D
 @onready var enemy_spawn_4 = $EnemySpawnPoints/EnemySpawn4
 @onready var enemy_spawn_5 = $EnemySpawnPoints/EnemySpawn5
 
+# Recoge la escena del enemigo en un PackedScene
 var packed_scene_enemy = preload("res://Scenes/Enemys/Test/enemy.tscn")
 # Recoge las posiciones de donde podrán spawnear los enemigos
 @onready var almacen_spawners_enemys = [
@@ -46,6 +47,13 @@ var box_packed_scene = preload("res://Scenes/Objects/Box/box.tscn") # No es un n
 
 # Valor aleatorio en el que spawneará el objeto o enemigo
 var valor_spawneo_obtenido = 0
+var valor_spawneo_obtenido_enemigo = 0 
+
+# Las rondas en la que espawnearan los nuevos enemigos
+var rounds_to_add_enemy = [3,5,7,9]
+# Para poder cambia de ronda cuando mueren todos los enemigos
+var enemy_counter = 0 # Para ver cuantos enemigos hay en la ronda actual, para poder cambiar de ronda cuando mueran todos
+var enemy_instancia
 
 #(DEBUG)
 # Label que muestra la ronda actual 
@@ -58,6 +66,7 @@ var valor_spawneo_obtenido = 0
 func _ready():
 	prueba_musica.play() # Inicia la musica
 	start_round() # Inicia la ronda
+	add_more_enemys()
 	
 	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
 	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda)
@@ -72,12 +81,14 @@ func _on_prueba_musica_finished():
 func randomSpawn():
 	var tamaño_almacen_spawners = almacen_spawners.size()
 	var indice_valor_obtenido_spawn = randi() % tamaño_almacen_spawners # El indice del array obtenido aleatoriamente
-	print("Indice obtenido: ", indice_valor_obtenido_spawn)
-	print("Posición obtenida: ", almacen_spawners[indice_valor_obtenido_spawn])
 	valor_spawneo_obtenido = almacen_spawners[indice_valor_obtenido_spawn]
-	print("Valor de spawneo :",valor_spawneo_obtenido)
 	instantiateBoxInMap() # Permite instanciar un objeto(en este caso una caja)
 
+func randomSpawnEnemy():
+	var enemy_position_almacen = almacen_spawners_enemys.size()
+	var valor_de_posicion_obtenido = randi() %  enemy_position_almacen
+	valor_spawneo_obtenido_enemigo = almacen_spawners_enemys[valor_de_posicion_obtenido]
+	instanciateEnemyInMap()
 	
 ## Permite instanciar la caja en el mapa en la posición deseada
 func instantiateBoxInMap():
@@ -85,21 +96,94 @@ func instantiateBoxInMap():
 	var box_instancia = box_packed_scene.instantiate()
 	add_child(box_instancia) # Añade la instancia a la escena
 	box_instancia.add_to_group("spawned")
-	print("Objeto spawneado correctamente")
-	print(valor_spawneo_obtenido)
 	box_instancia.position = valor_spawneo_obtenido
+
+## Permite instanciar al enemigo en escnea
+func instanciateEnemyInMap():
+	enemy_instancia = packed_scene_enemy.instantiate()
+	#add_child(enemy_instancia)
+	enemy_counter += 1
+	print("Enemigos en en mapa: ", enemy_counter)
+	enemy_instancia.add_to_group("spawned_enemys")
+	enemy_instancia.position = valor_spawneo_obtenido_enemigo
+	add_more_enemys()
+	
 
 ## Limpia los objetos instanciados de la escena
 func clear_spawned():
+	enemy_counter = 0
+	print("Enemigos actuales: ", enemy_counter)
 	for obj in get_tree().get_nodes_in_group("spawned"):
 		obj.queue_free()
+func clear_spawned_enemys():
+	enemy_counter = 0
+	print("Enemigos actuales: ", enemy_counter)
+	for obj in get_tree().get_nodes_in_group("spawned_enemys"):
+		obj.queue_free()
+		
+## Permite añadir más enemigos (cuando se superen x rondas)
+func add_more_enemys():
+	if ronda_actual == 1:
+		add_child(enemy_instancia)
+
+	elif ronda_actual == 2:
+		add_child(enemy_instancia)
+
+	elif ronda_actual == 3:
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
 	
+	elif ronda_actual == 4:
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+	
+	elif  ronda_actual == 5:
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		
+	elif  ronda_actual == 6:
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+
+	elif  ronda_actual == 7:
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+	
+	elif  ronda_actual == 8:
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+
+	elif  ronda_actual == 9:
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		
+	elif  ronda_actual == 10:
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		add_child(enemy_instancia)
+		# Instanciar boss
+
+
+
+		
 ## Reinicia la ronda a 1
 func start_round():
 	ronda_actual = 1
 	clear_spawned() # Elimina los objetos que se instanciaron en rondas anteriores
 	randomSpawn() # Permite spawnear aleatoriamente controlado los objetos por el mapa( de momento una caja)
-
+	randomSpawnEnemy() # Permite coger una posición aleatoria donde spawnear el enemigo
+	
 ## Si este botón se presiona mata al player (DEBUG)
 func _on_death_button_pressed():
 	print("El player a muerto")
@@ -114,7 +198,10 @@ func _on_death_button_enemy_pressed():
 	
 func _on_RoundManager_cambio_ronda(valor):
 	if valor == true:
+		clear_spawned_enemys()
 		ronda_actual += 1
+		instanciateEnemyInMap()
+
 	
 
 

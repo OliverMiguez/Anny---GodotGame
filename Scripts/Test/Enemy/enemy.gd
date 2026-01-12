@@ -8,7 +8,6 @@ const GRAVITY_VALUE = 980
 
 
 func _ready():
-	print("Enemigo presente")
 	show_life()
 	
 func _physics_process(delta):
@@ -31,7 +30,7 @@ func death():
 	# OJO EN EL MAPA TENEMOS QUE IDENTIFICAR CUANTOS ENEMIGOS HAY PARA CAMBIAR DE RONDA
 	print("Enemigo muerto, enviado señal de victoria")
 	RoundManager.change_round() # Envia una señal cuando los enemigos mueran para cambiar de ronda en el mapa
-	queue_free()
+	#queue_free()
 	
 func show_life():
 	label_life.text = str(enemy_life)
@@ -40,5 +39,4 @@ func show_life():
 func _on_hit_box_area_entered(area):
 	if area.is_in_group("Balas"):
 		print("Bala recibida correctamente por el enemigo !!!")
-		print("Modificando la vida del enemigo tras recibir el disparo...")
 		receive_damage()
