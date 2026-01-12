@@ -53,7 +53,6 @@ var valor_spawneo_obtenido_enemigo = 0
 var rounds_to_add_enemy = [3,5,7,9]
 # Para poder cambia de ronda cuando mueren todos los enemigos
 var enemy_counter = 0 # Para ver cuantos enemigos hay en la ronda actual, para poder cambiar de ronda cuando mueran todos
-var enemy_instancia
 
 #(DEBUG)
 # Label que muestra la ronda actual 
@@ -66,7 +65,7 @@ var enemy_instancia
 func _ready():
 	prueba_musica.play() # Inicia la musica
 	start_round() # Inicia la ronda
-	add_more_enemys()
+	add_more_enemys() # Ejecuta el sistema de spawneo de enemigos
 	
 	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
 	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda)
@@ -88,7 +87,6 @@ func randomSpawnEnemy():
 	var enemy_position_almacen = almacen_spawners_enemys.size()
 	var valor_de_posicion_obtenido = randi() %  enemy_position_almacen
 	valor_spawneo_obtenido_enemigo = almacen_spawners_enemys[valor_de_posicion_obtenido]
-	instanciateEnemyInMap()
 	
 ## Permite instanciar la caja en el mapa en la posición deseada
 func instantiateBoxInMap():
@@ -97,17 +95,6 @@ func instantiateBoxInMap():
 	add_child(box_instancia) # Añade la instancia a la escena
 	box_instancia.add_to_group("spawned")
 	box_instancia.position = valor_spawneo_obtenido
-
-## Permite instanciar al enemigo en escnea
-func instanciateEnemyInMap():
-	enemy_instancia = packed_scene_enemy.instantiate()
-	#add_child(enemy_instancia)
-	enemy_counter += 1
-	print("Enemigos en en mapa: ", enemy_counter)
-	enemy_instancia.add_to_group("spawned_enemys")
-	enemy_instancia.position = valor_spawneo_obtenido_enemigo
-	add_more_enemys()
-	
 
 ## Limpia los objetos instanciados de la escena
 func clear_spawned():
@@ -123,60 +110,31 @@ func clear_spawned_enemys():
 		
 ## Permite añadir más enemigos (cuando se superen x rondas)
 func add_more_enemys():
-	if ronda_actual == 1:
-		add_child(enemy_instancia)
-
-	elif ronda_actual == 2:
-		add_child(enemy_instancia)
-
-	elif ronda_actual == 3:
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
+	var number_enemies = 0 # Cantidad de enemigos que spawnearan en la ronda
 	
-	elif ronda_actual == 4:
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
+	# Administra la cantidad de enemigos por ronda
+	if ronda_actual == 1 or ronda_actual == 2:
+		number_enemies = 1
+	elif ronda_actual == 3 or ronda_actual == 4:
+		number_enemies = 2
+	elif ronda_actual == 5 or ronda_actual == 6:
+		number_enemies = 3
+	elif ronda_actual == 7 or ronda_actual == 8:
+		number_enemies = 4
+	elif ronda_actual == 9 or ronda_actual == 10:
+		number_enemies = 5
+	else:
+		number_enemies = 0
 	
-	elif  ronda_actual == 5:
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		
-	elif  ronda_actual == 6:
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-
-	elif  ronda_actual == 7:
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
+	# Añade a lo enemigos
+	for i in range(number_enemies):
+		var new_enemy_instance = packed_scene_enemy.instantiate()
+		add_child(new_enemy_instance)
+		new_enemy_instance.position = valor_spawneo_obtenido_enemigo
+		new_enemy_instance.add_to_group("spawned_enemys")
+		enemy_counter += 1
+		print("Enemigos en el mapa: ",enemy_counter)
 	
-	elif  ronda_actual == 8:
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-
-	elif  ronda_actual == 9:
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		
-	elif  ronda_actual == 10:
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		add_child(enemy_instancia)
-		# Instanciar boss
-
-
-
-		
 ## Reinicia la ronda a 1
 func start_round():
 	ronda_actual = 1
@@ -200,7 +158,6 @@ func _on_RoundManager_cambio_ronda(valor):
 	if valor == true:
 		clear_spawned_enemys()
 		ronda_actual += 1
-		instanciateEnemyInMap()
 
 	
 
