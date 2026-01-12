@@ -102,7 +102,7 @@ func instantiateBoxInMap():
 func instanciateEnemyInMap():
 	var enemy_instancia = packed_scene_enemy.instantiate()
 	get_parent().add_child(enemy_instancia)
-	enemy_instancia.add_to_group("Enemigos")
+	enemy_instancia.add_to_group("spawned")
 	print("Se spawneo el enemigo")
 	enemy_instancia.position = valor_spawneo_obtenido_enemigo
 	print("El enemigo spawneo en esta posicion: ", enemy_instancia)
@@ -111,7 +111,7 @@ func instanciateEnemyInMap():
 func clear_spawned():
 	for obj in get_tree().get_nodes_in_group("spawned"):
 		obj.queue_free()
-	
+		
 ## Reinicia la ronda a 1
 func start_round():
 	ronda_actual = 1
