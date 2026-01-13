@@ -65,10 +65,10 @@ var enemy_counter = 0 # Para ver cuantos enemigos hay en la ronda actual, para p
 func _ready():
 	prueba_musica.play() # Inicia la musica
 	start_round() # Inicia la ronda
-	add_more_enemys() # Ejecuta el sistema de spawneo de enemigos
 	
 	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
 	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda)
+	
 # En cada frame del juego
 func _physics_process(_delta):
 	ronda_actual_label.text = str(ronda_actual) # Muestra en el label la ronda actual
@@ -141,6 +141,7 @@ func start_round():
 	clear_spawned() # Elimina los objetos que se instanciaron en rondas anteriores
 	randomSpawn() # Permite spawnear aleatoriamente controlado los objetos por el mapa( de momento una caja)
 	randomSpawnEnemy() # Permite coger una posición aleatoria donde spawnear el enemigo
+	add_more_enemys()
 	
 ## Si este botón se presiona mata al player (DEBUG)
 func _on_death_button_pressed():
@@ -152,11 +153,11 @@ func _on_death_button_enemy_pressed():
 	# Mostrariamos una ventana de victoria
 	ronda_actual += 1 # Aumenta de ronda si se matan a todos los enemigos
 
-
-	
 func _on_RoundManager_cambio_ronda(valor):
 	if valor == true:
 		clear_spawned_enemys()
+		randomSpawnEnemy()
+		add_more_enemys()
 		ronda_actual += 1
 
 	
