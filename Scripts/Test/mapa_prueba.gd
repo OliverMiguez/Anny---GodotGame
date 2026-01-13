@@ -102,6 +102,8 @@ func clear_spawned():
 	print("Enemigos actuales: ", enemy_counter)
 	for obj in get_tree().get_nodes_in_group("spawned"):
 		obj.queue_free()
+		
+## Limpia los enemigos de la escena
 func clear_spawned_enemys():
 	enemy_counter = 0
 	print("Enemigos actuales: ", enemy_counter)
