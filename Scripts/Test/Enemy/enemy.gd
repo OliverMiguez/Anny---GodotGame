@@ -29,7 +29,10 @@ func receive_damage():
 func death():
 	# OJO EN EL MAPA TENEMOS QUE IDENTIFICAR CUANTOS ENEMIGOS HAY PARA CAMBIAR DE RONDA
 	print("Enemigo muerto, enviado señal de victoria")
-	RoundManager.change_round() # Envia una señal cuando los enemigos mueran para cambiar de ronda en el mapa
+	# Deprecada, la dejo de momento para arreglar un bug
+	#RoundManager.change_round() # Envia una señal cuando los enemigos mueran para cambiar de ronda en el mapa
+	RoundManager.id_enemy = self.get_instance_id() # Envia el id del enemigo
+	RoundManager.enemy_death() # Señal que se activa cuando muere el enemigo
 	
 func show_life():
 	label_life.text = str(enemy_life)

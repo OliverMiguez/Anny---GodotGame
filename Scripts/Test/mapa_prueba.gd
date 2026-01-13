@@ -54,6 +54,8 @@ var rounds_to_add_enemy = [3,5,7,9]
 # Para poder cambia de ronda cuando mueren todos los enemigos
 var enemy_counter = 0 # Para ver cuantos enemigos hay en la ronda actual, para poder cambiar de ronda cuando mueran todos
 
+var enemy_array =[] # Recoge los enemigo instanciados
+
 #(DEBUG)
 # Label que muestra la ronda actual 
 @onready var ronda_actual_label = $DEBUG/RondaActual
@@ -67,7 +69,8 @@ func _ready():
 	start_round() # Inicia la ronda
 	
 	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
-	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda)
+	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda) # deprecada
+	RoundManager.enemigo_murio.connect(_on_RoundManager_enemigo_murio)
 	
 # En cada frame del juego
 func _physics_process(_delta):
@@ -139,14 +142,24 @@ func add_more_enemys():
 	]	   
 	# Añade a lo enemigos
 	for i in range(number_enemies):
+		
+		# Crea y añade la instancia del enemigo a la escena
 		var new_enemy_instance = packed_scene_enemy.instantiate()
 		add_child(new_enemy_instance)
+		
+		 # Añade el enemigo en el array que maneja los enemigos
+		enemy_array.append(new_enemy_instance)
+		
+		# Modifica la posición en la que spawnea
 		new_enemy_instance.position = valor_spawneo_obtenido_enemigo
 		print("Valor spawneo obtenido enemigo:" , valor_spawneo_obtenido_enemigo)
 		new_enemy_instance.add_to_group("spawned_enemys")
+		
+		# Debug(verificar cuantos enemigos hay en escena)
 		enemy_counter += 1
 		print("Enemigos en el mapa: ",enemy_counter)
 		
+		# Administra un spawneo controlado para que 2 enemigos no puedan spawnear en el mismo sitio
 		auxiliar_spawn.erase(valor_spawneo_obtenido_enemigo)
 		randomSpawnEnemy(auxiliar_spawn)
 				
@@ -168,14 +181,22 @@ func _on_death_button_enemy_pressed():
 	# Mostrariamos una ventana de victoria
 	ronda_actual += 1 # Aumenta de ronda si se matan a todos los enemigos
 
-func _on_RoundManager_cambio_ronda(valor):
-	if valor == true :
-		clear_spawned_enemys()
+## Cambia de ronda cuando todos los enemigos de la ronda mueren
+## Deprecada
+func _on_RoundManager_cambio_ronda(_valor):
+	pass
+	
+func cambiar_ronda():
 		randomSpawnEnemy(almacen_spawners_enemys)
 		add_more_enemys()
 		ronda_actual += 1
 
-	
+## Cuando un enemigo muere
+func _on_RoundManager_enemigo_murio(id_enemy):
+	enemy_array.erase(id_enemy)# Elimina del array al enemigo que murio
+x	id_enemy.queue_free()
+	if enemy_array.is_empty():
+		cambiar_ronda()
 
 
 ### Puertas 
