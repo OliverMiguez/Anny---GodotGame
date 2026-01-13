@@ -83,10 +83,12 @@ func randomSpawn():
 	valor_spawneo_obtenido = almacen_spawners[indice_valor_obtenido_spawn]
 	instantiateBoxInMap() # Permite instanciar un objeto(en este caso una caja)
 
-func randomSpawnEnemy():
-	var enemy_position_almacen = almacen_spawners_enemys.size()
+func randomSpawnEnemy(array_axuliar:Array):
+	var enemy_position_almacen = array_axuliar.size()
 	var valor_de_posicion_obtenido = randi() %  enemy_position_almacen
-	valor_spawneo_obtenido_enemigo = almacen_spawners_enemys[valor_de_posicion_obtenido]
+	valor_spawneo_obtenido_enemigo = array_axuliar[valor_de_posicion_obtenido]
+	if valor_de_posicion_obtenido == null:
+		print("ACABO")
 	
 ## Permite instanciar la caja en el mapa en la posición deseada
 func instantiateBoxInMap():
@@ -128,21 +130,41 @@ func add_more_enemys():
 	else:
 		number_enemies = 0
 	
+	# Detecta las posiciones del spawn que estan libres para spawnear enemigos
+	var auxiliar_spawn = [
+	enemy_spawn_1.position,
+	enemy_spawn_2.position,
+	enemy_spawn_3.position,
+	enemy_spawn_4.position,
+	enemy_spawn_5.position
+	]
+	print("1: ",enemy_spawn_1.position)
+	print("2: ",enemy_spawn_2.position)
+	print("3: ",enemy_spawn_3.position)
+	print("4: ",enemy_spawn_4.position)
+	print("5: ",enemy_spawn_5.position)
+
+	   
 	# Añade a lo enemigos
 	for i in range(number_enemies):
 		var new_enemy_instance = packed_scene_enemy.instantiate()
+
 		add_child(new_enemy_instance)
 		new_enemy_instance.position = valor_spawneo_obtenido_enemigo
+		print("Valor spawneo obtenido enemigo:" , valor_spawneo_obtenido_enemigo)
 		new_enemy_instance.add_to_group("spawned_enemys")
 		enemy_counter += 1
 		print("Enemigos en el mapa: ",enemy_counter)
-	
+		
+		auxiliar_spawn.erase(valor_spawneo_obtenido_enemigo)
+		randomSpawnEnemy(auxiliar_spawn)
+				
 ## Reinicia la ronda a 1
 func start_round():
 	ronda_actual = 1
 	clear_spawned() # Elimina los objetos que se instanciaron en rondas anteriores
 	randomSpawn() # Permite spawnear aleatoriamente controlado los objetos por el mapa( de momento una caja)
-	randomSpawnEnemy() # Permite coger una posición aleatoria donde spawnear el enemigo
+	randomSpawnEnemy(almacen_spawners_enemys) # Permite coger una posición aleatoria donde spawnear el enemigo
 	add_more_enemys()
 	
 ## Si este botón se presiona mata al player (DEBUG)
@@ -158,7 +180,7 @@ func _on_death_button_enemy_pressed():
 func _on_RoundManager_cambio_ronda(valor):
 	if valor == true:
 		clear_spawned_enemys()
-		randomSpawnEnemy()
+		randomSpawnEnemy(almacen_spawners_enemys)
 		add_more_enemys()
 		ronda_actual += 1
 
