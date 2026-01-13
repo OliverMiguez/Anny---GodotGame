@@ -30,7 +30,6 @@ func death():
 	# OJO EN EL MAPA TENEMOS QUE IDENTIFICAR CUANTOS ENEMIGOS HAY PARA CAMBIAR DE RONDA
 	print("Enemigo muerto, enviado señal de victoria")
 	RoundManager.change_round() # Envia una señal cuando los enemigos mueran para cambiar de ronda en el mapa
-	#queue_free()
 	
 func show_life():
 	label_life.text = str(enemy_life)
