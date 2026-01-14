@@ -221,20 +221,15 @@ func victoria():
 	if ronda_actual == 11:
 		ronda_actual = str("Victoria")
 
-
-
-
- 
-
+## Puertas
 func _on_left_door_up_body_entered(body: Node2D) -> void:
-	body.position = Vector2(378,888)
+	body.position = door_1_left_down.position
+	
 func _on_right_door_down_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
+	body.position = door_3_right_up.position
 
 func _on_right_door_up_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
+	body.position = door_4_right_down.position
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass
+	body.position = door_2_left_up.position

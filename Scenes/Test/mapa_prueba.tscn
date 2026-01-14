@@ -33,16 +33,16 @@ size = Vector2(133, 893.625)
 size = Vector2(61.5, 425)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkxpx"]
-size = Vector2(52, 109)
+size = Vector2(4, 109)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_llg6g"]
-size = Vector2(50, 87)
+size = Vector2(3, 84.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ujbic"]
-size = Vector2(51, 93)
+size = Vector2(2.5, 85.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fub7l"]
-size = Vector2(55, 83)
+size = Vector2(5, 79)
 
 [node name="MapaPrueba" type="Node2D"]
 script = ExtResource("1_rmeiw")
@@ -53,7 +53,7 @@ scale = Vector2(3.0220127, 3.2352026)
 texture = ExtResource("2_fub7l")
 
 [node name="Map" type="Sprite2D" parent="."]
-position = Vector2(985, 468.00003)
+position = Vector2(981, 470.00003)
 scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
 
@@ -180,7 +180,7 @@ collision_layer = 8
 
 [node name="LeftDoorUpCollision" type="CollisionShape2D" parent="Doors/LeftDoorUp"]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
-position = Vector2(326, 154)
+position = Vector2(300, 156)
 shape = SubResource("RectangleShape2D_jkxpx")
 
 [node name="RightDoorDown" type="Area2D" parent="Doors"]
@@ -188,7 +188,7 @@ position = Vector2(1, -23)
 
 [node name="RightDoorDownCollision" type="CollisionShape2D" parent="Doors/RightDoorDown"]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
-position = Vector2(1635, 883.5)
+position = Vector2(1655.5, 887.25)
 shape = SubResource("RectangleShape2D_llg6g")
 
 [node name="RightDoorUp" type="Area2D" parent="Doors"]
@@ -197,22 +197,22 @@ position = Vector2(2, -23)
 
 [node name="RightDoorUpCollision" type="CollisionShape2D" parent="Doors/RightDoorUp"]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
-position = Vector2(1612, 268.5)
+position = Vector2(1627.25, 271.25)
 shape = SubResource("RectangleShape2D_ujbic")
 
 [node name="Markers" type="Node" parent="Doors"]
 
 [node name="Marker1LeftDown" type="Marker2D" parent="Doors/Markers"]
-position = Vector2(379, 868)
+position = Vector2(399, 879)
 
 [node name="Marker2LeftUp" type="Marker2D" parent="Doors/Markers"]
-position = Vector2(327, 141)
+position = Vector2(351, 151)
 
 [node name="Marker3RightUp" type="Marker2D" parent="Doors/Markers"]
-position = Vector2(1613, 248)
+position = Vector2(1583, 256)
 
 [node name="Marker4RightDown" type="Marker2D" parent="Doors/Markers"]
-position = Vector2(1636, 860)
+position = Vector2(1607, 870)
 
 [node name="Marker2D" type="Marker2D" parent="Doors"]
 position = Vector2(625, 801)
@@ -221,7 +221,7 @@ position = Vector2(625, 801)
 position = Vector2(-2, -22)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/Area2D"]
-position = Vector2(379, 885)
+position = Vector2(348.5, 888.5)
 shape = SubResource("RectangleShape2D_fub7l")
 
 [node name="Objects" type="Node" parent="."]
