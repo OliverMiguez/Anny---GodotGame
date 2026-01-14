@@ -88,8 +88,11 @@ func randomSpawn():
 
 func randomSpawnEnemy(array_axuliar:Array):
 	var enemy_position_almacen = array_axuliar.size()
-	var valor_de_posicion_obtenido = randi() %  enemy_position_almacen
-	valor_spawneo_obtenido_enemigo = array_axuliar[valor_de_posicion_obtenido]
+	if enemy_position_almacen != 0:
+		var valor_de_posicion_obtenido = randi() %  enemy_position_almacen
+		valor_spawneo_obtenido_enemigo = array_axuliar[valor_de_posicion_obtenido]
+	else:
+		print("Es cero")
 
 	
 ## Permite instanciar la caja en el mapa en la posición deseada
@@ -117,7 +120,8 @@ func clear_spawned_enemys():
 ## Permite añadir más enemigos (cuando se superen x rondas)
 func add_more_enemys():
 	var number_enemies = 0 # Cantidad de enemigos que spawnearan en la ronda
-	
+	print("Ronda actual: ", ronda_actual)
+
 	# Administra la cantidad de enemigos por ronda
 	if ronda_actual == 1 or ronda_actual == 2:
 		number_enemies = 1
@@ -129,6 +133,8 @@ func add_more_enemys():
 		number_enemies = 4
 	elif ronda_actual == 9 or ronda_actual == 10:
 		number_enemies = 5
+	elif ronda_actual == 11:
+		victoria()
 	else:
 		number_enemies = 0
 	
@@ -188,16 +194,19 @@ func _on_RoundManager_cambio_ronda(_valor):
 	
 func cambiar_ronda():
 		randomSpawnEnemy(almacen_spawners_enemys)
-		add_more_enemys()
 		ronda_actual += 1
+		add_more_enemys()
+		
 
 ## Cuando un enemigo muere
 func _on_RoundManager_enemigo_murio(id_enemy):
 	enemy_array.erase(id_enemy)# Elimina del array al enemigo que murio
-x	id_enemy.queue_free()
+	id_enemy.queue_free()
 	if enemy_array.is_empty():
 		cambiar_ronda()
-
+		
+func victoria():
+	print("Superaste 10 rondas ")
 
 ### Puertas 
 ## Puerta de abajo
