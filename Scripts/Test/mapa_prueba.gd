@@ -133,7 +133,7 @@ func add_more_enemys():
 		number_enemies = 4
 	elif ronda_actual == 9 or ronda_actual == 10:
 		number_enemies = 5
-	elif ronda_actual == 11:
+	elif ronda_actual > 10:
 		victoria()
 	else:
 		number_enemies = 0
@@ -196,7 +196,6 @@ func cambiar_ronda():
 		randomSpawnEnemy(almacen_spawners_enemys)
 		ronda_actual += 1
 		add_more_enemys()
-		
 
 ## Cuando un enemigo muere
 func _on_RoundManager_enemigo_murio(id_enemy):
@@ -207,6 +206,8 @@ func _on_RoundManager_enemigo_murio(id_enemy):
 		
 func victoria():
 	print("Superaste 10 rondas ")
+	if ronda_actual == 11:
+		ronda_actual = str("Victoria")
 
 ### Puertas 
 ## Puerta de abajo
