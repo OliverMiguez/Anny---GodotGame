@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bondak2y8miye"]
+[gd_scene load_steps=18 format=3 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
 [ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/BattleMap/Map.png" id="2_0swn8"]
 [ext_resource type="Texture2D" uid="uid://b64hkho4prp4o" path="res://Art/MapArt/City/Sprite-Sheet.jpg" id="2_fub7l"]
 [ext_resource type="PackedScene" uid="uid://24wdatym248p" path="res://Scenes/MainCharacter/main_character.tscn" id="3_rmeiw"]
-[ext_resource type="PackedScene" uid="uid://dxoou5h36a4hy" path="res://Scenes/Objects/Box/box.tscn" id="5_rmeiw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swn8"]
 size = Vector2(1430.5, 53)
@@ -33,9 +32,6 @@ size = Vector2(133, 893.625)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adf8g"]
 size = Vector2(61.5, 425)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dndut"]
-size = Vector2(59, 82)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkxpx"]
 size = Vector2(52, 109)
 
@@ -44,6 +40,9 @@ size = Vector2(50, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ujbic"]
 size = Vector2(51, 93)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fub7l"]
+size = Vector2(55, 83)
 
 [node name="MapaPrueba" type="Node2D"]
 position = Vector2(249, -57)
@@ -60,7 +59,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
 
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
-position = Vector2(420, 751)
+position = Vector2(216, 206)
 scale = Vector2(3, 3)
 speed = 150
 running_speed = 250
@@ -78,7 +77,7 @@ autoplay = true
 position = Vector2(1003, 687)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/GeneralFloor/Floor1"]
-position = Vector2(-18, 266)
+position = Vector2(-18, 268)
 shape = SubResource("RectangleShape2D_0swn8")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
@@ -94,7 +93,7 @@ debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 [node name="StaticBody2D2" type="StaticBody2D" parent="Collisions/Floors/Other"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D2"]
-position = Vector2(537.5, 227)
+position = Vector2(537, 230)
 shape = SubResource("RectangleShape2D_84ol0")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41568628)
 
@@ -170,14 +169,8 @@ debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
 [node name="Doors" type="Node" parent="."]
 
-[node name="LeftDoorDown" type="Area2D" parent="Doors" groups=["spawned"]]
-
-[node name="LeftDoorDownCollision" type="CollisionShape2D" parent="Doors/LeftDoorDown"]
-modulate = Color(0.24988595, 0.00027492284, 0.73154354, 1)
-position = Vector2(378.5, 885)
-shape = SubResource("RectangleShape2D_dndut")
-
 [node name="LeftDoorUp" type="Area2D" parent="Doors"]
+collision_layer = 8
 
 [node name="LeftDoorUpCollision" type="CollisionShape2D" parent="Doors/LeftDoorUp"]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
@@ -214,12 +207,18 @@ position = Vector2(1612, 268)
 [node name="Marker4RightDown" type="Marker2D" parent="Doors/Markers"]
 position = Vector2(1635, 880)
 
+[node name="Marker2D" type="Marker2D" parent="Doors"]
+position = Vector2(377, 877)
+
+[node name="Area2D" type="Area2D" parent="Doors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/Area2D"]
+position = Vector2(379, 885)
+shape = SubResource("RectangleShape2D_fub7l")
+
 [node name="Objects" type="Node" parent="."]
 
 [node name="Box" type="Node" parent="Objects"]
-
-[node name="Box" parent="Objects/Box" instance=ExtResource("5_rmeiw")]
-position = Vector2(594, 893)
 
 [node name="DEBUG" type="Node" parent="."]
 
@@ -244,6 +243,14 @@ offset_top = 19.0
 offset_right = 199.0
 offset_bottom = 50.0
 text = "MATA A LOS ENEMIGOS"
+
+[node name="PosPlayer" type="Label" parent="DEBUG"]
+offset_left = 381.0
+offset_top = 12.0
+offset_right = 608.0
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 50
+text = "pos player"
 
 [node name="SpawnPoints" type="Node" parent="."]
 
@@ -274,5 +281,9 @@ position = Vector2(494, 868)
 position = Vector2(905, 847)
 
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
+[connection signal="body_entered" from="Doors/LeftDoorUp" to="." method="_on_left_door_up_body_entered"]
+[connection signal="body_entered" from="Doors/RightDoorDown" to="." method="_on_right_door_down_body_entered"]
+[connection signal="body_entered" from="Doors/RightDoorUp" to="." method="_on_right_door_up_body_entered"]
+[connection signal="body_entered" from="Doors/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="pressed" from="DEBUG/DeathButtonPlayer" to="." method="_on_death_button_pressed"]
 [connection signal="pressed" from="DEBUG/DeathButtonEnemy" to="." method="_on_death_button_enemy_pressed"]

@@ -149,3 +149,7 @@ func instanciate_ammo():
 	#print("Posición global de la bala: ",ammo_scene.global_position)
 	
 	
+
+
+func _on_door_detection_body_entered(body: Node2D) -> void:
+	print("Player entro en el area de una puerta")

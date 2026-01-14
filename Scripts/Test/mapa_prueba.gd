@@ -2,10 +2,12 @@ extends Node2D
 @onready var prueba_musica = $MusicTest
 
 # Markers para las puertas del mapa
-@onready var marker_1_left_down: Marker2D = $Doors/Markers/Marker1LeftDown
-@onready var marker_2_left_up: Marker2D = $Doors/Markers/Marker2LeftUp
-@onready var marker_3_right_up: Marker2D = $Doors/Markers/Marker3RightUp
-@onready var marker_4_right_down: Marker2D = $Doors/Markers/Marker4RightDown
+@onready var area_2d: Area2D = $Doors/Area2D
+
+@onready var door_1_left_down: Marker2D = $Doors/Markers/Marker1LeftDown
+@onready var door_2_left_up: Marker2D = $Doors/Markers/Marker2LeftUp
+@onready var door_3_right_up: Marker2D = $Doors/Markers/Marker3RightUp
+@onready var door_4_right_down: Marker2D = $Doors/Markers/Marker4RightDown
 
 # Puntos de spawn (donde spawnearan los objetos)
 @onready var spawn_1 = $SpawnPoints/Spawn1
@@ -62,11 +64,16 @@ var enemy_array =[] # Recoge los enemigo instanciados
 # Botones que permiten matar al player o a los enemigos
 @onready var death_button_player = $DEBUG/DeathButtonPlayer
 @onready var death_button_enemy = $DEBUG/DeathButtonEnemy
+@onready var pos_player: Label = $DEBUG/PosPlayer
 
 
 func _ready():
 	prueba_musica.play() # Inicia la musica
 	start_round() # Inicia la ronda
+	#print("Pos colision: ", $Doors/LeftDoorDown/CollisionShape2D.position)
+	
+	# Para arreglar un bug
+	door_1_left_down.position = Vector2(129,940)
 	
 	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
 	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda) # deprecada
@@ -75,6 +82,7 @@ func _ready():
 # En cada frame del juego
 func _physics_process(_delta):
 	ronda_actual_label.text = str(ronda_actual) # Muestra en el label la ronda actual
+	pos_player.text = str($MainCharacter.position)
 
 func _on_prueba_musica_finished():
 	prueba_musica.play()
@@ -88,8 +96,11 @@ func randomSpawn():
 
 func randomSpawnEnemy(array_axuliar:Array):
 	var enemy_position_almacen = array_axuliar.size()
-	var valor_de_posicion_obtenido = randi() %  enemy_position_almacen
-	valor_spawneo_obtenido_enemigo = array_axuliar[valor_de_posicion_obtenido]
+	if enemy_position_almacen != 0:
+		var valor_de_posicion_obtenido = randi() %  enemy_position_almacen
+		valor_spawneo_obtenido_enemigo = array_axuliar[valor_de_posicion_obtenido]
+	else:
+		print("Es cero")
 
 	
 ## Permite instanciar la caja en el mapa en la posición deseada
@@ -117,7 +128,8 @@ func clear_spawned_enemys():
 ## Permite añadir más enemigos (cuando se superen x rondas)
 func add_more_enemys():
 	var number_enemies = 0 # Cantidad de enemigos que spawnearan en la ronda
-	
+	print("Ronda actual: ", ronda_actual)
+
 	# Administra la cantidad de enemigos por ronda
 	if ronda_actual == 1 or ronda_actual == 2:
 		number_enemies = 1
@@ -129,6 +141,8 @@ func add_more_enemys():
 		number_enemies = 4
 	elif ronda_actual == 9 or ronda_actual == 10:
 		number_enemies = 5
+	elif ronda_actual > 10:
+		victoria()
 	else:
 		number_enemies = 0
 	
@@ -188,27 +202,36 @@ func _on_RoundManager_cambio_ronda(_valor):
 	
 func cambiar_ronda():
 		randomSpawnEnemy(almacen_spawners_enemys)
-		add_more_enemys()
 		ronda_actual += 1
+		add_more_enemys()
 
 ## Cuando un enemigo muere
 func _on_RoundManager_enemigo_murio(id_enemy):
 	enemy_array.erase(id_enemy)# Elimina del array al enemigo que murio
-x	id_enemy.queue_free()
+	id_enemy.queue_free()
 	if enemy_array.is_empty():
 		cambiar_ronda()
+		
+func victoria():
+	print("Superaste 10 rondas ")
+	if ronda_actual == 11:
+		ronda_actual = str("Victoria")
 
 
-### Puertas 
-## Puerta de abajo
-#func _on_left_door_down_body_entered(body: Node2D) -> void:
-	#print("Prueba: Algo entro en el area")
-	#if body is MainCharacter:
-		#print("ENTRO EL MAINCHARACTER")
-		#if Input.is_action_just_pressed("Space"):
-			#MainCharacter.position = marker_2_left_up.position
-#
-#func _on_left_door_down_body_exited(body: Node2D) -> void:
-	#print("Prueba: Algo salió del area")
-	#if body is MainCharacter:
-		#print("SALIO EL MAINCHARACTER")
+
+
+ 
+
+func _on_left_door_up_body_entered(body: Node2D) -> void:
+		body.position = door_1_left_down.position
+
+func _on_right_door_down_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_right_door_up_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	print("hola")
