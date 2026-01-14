@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv4in30q2ojgw"]
+
+[ext_resource type="Texture2D" uid="uid://caa3myaqk0wgx" path="res://Art/MainCharacter/Ammo/AmmoSprite.png" id="1_g7lho"]
+[ext_resource type="Script" uid="uid://w87fw8tcp654" path="res://Scripts/MainCharacter/Ammo/ammo2.gd" id="1_pn83n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pn83n"]
+size = Vector2(8, 2)
+
+[node name="Ammo" type="Area2D" groups=["Balas"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_pn83n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_g7lho")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pn83n")
+debug_color = Color(0.8884974, 0.0002755004, 0.8004372, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
