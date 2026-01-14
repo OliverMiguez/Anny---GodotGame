@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
-[ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/BattleMap/Map.png" id="2_0swn8"]
+[ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/Map.png" id="2_0swn8"]
 [ext_resource type="Texture2D" uid="uid://b64hkho4prp4o" path="res://Art/MapArt/City/Sprite-Sheet.jpg" id="2_fub7l"]
 [ext_resource type="PackedScene" uid="uid://24wdatym248p" path="res://Scenes/MainCharacter/main_character.tscn" id="3_rmeiw"]
 
@@ -36,7 +36,7 @@ size = Vector2(61.5, 425)
 size = Vector2(52, 109)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_llg6g"]
-size = Vector2(50, 90)
+size = Vector2(50, 87)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ujbic"]
 size = Vector2(51, 93)
@@ -45,21 +45,20 @@ size = Vector2(51, 93)
 size = Vector2(55, 83)
 
 [node name="MapaPrueba" type="Node2D"]
-position = Vector2(249, -57)
 script = ExtResource("1_rmeiw")
 
 [node name="SpriteSheet" type="Sprite2D" parent="."]
-position = Vector2(709, 577.25)
+position = Vector2(959.99994, 446.00003)
 scale = Vector2(3.0220127, 3.2352026)
 texture = ExtResource("2_fub7l")
 
 [node name="Map" type="Sprite2D" parent="."]
-position = Vector2(737, 545)
+position = Vector2(985, 468.00003)
 scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
 
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
-position = Vector2(216, 206)
+position = Vector2(464, 130)
 scale = Vector2(3, 3)
 speed = 150
 running_speed = 250
@@ -74,7 +73,7 @@ autoplay = true
 [node name="GeneralFloor" type="Node" parent="Collisions/Floors"]
 
 [node name="Floor1" type="StaticBody2D" parent="Collisions/Floors/GeneralFloor"]
-position = Vector2(1003, 687)
+position = Vector2(997, 666)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/GeneralFloor/Floor1"]
 position = Vector2(-18, 268)
@@ -84,6 +83,7 @@ debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 [node name="Other" type="Node" parent="Collisions/Floors"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Collisions/Floors/Other"]
+position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D"]
 position = Vector2(538.5, 434.5)
@@ -91,6 +91,7 @@ shape = SubResource("RectangleShape2D_kmekn")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Collisions/Floors/Other"]
+position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D2"]
 position = Vector2(537, 230)
@@ -98,6 +99,7 @@ shape = SubResource("RectangleShape2D_84ol0")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41568628)
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="Collisions/Floors/Other"]
+position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3"]
 position = Vector2(1514, 324)
@@ -125,6 +127,7 @@ shape = SubResource("RectangleShape2D_mm8s7")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="Collisions/Floors/Other"]
+position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D4"]
 position = Vector2(1198.5, 314.5)
@@ -132,6 +135,7 @@ shape = SubResource("RectangleShape2D_myp8n")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
 [node name="StaticBody2D5" type="StaticBody2D" parent="Collisions/Floors/Other"]
+position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D5"]
 position = Vector2(351, 696)
@@ -143,33 +147,35 @@ debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 [node name="ExternalColision" type="Node" parent="Collisions/Walls"]
 
 [node name="Right_wall" type="StaticBody2D" parent="Collisions/Walls/ExternalColision"]
-position = Vector2(251, 5)
+position = Vector2(499, -71)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/ExternalColision/Right_wall"]
-position = Vector2(1487.75, 585.75)
+position = Vector2(1240, 589)
 shape = SubResource("RectangleShape2D_rmeiw")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
 [node name="Left_wall" type="StaticBody2D" parent="Collisions/Walls/ExternalColision"]
-position = Vector2(251, 11)
+position = Vector2(499, -65)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/ExternalColision/Left_wall"]
-position = Vector2(-18.5, 525.1875)
+position = Vector2(-268, 527)
 shape = SubResource("RectangleShape2D_mh7lf")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
 [node name="Other" type="Node" parent="Collisions/Walls"]
 
 [node name="Wall1" type="StaticBody2D" parent="Collisions/Walls/Other"]
+position = Vector2(248, -76)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/Other/Wall1"]
-position = Vector2(767.75, 615.5)
+position = Vector2(512, 675)
 shape = SubResource("RectangleShape2D_adf8g")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
 [node name="Doors" type="Node" parent="."]
 
 [node name="LeftDoorUp" type="Area2D" parent="Doors"]
+position = Vector2(1, -23)
 collision_layer = 8
 
 [node name="LeftDoorUpCollision" type="CollisionShape2D" parent="Doors/LeftDoorUp"]
@@ -178,15 +184,16 @@ position = Vector2(326, 154)
 shape = SubResource("RectangleShape2D_jkxpx")
 
 [node name="RightDoorDown" type="Area2D" parent="Doors"]
+position = Vector2(1, -23)
 
 [node name="RightDoorDownCollision" type="CollisionShape2D" parent="Doors/RightDoorDown"]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
-position = Vector2(1635, 885)
+position = Vector2(1635, 883.5)
 shape = SubResource("RectangleShape2D_llg6g")
 
 [node name="RightDoorUp" type="Area2D" parent="Doors"]
 modulate = Color(1, 1, 0, 1)
-position = Vector2(1, 0)
+position = Vector2(2, -23)
 
 [node name="RightDoorUpCollision" type="CollisionShape2D" parent="Doors/RightDoorUp"]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
@@ -196,21 +203,22 @@ shape = SubResource("RectangleShape2D_ujbic")
 [node name="Markers" type="Node" parent="Doors"]
 
 [node name="Marker1LeftDown" type="Marker2D" parent="Doors/Markers"]
-position = Vector2(378, 888)
+position = Vector2(379, 868)
 
 [node name="Marker2LeftUp" type="Marker2D" parent="Doors/Markers"]
-position = Vector2(326, 161)
+position = Vector2(327, 141)
 
 [node name="Marker3RightUp" type="Marker2D" parent="Doors/Markers"]
-position = Vector2(1612, 268)
+position = Vector2(1613, 248)
 
 [node name="Marker4RightDown" type="Marker2D" parent="Doors/Markers"]
-position = Vector2(1635, 880)
+position = Vector2(1636, 860)
 
 [node name="Marker2D" type="Marker2D" parent="Doors"]
-position = Vector2(377, 877)
+position = Vector2(625, 801)
 
 [node name="Area2D" type="Area2D" parent="Doors"]
+position = Vector2(-2, -22)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/Area2D"]
 position = Vector2(379, 885)
@@ -223,62 +231,62 @@ shape = SubResource("RectangleShape2D_fub7l")
 [node name="DEBUG" type="Node" parent="."]
 
 [node name="RondaActual" type="Label" parent="DEBUG"]
-offset_left = 909.0
-offset_top = 173.0
-offset_right = 949.0
-offset_bottom = 269.0
+offset_left = 908.0
+offset_top = 164.0
+offset_right = 948.0
+offset_bottom = 260.0
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 70
 
 [node name="DeathButtonPlayer" type="Button" parent="DEBUG"]
-offset_left = 11.0
-offset_top = 65.0
-offset_right = 150.0
-offset_bottom = 96.0
+offset_left = 10.0
+offset_top = 56.0
+offset_right = 149.0
+offset_bottom = 87.0
 text = "MATA AL PLAYER"
 
 [node name="DeathButtonEnemy" type="Button" parent="DEBUG"]
-offset_left = 9.0
-offset_top = 19.0
-offset_right = 199.0
-offset_bottom = 50.0
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 195.0
+offset_bottom = 51.0
 text = "MATA A LOS ENEMIGOS"
 
 [node name="PosPlayer" type="Label" parent="DEBUG"]
-offset_left = 381.0
-offset_top = 12.0
-offset_right = 608.0
-offset_bottom = 122.0
+offset_left = 380.0
+offset_top = 3.0
+offset_right = 630.0
+offset_bottom = 113.0
 theme_override_font_sizes/font_size = 50
 text = "pos player"
 
 [node name="SpawnPoints" type="Node" parent="."]
 
 [node name="Spawn1" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(1205, 240)
+position = Vector2(1243, 245)
 
 [node name="Spawn2" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(947, 856)
+position = Vector2(985, 861)
 
 [node name="Spawn3" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(1380, 851)
+position = Vector2(1418, 856)
 
 [node name="EnemySpawnPoints" type="Node" parent="."]
 
 [node name="EnemySpawn1" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(515, 141)
+position = Vector2(632, 155)
 
 [node name="EnemySpawn2" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(1343, 215)
+position = Vector2(1460, 229)
 
 [node name="EnemySpawn3" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(1302, 850)
+position = Vector2(1419, 864)
 
 [node name="EnemySpawn4" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(494, 868)
+position = Vector2(611, 882)
 
 [node name="EnemySpawn5" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(905, 847)
+position = Vector2(1022, 861)
 
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
 [connection signal="body_entered" from="Doors/LeftDoorUp" to="." method="_on_left_door_up_body_entered"]

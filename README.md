@@ -117,4 +117,3 @@ Diseño, programación, narrativa y testeo intensivo de explosiones cortesía de
 
 El objetivo de este proyecto no es solo crear un juego funcional, sino también contar una historia con personalidad y un estilo propio.  
 Un juego que se toma en serio sus mecánicas, pero no tanto a sí mismo.
-

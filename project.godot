@@ -28,7 +28,7 @@ RoundManager="*res://Scripts/Globals/RoundManager.gd"
 
 window/size/viewport_width=1908
 window/size/viewport_height=964
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 
 [file_customization]
 

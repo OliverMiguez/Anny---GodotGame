@@ -72,8 +72,9 @@ func _ready():
 	start_round() # Inicia la ronda
 	#print("Pos colision: ", $Doors/LeftDoorDown/CollisionShape2D.position)
 	
-	# Para arreglar un bug
-	door_1_left_down.position = Vector2(129,940)
+	#door_1_left_down.position = Vector2(128,940)
+	#door_2_left_up.position = Vector2(87,221)
+	#door_3_right_up.position = Vector2()
 	
 	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
 	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda) # deprecada
@@ -194,6 +195,9 @@ func _on_death_button_enemy_pressed():
 	print("Todos los enemigos han muerto")
 	# Mostrariamos una ventana de victoria
 	ronda_actual += 1 # Aumenta de ronda si se matan a todos los enemigos
+	## Resetea la scena
+func _on_reset_scene_pressed():
+	get_tree().reload_current_scene()
 
 ## Cambia de ronda cuando todos los enemigos de la ronda mueren
 ## Deprecada
@@ -223,8 +227,7 @@ func victoria():
  
 
 func _on_left_door_up_body_entered(body: Node2D) -> void:
-		body.position = door_1_left_down.position
-
+	body.position = Vector2(378,888)
 func _on_right_door_down_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
 
@@ -234,4 +237,4 @@ func _on_right_door_up_body_entered(body: Node2D) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("hola")
+	pass
