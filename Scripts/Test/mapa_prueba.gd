@@ -196,9 +196,11 @@ func _on_death_button_enemy_pressed():
 	# Mostrariamos una ventana de victoria
 	ronda_actual += 1 # Aumenta de ronda si se matan a todos los enemigos
 	## Resetea la scena
-func _on_reset_scene_pressed():
+	
+## Reinicia la escena (DEBUG)
+func _on_reset_button_pressed():
 	get_tree().reload_current_scene()
-
+	
 ## Cambia de ronda cuando todos los enemigos de la ronda mueren
 ## Deprecada
 func _on_RoundManager_cambio_ronda(_valor):
