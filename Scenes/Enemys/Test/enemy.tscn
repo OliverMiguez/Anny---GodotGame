@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://7q8wr7ety064"]
+[gd_scene load_steps=17 format=3 uid="uid://7q8wr7ety064"]
 
 [ext_resource type="Script" uid="uid://b53yptk637k1e" path="res://Scripts/Test/Enemy/enemy.gd" id="1_5ujov"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="1_80308"]
 [ext_resource type="Texture2D" uid="uid://cb2uui7jk2gg8" path="res://Art/MainCharacter/Walk/MainCharacter-Walk.png" id="2_5ujov"]
+[ext_resource type="Script" uid="uid://ck2mg5sw1ieog" path="res://Scripts/GeneralStates/Util/State_Machine.gd" id="4_r53y5"]
+[ext_resource type="Script" uid="uid://rscgxd7ldbe3" path="res://Scripts/MainCharacter/States/IdleState.gd" id="5_4a4s3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jagkb"]
 atlas = ExtResource("1_80308")
@@ -111,6 +113,16 @@ collision_mask = 4
 position = Vector2(-4.5, 5)
 shape = SubResource("RectangleShape2D_5ujov")
 debug_color = Color(0.5885618, 0, 0.10899121, 0.41960785)
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("father", "animation_player", "current_state")]
+script = ExtResource("4_r53y5")
+father = NodePath("")
+animation_player = NodePath("")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("father")]
+script = ExtResource("5_4a4s3")
+father = NodePath("")
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
