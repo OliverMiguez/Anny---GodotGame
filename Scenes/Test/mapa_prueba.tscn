@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bondak2y8miye"]
+[gd_scene load_steps=48 format=3 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
 [ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/Map.png" id="2_0swn8"]
@@ -21,7 +21,7 @@ size = Vector2(407, 22)
 size = Vector2(203, 42)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2jc8"]
-size = Vector2(102, 80)
+size = Vector2(75, 77)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rmeiw"]
 size = Vector2(130.5, 782.5)
@@ -98,6 +98,28 @@ b = Vector2(-2, 8)
 a = Vector2(-3, 1)
 b = Vector2(77, 1)
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_dndut"]
+b = Vector2(340, 1)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_llg6g"]
+b = Vector2(58, 27)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ujbic"]
+b = Vector2(121, 1)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_oc5ki"]
+b = Vector2(19, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxnb1"]
+size = Vector2(245, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ew3vb"]
+size = Vector2(80.5, 28.5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_jkxpx"]
+a = Vector2(-15, -12)
+b = Vector2(40, -12)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dndut"]
 size = Vector2(73, 11)
 
@@ -136,7 +158,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
 
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
-position = Vector2(1487, 229)
+position = Vector2(588, 664)
 scale = Vector2(3, 3)
 speed = 150
 running_speed = 250
@@ -216,7 +238,7 @@ debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D5"]
-position = Vector2(351, 696)
+position = Vector2(337.5, 697.5)
 shape = SubResource("RectangleShape2D_i2jc8")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
@@ -343,6 +365,53 @@ position = Vector2(1599, 731)
 shape = SubResource("SegmentShape2D_i2jc8")
 one_way_collision = true
 
+[node name="CollisionShape2D18" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(413, 591)
+shape = SubResource("SegmentShape2D_dndut")
+one_way_collision = true
+debug_color = Color(0.10160016, 0.021596141, 0.007472979, 0.41960785)
+
+[node name="CollisionShape2D20" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(511, 742)
+shape = SubResource("SegmentShape2D_llg6g")
+one_way_collision = true
+
+[node name="CollisionShape2D21" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(569, 768)
+shape = SubResource("SegmentShape2D_ujbic")
+one_way_collision = true
+
+[node name="CollisionShape2D22" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(492, 742)
+shape = SubResource("SegmentShape2D_oc5ki")
+one_way_collision = true
+
+[node name="CollisionShape2D23" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(582.5, 520)
+shape = SubResource("RectangleShape2D_xxnb1")
+one_way_collision = true
+
+[node name="CollisionShape2D24" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(423.75, 707)
+shape = SubResource("RectangleShape2D_ew3vb")
+
+[node name="CollisionShape2D25" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(385, 684.25)
+shape = SubResource("RectangleShape2D_ew3vb")
+
+[node name="CollisionShape2D26" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(367, 666)
+shape = SubResource("RectangleShape2D_ew3vb")
+
+[node name="CollisionShape2D27" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(357, 654)
+shape = SubResource("RectangleShape2D_ew3vb")
+
+[node name="CollisionShape2D19" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(623, 553)
+shape = SubResource("SegmentShape2D_jkxpx")
+one_way_collision = true
+
 [node name="OneWay" type="Node" parent="Collisions/Walls"]
 
 [node name="1OneWay" type="StaticBody2D" parent="Collisions/Walls/OneWay"]
@@ -462,6 +531,13 @@ offset_bottom = 113.0
 theme_override_font_sizes/font_size = 50
 text = "pos player"
 
+[node name="ResetButton" type="Button" parent="DEBUG"]
+offset_left = 10.0
+offset_top = 94.0
+offset_right = 97.0
+offset_bottom = 125.0
+text = "Reset"
+
 [node name="SpawnPoints" type="Node" parent="."]
 
 [node name="Spawn1" type="Marker2D" parent="SpawnPoints"]
@@ -497,3 +573,4 @@ position = Vector2(1022, 861)
 [connection signal="body_entered" from="Doors/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="pressed" from="DEBUG/DeathButtonPlayer" to="." method="_on_death_button_pressed"]
 [connection signal="pressed" from="DEBUG/DeathButtonEnemy" to="." method="_on_death_button_enemy_pressed"]
+[connection signal="pressed" from="DEBUG/ResetButton" to="." method="_on_reset_button_pressed"]
