@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bondak2y8miye"]
+[gd_scene load_steps=41 format=3 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
 [ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/Map.png" id="2_0swn8"]
@@ -30,10 +30,10 @@ size = Vector2(130.5, 782.5)
 size = Vector2(133, 893.625)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adf8g"]
-size = Vector2(61.5, 425)
+size = Vector2(61.5, 396.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_elchf"]
-size = Vector2(32, 160)
+size = Vector2(32, 140)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_18acl"]
 size = Vector2(30, 18)
@@ -65,6 +65,38 @@ size = Vector2(334, 54)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_adf8g"]
 a = Vector2(38, -13)
 b = Vector2(-6, -1)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_kmekn"]
+a = Vector2(22, 17)
+b = Vector2(-25, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_utsro"]
+size = Vector2(46, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfm7w"]
+size = Vector2(35, 93)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kk2gy"]
+size = Vector2(59, 110)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jfnlc"]
+size = Vector2(125, 30)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_84ol0"]
+a = Vector2(41, -16)
+b = Vector2(-5, 9)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_mm8s7"]
+a = Vector2(32, -13)
+b = Vector2(-10, 11)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_myp8n"]
+a = Vector2(55, -19)
+b = Vector2(-2, 8)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_i2jc8"]
+a = Vector2(-3, 1)
+b = Vector2(77, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dndut"]
 size = Vector2(73, 11)
@@ -214,14 +246,14 @@ debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 position = Vector2(248, -76)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/Other/Wall1"]
-position = Vector2(512, 675)
+position = Vector2(512, 660.75)
 shape = SubResource("RectangleShape2D_adf8g")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Collisions/Walls/Other"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D"]
-position = Vector2(1108, 692)
+position = Vector2(1108, 682)
 shape = SubResource("RectangleShape2D_elchf")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D"]
@@ -265,6 +297,50 @@ one_way_collision = true
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
 position = Vector2(1035, 875)
 shape = SubResource("SegmentShape2D_adf8g")
+one_way_collision = true
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1381, 823)
+shape = SubResource("SegmentShape2D_kmekn")
+one_way_collision = true
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1428, 877)
+shape = SubResource("RectangleShape2D_utsro")
+one_way_collision = true
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1467.5, 862.5)
+shape = SubResource("RectangleShape2D_gfm7w")
+one_way_collision = true
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1515.5, 853)
+shape = SubResource("RectangleShape2D_kk2gy")
+one_way_collision = true
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1605.5, 786)
+shape = SubResource("RectangleShape2D_jfnlc")
+one_way_collision = true
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1407, 833)
+shape = SubResource("SegmentShape2D_84ol0")
+one_way_collision = true
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1452, 811)
+shape = SubResource("SegmentShape2D_mm8s7")
+one_way_collision = true
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1486, 791)
+shape = SubResource("SegmentShape2D_myp8n")
+
+[node name="CollisionShape2D17" type="CollisionShape2D" parent="Collisions/Walls/Other/StaticBody2D2"]
+position = Vector2(1599, 731)
+shape = SubResource("SegmentShape2D_i2jc8")
 one_way_collision = true
 
 [node name="OneWay" type="Node" parent="Collisions/Walls"]
