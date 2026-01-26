@@ -39,7 +39,8 @@ folder_colors={
 "res://Music/": "blue",
 "res://Scenes/": "orange",
 "res://Scripts/": "yellow",
-"res://SoundEffects/": "teal"
+"res://SoundEffects/": "teal",
+"res://planes/": "red"
 }
 
 [global_group]
