@@ -1,10 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://7q8wr7ety064"]
+[gd_scene load_steps=22 format=3 uid="uid://7q8wr7ety064"]
 
 [ext_resource type="Script" uid="uid://b53yptk637k1e" path="res://Scripts/Test/Enemy/enemy.gd" id="1_5ujov"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="1_80308"]
 [ext_resource type="Texture2D" uid="uid://cb2uui7jk2gg8" path="res://Art/MainCharacter/Walk/MainCharacter-Walk.png" id="2_5ujov"]
-[ext_resource type="Script" uid="uid://ck2mg5sw1ieog" path="res://Scripts/GeneralStates/Util/State_Machine.gd" id="4_r53y5"]
-[ext_resource type="Script" uid="uid://rscgxd7ldbe3" path="res://Scripts/MainCharacter/States/IdleState.gd" id="5_4a4s3"]
+[ext_resource type="BehaviorTree" uid="uid://cio5s2se4ki1p" path="res://ai/trees/01_Enemy_Simple_Animations.tres" id="4_jagkb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jagkb"]
 atlas = ExtResource("1_80308")
@@ -82,6 +81,63 @@ height = 18.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ujov"]
 size = Vector2(15, 22)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ujov"]
+radius = 267.00024
+
+[sub_resource type="Animation" id="Animation_jagkb"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+
+[sub_resource type="Animation" id="Animation_r53y5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+
+[sub_resource type="Animation" id="Animation_4a4s3"]
+resource_name = "Walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Walk"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uxsbr"]
+_data = {
+&"Idle": SubResource("Animation_jagkb"),
+&"RESET": SubResource("Animation_r53y5"),
+&"Walk": SubResource("Animation_4a4s3")
+}
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_jagkb"]
+
 [node name="Enemy" type="CharacterBody2D" groups=["Enemigos"]]
 scale = Vector2(3, 3)
 collision_layer = 2
@@ -95,7 +151,7 @@ offset_right = 15.0
 offset_bottom = -7.0
 text = "Vida"
 
-[node name="EnemyAnimations" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_31s23")
 animation = &"Idle"
 autoplay = "Idle"
@@ -109,20 +165,27 @@ debug_color = Color(0.6147076, 0.35900617, 1, 0.41960785)
 collision_layer = 2
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="HitBoxCollision" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-4.5, 5)
 shape = SubResource("RectangleShape2D_5ujov")
 debug_color = Color(0.5885618, 0, 0.10899121, 0.41960785)
 
-[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("father", "animation_player", "current_state")]
-script = ExtResource("4_r53y5")
-father = NodePath("")
-animation_player = NodePath("")
-current_state = NodePath("Idle")
+[node name="DetectionArea" type="Area2D" parent="."]
 
-[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("father")]
-script = ExtResource("5_4a4s3")
-father = NodePath("")
+[node name="DetectionAreaCollision" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(-4.3333335, 4.666667)
+shape = SubResource("CircleShape2D_5ujov")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_uxsbr")
+}
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("4_jagkb")
+blackboard_plan = SubResource("BlackboardPlan_jagkb")
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

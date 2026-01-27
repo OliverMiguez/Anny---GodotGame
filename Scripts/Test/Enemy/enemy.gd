@@ -5,7 +5,7 @@ const GRAVITY_VALUE = 980
 
 @export var enemy_life = 100 
 @onready var label_life = $LabelLife
-
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 func _ready():
 	show_life()
@@ -42,3 +42,13 @@ func _on_hit_box_area_entered(area):
 	if area.is_in_group("Balas"):
 		print("Bala recibida correctamente por el enemigo !!!")
 		receive_damage()
+
+## Área de detección del enemigo
+# Cuando el player entra en el área de detección
+func _on_detection_area_body_entered(body: Node2D) -> void:
+	if body.has_method("MainCharacter"):
+		print("El player entró en el área del enemigo")
+# Cuando el player sale del area de detección
+func _on_detection_area_body_exited(body: Node2D) -> void:
+	if body.has_method("MainCharacter"):
+		print("El player salió del área de detección del player")

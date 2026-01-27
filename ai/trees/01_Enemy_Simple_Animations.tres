@@ -1,0 +1,52 @@
+[gd_resource type="BehaviorTree" load_steps=15 format=3 uid="uid://cio5s2se4ki1p"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_m14x5"]
+
+[sub_resource type="BTComment" id="BTComment_m14x5"]
+custom_name = "Ojo! Las BTPlayAnimation funcionan unicamente con nodos AnimationPlayer"
+
+[sub_resource type="BBNode" id="BBNode_m14x5"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_os7sp"]
+animation_player = SubResource("BBNode_m14x5")
+animation_name = &"Idle"
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_m14x5"]
+text = "Activando animación idle"
+
+[sub_resource type="BTWait" id="BTWait_7egle"]
+duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_saxvk"]
+custom_name = "IdleSequence"
+children = [SubResource("BTComment_m14x5"), SubResource("BTPlayAnimation_os7sp"), SubResource("BTConsolePrint_m14x5"), SubResource("BTWait_7egle")]
+
+[sub_resource type="BBNode" id="BBNode_xnlv3"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_q3w0d"]
+animation_player = SubResource("BBNode_xnlv3")
+animation_name = &"Walk"
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_os7sp"]
+text = "Activando animación  walk"
+
+[sub_resource type="BTComment" id="BTComment_saxvk"]
+custom_name = "Mientras no acaben los 2 segundos del await la animación no finaliza"
+
+[sub_resource type="BTWait" id="BTWait_saxvk"]
+duration = 2.0
+
+[sub_resource type="BTSequence" id="BTSequence_xnlv3"]
+custom_name = "WalkingSequence"
+children = [SubResource("BTPlayAnimation_q3w0d"), SubResource("BTConsolePrint_os7sp"), SubResource("BTComment_saxvk"), SubResource("BTWait_saxvk")]
+
+[sub_resource type="BTSequence" id="BTSequence_q3w0d"]
+children = [SubResource("BTSequence_saxvk"), SubResource("BTSequence_xnlv3")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_m14x5")
+root_task = SubResource("BTSequence_q3w0d")
