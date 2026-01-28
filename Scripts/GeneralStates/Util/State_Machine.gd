@@ -19,6 +19,8 @@ func _physics_process(_delta):
 	current_state.state_process(_delta)
 	if current_state.next_state!= null:				#Si hay un estado nuevo 
 		change_state(current_state.next_state)		#ejecuto la función para cambiar al siguiente estado
+	else:
+		print("no detecto ningún estado")
 
 func change_state(new_state:State):
 	current_state.on_exit()				#ejecuto función de salida
