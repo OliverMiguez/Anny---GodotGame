@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=58 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://x87sfans3ncm" path="res://Scripts/MainCharacter/States/RunningState.gd" id="9_7tkxx"]
 [ext_resource type="Texture2D" uid="uid://bijjd8pf5onf3" path="res://Art/MainCharacter/Shoot/Main-Character-shoot.png" id="9_b45ms"]
 [ext_resource type="Script" uid="uid://b1ch5ly3ytfev" path="res://Scripts/MainCharacter/States/WalkingState.gd" id="9_vyxe4"]
+[ext_resource type="Script" uid="uid://dy2s574dxbvka" path="res://Scripts/MainCharacter/States/CrouchingState.gd" id="11_7tkxx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cri0l"]
 atlas = ExtResource("2_gy7ys")
@@ -382,27 +383,30 @@ father = NodePath("..")
 animation_player = NodePath("../MainCharacterAnimations")
 current_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state", "jump_state", "shoot_state", "father")]
+[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "crouch_state", "father")]
 script = ExtResource("8_vyxe4")
-idle_state = NodePath(".")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
-jump_state = NodePath("../Jump")
-shoot_state = NodePath("../Shoot")
 father = NodePath("../..")
 
-[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state")]
+[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "crouch_state")]
 script = ExtResource("9_vyxe4")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
+crouch_state = NodePath("../Crouch")
 
-[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state")]
+[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "crouch_state")]
 script = ExtResource("9_7tkxx")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
+crouch_state = NodePath("../Crouch")
 
-[node name="Crouch" type="Node" parent="FSM"]
+[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state")]
+script = ExtResource("11_7tkxx")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
 
 [node name="Jump" type="Node" parent="FSM"]
 
