@@ -10,18 +10,6 @@ func on_enter():
 	animation_player.play("Idle")
 	
 func state_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("shootActionP2"):
-		next_state = shoot_state
-		
-	elif father.velocity.x != 0 and Input.is_action_pressed("CorrerP2"):
-		next_state = run_state
-		
-	elif father.velocity.x!=0:
+	if father.velocity.x != 0:
 		next_state = walk_state
-	
-	elif father.velocity.x == 0 and Input.is_action_pressed("AbajoP2"):
-		next_state = crouch_state
-	
-	elif father.velocity.y != 0:
-		next_state = jump_state
 	

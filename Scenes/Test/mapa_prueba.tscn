@@ -60,8 +60,6 @@ texture = ExtResource("2_0swn8")
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
 position = Vector2(464, 130)
 scale = Vector2(3, 3)
-speed = 150
-running_speed = 250
 
 [node name="MusicTest" type="AudioStreamPlayer2D" parent="."]
 autoplay = true
