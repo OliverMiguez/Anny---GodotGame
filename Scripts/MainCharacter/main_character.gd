@@ -2,11 +2,11 @@ extends CharacterBody2D
 class_name MainCharacter
 
 const WALING_SPEED = 100 # Velocidad del player
-const JUMP_FORCE = Vector2(320,-320) # Fuerza con la que salta el player 
+const JUMP_FORCE = Vector2(320,-400) # Fuerza con la que salta el player 
 const RUNNING_SPEED = 200 # Velocidad cuando el player está en el estado de correr
 const ROLLING_SPEED = 177 # Velocidad de rodar
 
-const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
+const  GRAVITY_VALUE = 1000.0 # Fuerza de gravedad
 
 @onready var main_character_animations = $MainCharacterAnimations # Animaciones del MainCharacter 
 @onready var main_character_collision = $MainCharacterCollision # Colisión del player
@@ -40,11 +40,16 @@ func movement_manage():
 	var is_running = Input.is_action_pressed("CorrerP1")
 	var is_down = Input.is_action_pressed("AbajoP1")
 	var is_down_just_pressed = Input.is_action_just_pressed("AbajoP1")
+	var is_jumping = Input.is_action_just_pressed("ArribaP1")
 	
 	# Acciones especiales
 	if is_on_floor():
+		# Saltar
+		if is_jumping:
+			velocity.x = direction * JUMP_FORCE.x
+			velocity.y = JUMP_FORCE.y
 		# Correr
-		if is_running and is_down_just_pressed and direction != 0:
+		elif is_running and is_down_just_pressed and direction != 0:
 			velocity.x = direction * JUMP_FORCE.x
 			velocity.y = JUMP_FORCE.y
 			return # Para no sobrescribir la velocidad
@@ -52,7 +57,6 @@ func movement_manage():
 		elif is_down_just_pressed and direction != 0:
 			velocity.x = direction * ROLLING_SPEED
 			return
-		
 		# Agacharse
 		elif is_down and direction == 0:
 			velocity.x = 0
