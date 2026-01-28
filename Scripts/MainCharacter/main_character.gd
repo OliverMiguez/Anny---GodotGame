@@ -3,7 +3,7 @@ class_name MainCharacter
 
 const WALING_SPEED = 100 # Velocidad del player
 const JUMP_FORCE = Vector2(320,-320) # Fuerza con la que salta el player 
-const RUNNING_SPEED = 300 # Velocidad cuando el player está en el estado de correr
+const RUNNING_SPEED = 200 # Velocidad cuando el player está en el estado de correr
 const ROLLING_SPEED = 177 # Velocidad de rodar
 
 const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
@@ -66,7 +66,7 @@ func movement_manage():
 	# Movimiento Normal
 	if direction != 0:
 		 # Revisa si esta corriendo o andando
-		var current_WALING_SPEED = WALING_SPEED if is_running else WALING_SPEED
+		var current_WALING_SPEED = RUNNING_SPEED if is_running else WALING_SPEED
 		velocity.x = direction *  current_WALING_SPEED
 	else:
 		# Freno automático

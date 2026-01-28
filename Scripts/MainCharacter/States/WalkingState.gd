@@ -10,6 +10,12 @@ func on_enter():
 	animation_player.play("Walk")
 
 func state_process(_delta: float) -> void:
-	if father.velocity.x == 0: 
+	var is_running = Input.is_action_pressed("CorrerP1")
+	
+	if is_zero_approx(father.velocity.x):
 		next_state = idle_state
-		
+		return
+	
+	if is_running:
+		next_state = run_state
+		return

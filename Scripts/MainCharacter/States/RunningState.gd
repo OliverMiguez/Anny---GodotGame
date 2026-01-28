@@ -10,18 +10,14 @@ func on_enter():
 	animation_player.play("Run")
 
 func state_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("shootActionP2"):
-		next_state = shoot_state
+	var direction = Input.get_axis("IzquierdaP1","DerechaP1")
+	var is_running = Input.is_action_pressed("CorrerP1")
 	
-	elif Input.is_action_pressed("CorrerP2") and Input.is_action_just_pressed("AbajoP2") and father.velocity.x != 0:
-		next_state = plancha_state
-	
-	elif father.velocity.x != 0 and not Input.is_action_pressed("CorrerP2"):
-		next_state = walk_state
-		
-	elif father.velocity.x == 0:
+	if is_zero_approx(father.velocity.x):
 		next_state = idle_state
-		
-	elif father.velocity.y != 0:
-		next_state = jump_state
+		return
+	
+	if direction != 0 and not is_running:
+		next_state = walk_state
+		return
 	
