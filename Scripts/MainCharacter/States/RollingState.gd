@@ -17,7 +17,7 @@ func state_process(_delta: float) -> void:
 		next_state = idle_state
 
 func _on_roll_timer_timeout() -> void:
-	if father.velocity.x == 0 and Input.is_action_pressed("ui_down"):
+	if father.velocity.x == 0 and Input.is_action_pressed("AbajoP2"):
 		next_state = crouch_state
 
 	else:

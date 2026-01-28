@@ -271,23 +271,6 @@ position = Vector2(985, 861)
 [node name="Spawn3" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1418, 856)
 
-[node name="EnemySpawnPoints" type="Node" parent="."]
-
-[node name="EnemySpawn1" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(632, 155)
-
-[node name="EnemySpawn2" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(1460, 229)
-
-[node name="EnemySpawn3" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(1419, 864)
-
-[node name="EnemySpawn4" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(611, 882)
-
-[node name="EnemySpawn5" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(1022, 861)
-
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
 [connection signal="body_entered" from="Doors/LeftDoorUp" to="." method="_on_left_door_up_body_entered"]
 [connection signal="body_entered" from="Doors/RightDoorDown" to="." method="_on_right_door_down_body_entered"]

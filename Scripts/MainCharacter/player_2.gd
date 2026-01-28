@@ -1,0 +1,155 @@
+extends CharacterBody2D
+class_name Player2
+
+@export var speed = 100 # Velocidad del player
+@export var jump_force = 300 # Fuerza con la que salta el player 
+@export var running_speed = 300 # Velocidad cuando el player está en el estado de correr
+@export var rolling_speed = 177 # Velocidad de rodar
+
+const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
+
+@onready var main_character_animations = $MainCharacterAnimations # Animaciones del MainCharacter 
+@onready var main_character_collision = $MainCharacterCollision # Colisión del player
+
+@onready var jump_sound = $JumpSound # Sonido que hace cuando salta
+
+@onready var plancha_cooldown: Timer = $Plancha_cooldown
+var can_jump = true # Para evitar saltar infinitamente
+
+var ammo_packed_scene = preload("res://Scenes/MainCharacter/Ammo/ammo.tscn") # PackedSecne
+# Nodo de la bala (para poder instanciar la bala)
+var ammo_scene: Ammo 
+
+# Posición en la que spawnea la bala
+@onready var ammo_spawn_point = $AmmoSpawnPoint
+
+
+##Función que se ejecuta en cada frame 
+func _physics_process(delta):
+	# Aplica gravedad al player  cuando no este en el suelo
+	if not is_on_floor():
+		gravity(delta)
+		
+	flip_animation() # Gira el sprite del player según su movimiento
+	move_and_slide() # Permite el movimiento en el player (OBLIGATORIO)
+
+## Movimientos del player
+func _input(event: InputEvent) -> void:
+	
+	if Input.is_action_pressed("CorrerP2") and Input.is_action_just_pressed("AbajoP2")and Input.is_action_pressed("DerechaP2"):
+		if is_on_floor():
+			velocity.x = 320
+			velocity.y = -300
+	elif Input.is_action_pressed("CorrerP2") and Input.is_action_just_pressed("AbajoP2")and Input.is_action_pressed("IzquierdaP2"):
+		if is_on_floor():
+			velocity.x = -320
+			velocity.y = -300
+			
+
+	# Correr a la izquierda
+	elif Input.is_action_pressed("IzquierdaP2") and Input.is_action_pressed("CorrerP2"):
+		velocity.x =-running_speed
+	
+	# Correr a la derecha
+	elif Input.is_action_pressed("DerechaP2") and Input.is_action_pressed("CorrerP2"):
+		velocity.x =running_speed
+	
+
+	# Arregla un bug
+	elif Input.is_action_pressed("ArribaP2") and Input.is_action_pressed("AbajoP2"):
+		velocity.x = 100
+	
+			# Rodar
+	elif Input.is_action_pressed("IzquierdaP2") and Input.is_action_just_pressed("AbajoP2"):
+		if is_on_floor():
+			velocity.x = -200
+		
+	elif Input.is_action_pressed("DerechaP2") and Input.is_action_just_pressed("AbajoP2"):
+		if is_on_floor():
+			velocity.x = 200
+			
+	# Andar a la derecha
+	elif Input.is_action_pressed("DerechaP2"):
+		velocity.x=100
+
+	# Andar a la izquierda
+	elif Input.is_action_pressed("IzquierdaP2"):
+		velocity.x=-100   
+
+	# Agacharse
+	elif Input.is_action_pressed("AbajoP2"):
+		velocity.x = 0
+		
+	# Disparar
+	elif Input.is_action_just_pressed("shootActionP2"):
+		velocity.x = 0
+		velocity.y = 0
+		instanciate_ammo() # Instancia la bala en pantalla cuando se dispara
+
+	
+	elif Input.is_action_pressed("shootActionP2"):
+		velocity.x = 0
+		velocity.y = 0
+		instanciate_ammo() # Instancia la bala en pantalla cuando se dispara
+
+		
+	# Importante para frenar al player y que no camine infinitamente
+	else:
+		velocity.x = 0
+	
+	# Saltar
+	if is_on_floor and event.is_action("ArribaP2") and can_jump:
+		velocity.y = -jump_force
+		#main_character_collision.position.y = -2
+		can_jump = false
+
+	else:
+		if velocity.y == 0:
+			#main_character_collision.position.y = 5
+			can_jump = true
+			
+##Función que aplica una gravedad al player
+func gravity(delta):
+	velocity.y = velocity.y +(GRAVITY_VALUE * delta)
+	
+	
+	
+## Gira el sprite de la animación
+func flip_animation():
+	var direction = Input.get_axis("IzquierdaP2","DerechaP2")
+
+	if direction > 0:
+		main_character_animations.flip_h = false
+		main_character_collision.position.x = -4.5
+	elif direction < 0:
+		main_character_animations.flip_h = true
+		main_character_collision.position.x = 4.5
+
+
+# Función que llama el estado "Plancha" al terminar
+func start_plancha_cooldown():
+	can_jump = false # Deshabilita la habilidad
+	plancha_cooldown.start()
+
+## Cooldown para la plancha, para evitar errores
+func _on_plancha_cooldown_timeout() -> void:
+	can_jump = true
+
+## Para hacer referencia del MainCharacter en otros scripts
+func MainCharacter():
+	pass
+
+## Instancia la bala en pantalla cuando se dispara
+func instanciate_ammo():
+	# Uso get_parent() para que la bala no herede el movimiento del player
+	ammo_scene = ammo_packed_scene.instantiate() # Transforma el PackedScene de la bala a un Node
+	get_parent().add_child(ammo_scene) # Añade la escena al árbol de nodos del player
+	ammo_scene.global_position = ammo_spawn_point.global_position
+	ammo_scene.direction = Vector2.LEFT if main_character_animations.flip_h else Vector2.RIGHT # Modificar el movimiento de la bala
+	#print("Posición global de la bala: ",ammo_scene.global_position)
+	
+	
+
+
+func _on_door_detection_body_entered(body: Node2D) -> void:
+	print("Player entro en el area de una puerta")

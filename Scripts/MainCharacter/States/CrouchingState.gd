@@ -10,10 +10,10 @@ func on_enter():
 	animation_player.play("Crouch")
 
 func state_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ShootAction"):
+	if Input.is_action_just_pressed("shootActionP2"):
 		next_state = shoot_state
 	
-	elif father.velocity.x != 0 and Input.is_action_just_pressed("ui_down"):
+	elif father.velocity.x != 0 and Input.is_action_just_pressed("AbajoP2"):
 		next_state = roll_state
 	
 	elif father.velocity.x!=0:
