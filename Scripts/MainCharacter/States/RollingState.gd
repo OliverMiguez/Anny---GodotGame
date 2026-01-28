@@ -5,20 +5,31 @@ extends "res://Scripts/GeneralStates/Util/State.gd"
 @export var run_state:State
 @export var crouch_state:State
 
-@onready var roll_timer: Timer = $"../../RollTimer"
-
 func on_enter():
-	roll_timer.start()
 	animation_player.play("Roll")
+	
 
 func state_process(_delta: float) -> void:
-
-	if father.velocity.x == 0:
-		next_state = idle_state
-
-func _on_roll_timer_timeout() -> void:
-	if father.velocity.x == 0 and Input.is_action_pressed("AbajoP2"):
-		next_state = crouch_state
-
+	
+	if not animation_player.is_playing():
+		# Decidimos a dónde ir dependiendo de si nos movemos o no
+		if is_zero_approx(father.velocity.x):
+			next_state = idle_state
+		else:
+			next_state = walk_state 
+		return
+	
+	
+	var is_running = Input.is_action_pressed("CorrerP1")
+	var is_crouching = Input.is_action_pressed("AbajoP1")
+	
+	if is_zero_approx(father.velocity.x):
+		if is_crouching:
+			next_state = crouch_state
+			return
+		else:
+			next_state = idle_state
+			return
 	else:
-		next_state = idle_state
+		if is_running:
+			next_state = run_state

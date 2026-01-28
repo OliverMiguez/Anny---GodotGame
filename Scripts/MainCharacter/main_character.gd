@@ -4,7 +4,7 @@ class_name MainCharacter
 const WALING_SPEED = 100 # Velocidad del player
 const JUMP_FORCE = Vector2(320,-400) # Fuerza con la que salta el player 
 const RUNNING_SPEED = 200 # Velocidad cuando el player está en el estado de correr
-const ROLLING_SPEED = 177 # Velocidad de rodar
+const ROLLING_SPEED = 300 # Velocidad de rodar
 
 const  GRAVITY_VALUE = 1000.0 # Fuerza de gravedad
 
@@ -30,9 +30,9 @@ func _physics_process(delta):
 	if not is_on_floor():
 		gravity(delta)
 		
-	flip_animation() # Gira el sprite del player según su movimiento
 	movement_manage()
 	move_and_slide() # Permite el movimiento en el player (OBLIGATORIO)
+	flip_animation() # Gira el sprite del player según su movimiento
 
 ## Movimientos del player
 func movement_manage():
@@ -41,14 +41,15 @@ func movement_manage():
 	var is_down = Input.is_action_pressed("AbajoP1")
 	var is_down_just_pressed = Input.is_action_just_pressed("AbajoP1")
 	var is_jumping = Input.is_action_just_pressed("ArribaP1")
-	
+		
 	# Acciones especiales
 	if is_on_floor():
 		# Saltar
 		if is_jumping:
 			velocity.x = direction * JUMP_FORCE.x
 			velocity.y = JUMP_FORCE.y
-		# Correr
+			return
+		# Plancha
 		elif is_running and is_down_just_pressed and direction != 0:
 			velocity.x = direction * JUMP_FORCE.x
 			velocity.y = JUMP_FORCE.y
@@ -73,8 +74,9 @@ func movement_manage():
 		var current_WALING_SPEED = RUNNING_SPEED if is_running else WALING_SPEED
 		velocity.x = direction *  current_WALING_SPEED
 	else:
-		# Freno automático
-		velocity.x = move_toward(velocity.x, 0, WALING_SPEED)
+
+			# Freno automático
+			velocity.x = move_toward(velocity.x, 0, WALING_SPEED)
 
 ## Administra el sistema de combate del player
 func handle_combat():
