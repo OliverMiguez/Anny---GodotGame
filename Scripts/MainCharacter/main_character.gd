@@ -74,7 +74,6 @@ func movement_manage():
 		var current_WALING_SPEED = RUNNING_SPEED if is_running else WALING_SPEED
 		velocity.x = direction *  current_WALING_SPEED
 	else:
-			await main_character_animations.animation_finished
 			# Freno automático
 			velocity.x = move_toward(velocity.x, 0, WALING_SPEED)
 
