@@ -28,7 +28,6 @@ func state_process(_delta: float) -> void:
 	
 	if is_running:
 		next_state = run_state
-		return
 	else:
 		if is_rolling:
 			next_state = roll_state
