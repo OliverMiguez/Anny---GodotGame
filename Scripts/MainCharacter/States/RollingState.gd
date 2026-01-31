@@ -1,24 +1,40 @@
 extends "res://Scripts/GeneralStates/Util/State.gd"
 
+var can_rol:bool = true
+
+@onready var roll_timer_cooldown: Timer = $"../../RollTimerCooldown"
+
 @export var idle_state:State
 @export var walk_state:State
 @export var run_state:State
 @export var crouch_state:State
 
-@onready var roll_timer: Timer = $"../../RollTimer"
-
 func on_enter():
-	roll_timer.start()
-	animation_player.play("Roll")
+	if can_rol == true:
+		animation_player.play("Roll")
+	else:
+		return
+	
 
 func state_process(_delta: float) -> void:
+	if animation_player.is_playing() and animation_player.animation == "Roll":
+		can_rol = false
+		roll_timer_cooldown.start()
+		return 
 
-	if father.velocity.x == 0:
-		next_state = idle_state
-
-func _on_roll_timer_timeout() -> void:
-	if father.velocity.x == 0 and Input.is_action_pressed("ui_down"):
-		next_state = crouch_state
-
+	var direction = Input.get_axis("IzquierdaP1", "DerechaP1")
+	
+	if direction != 0:
+		if Input.is_action_pressed("CorrerP1"):
+			next_state = run_state
+		else:
+			next_state = walk_state
 	else:
 		next_state = idle_state
+	
+	return
+
+## Activa un cooldown para volver a ejecutar la funcion
+func _on_roll_timer_cooldown_timeout() -> void:
+	if can_rol == false:
+		can_rol = true

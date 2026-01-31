@@ -1,12 +1,12 @@
 extends CharacterBody2D
 class_name MainCharacter
 
-@export var speed = 100 # Velocidad del player
-@export var jump_force = 300 # Fuerza con la que salta el player 
-@export var running_speed = 300 # Velocidad cuando el player está en el estado de correr
-@export var rolling_speed = 177 # Velocidad de rodar
+const WALING_SPEED = 100 # Velocidad del player
+const JUMP_FORCE = Vector2(320,-400) # Fuerza con la que salta el player 
+const RUNNING_SPEED = 200 # Velocidad cuando el player está en el estado de correr
+const ROLLING_SPEED = 300 # Velocidad de rodar
 
-const  GRAVITY_VALUE = 980.0 # Fuerza de gravedad
+const  GRAVITY_VALUE = 1000.0 # Fuerza de gravedad
 
 @onready var main_character_animations = $MainCharacterAnimations # Animaciones del MainCharacter 
 @onready var main_character_collision = $MainCharacterCollision # Colisión del player
@@ -30,93 +30,66 @@ func _physics_process(delta):
 	if not is_on_floor():
 		gravity(delta)
 		
-	flip_animation() # Gira el sprite del player según su movimiento
+	movement_manage()
 	move_and_slide() # Permite el movimiento en el player (OBLIGATORIO)
+	flip_animation() # Gira el sprite del player según su movimiento
 
 ## Movimientos del player
-func _input(event: InputEvent) -> void:
-	
-	if Input.is_action_pressed("Shift") and Input.is_action_just_pressed("ui_down")and Input.is_action_pressed("ui_right"):
-		if is_on_floor():
-			velocity.x = 320
-			velocity.y = -300
-	elif Input.is_action_pressed("Shift") and Input.is_action_just_pressed("ui_down")and Input.is_action_pressed("ui_left"):
-		if is_on_floor():
-			velocity.x = -320
-			velocity.y = -300
+func movement_manage():
+	var direction = Input.get_axis("IzquierdaP1","DerechaP1")
+	var is_running = Input.is_action_pressed("CorrerP1")
+	var is_down = Input.is_action_pressed("AbajoP1")
+	var is_down_just_pressed = Input.is_action_just_pressed("AbajoP1")
+	var is_jumping = Input.is_action_just_pressed("ArribaP1")
+		
+	# Acciones especiales
+	if is_on_floor():
+		# Saltar
+		if is_jumping:
+			velocity.x = direction * JUMP_FORCE.x
+			velocity.y = JUMP_FORCE.y
+			return
+		# Plancha
+		elif is_running and is_down_just_pressed and direction != 0:
+			velocity.x = direction * JUMP_FORCE.x
+			velocity.y = JUMP_FORCE.y
+			return # Para no sobrescribir la velocidad
+		# Rodar
+		elif is_down_just_pressed and direction != 0:
+			velocity.x = direction * ROLLING_SPEED
+			return
+		# Agacharse
+		elif is_down and direction == 0:
+			velocity.x = 0
+			return
 			
-
-	# Correr a la izquierda
-	elif Input.is_action_pressed("ui_left") and Input.is_action_pressed("Shift"):
-		velocity.x =-running_speed
-	
-	# Correr a la derecha
-	elif Input.is_action_pressed("ui_right") and Input.is_action_pressed("Shift"):
-		velocity.x =running_speed
-	
-
-	# Arregla un bug
-	elif Input.is_action_pressed("ui_up") and Input.is_action_pressed("ui_down"):
+	# Bug fix (Arriba y Abajo a la vez)
+	if Input.is_action_pressed("ArribaP1") and is_down:
 		velocity.x = 100
+		return
 	
-			# Rodar
-	elif Input.is_action_pressed("ui_left") and Input.is_action_just_pressed("ui_down"):
-		if is_on_floor():
-			velocity.x = -200
-		
-	elif Input.is_action_pressed("ui_right") and Input.is_action_just_pressed("ui_down"):
-		if is_on_floor():
-			velocity.x = 200
-			
-	# Andar a la derecha
-	elif Input.is_action_pressed("ui_right"):
-		velocity.x=100
-
-	# Andar a la izquierda
-	elif Input.is_action_pressed("ui_left"):
-		velocity.x=-100   
-
-	# Agacharse
-	elif Input.is_action_pressed("ui_down"):
-		velocity.x = 0
-		
-	# Disparar
-	elif Input.is_action_just_pressed("ShootAction"):
-		velocity.x = 0
-		velocity.y = 0
-		instanciate_ammo() # Instancia la bala en pantalla cuando se dispara
-
-	
-	elif Input.is_action_pressed("ShootAction"):
-		velocity.x = 0
-		velocity.y = 0
-		instanciate_ammo() # Instancia la bala en pantalla cuando se dispara
-
-		
-	# Importante para frenar al player y que no camine infinitamente
+	# Movimiento Normal
+	if direction != 0:
+		 # Revisa si esta corriendo o andando
+		var current_WALING_SPEED = RUNNING_SPEED if is_running else WALING_SPEED
+		velocity.x = direction *  current_WALING_SPEED
 	else:
-		velocity.x = 0
-	
-	# Saltar
-	if is_on_floor and event.is_action("ui_up") and can_jump:
-		velocity.y = -jump_force
-		#main_character_collision.position.y = -2
-		can_jump = false
+			# Freno automático
+			velocity.x = move_toward(velocity.x, 0, WALING_SPEED)
 
-	else:
-		if velocity.y == 0:
-			#main_character_collision.position.y = 5
-			can_jump = true
-			
+## Administra el sistema de combate del player
+func handle_combat():
+	if Input.is_action_just_pressed("DispararP1"):
+		velocity = Vector2.ZERO # Frena en seco al disparar
+		instanciate_ammo()
+	
 ##Función que aplica una gravedad al player
 func gravity(delta):
 	velocity.y = velocity.y +(GRAVITY_VALUE * delta)
 	
-	
-	
 ## Gira el sprite de la animación
 func flip_animation():
-	var direction = Input.get_axis("ui_left","ui_right")
+	var direction = Input.get_axis("IzquierdaP1","DerechaP1")
 
 	if direction > 0:
 		main_character_animations.flip_h = false

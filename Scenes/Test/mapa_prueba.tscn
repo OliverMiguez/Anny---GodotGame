@@ -9,19 +9,19 @@
 size = Vector2(1430.5, 53)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmekn"]
-size = Vector2(493, 27)
+size = Vector2(493, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84ol0"]
-size = Vector2(511, 42)
+size = Vector2(511, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm8s7"]
-size = Vector2(402, 26)
+size = Vector2(402, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_myp8n"]
-size = Vector2(207, 43)
+size = Vector2(218, 23)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2jc8"]
-size = Vector2(102, 80)
+size = Vector2(102, 61)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rmeiw"]
 size = Vector2(130.5, 782.5)
@@ -30,7 +30,7 @@ size = Vector2(130.5, 782.5)
 size = Vector2(133, 893.625)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adf8g"]
-size = Vector2(61.5, 425)
+size = Vector2(21, 344.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkxpx"]
 size = Vector2(4, 109)
@@ -60,8 +60,6 @@ texture = ExtResource("2_0swn8")
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
 position = Vector2(464, 130)
 scale = Vector2(3, 3)
-speed = 150
-running_speed = 250
 
 [node name="MusicTest" type="AudioStreamPlayer2D" parent="."]
 autoplay = true
@@ -86,7 +84,7 @@ debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D"]
-position = Vector2(538.5, 434.5)
+position = Vector2(538.5, 424.5)
 shape = SubResource("RectangleShape2D_kmekn")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
@@ -94,7 +92,7 @@ debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D2"]
-position = Vector2(537, 230)
+position = Vector2(537, 216)
 shape = SubResource("RectangleShape2D_84ol0")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41568628)
 
@@ -102,7 +100,7 @@ debug_color = Color(0.9019608, 0.30980393, 0, 0.41568628)
 position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3"]
-position = Vector2(1514, 324)
+position = Vector2(1514, 319)
 shape = SubResource("RectangleShape2D_mm8s7")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
@@ -130,7 +128,7 @@ debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D4"]
-position = Vector2(1198.5, 314.5)
+position = Vector2(1193, 304.5)
 shape = SubResource("RectangleShape2D_myp8n")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
@@ -138,7 +136,7 @@ debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 position = Vector2(1, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D5"]
-position = Vector2(351, 696)
+position = Vector2(351, 686.5)
 shape = SubResource("RectangleShape2D_i2jc8")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
@@ -168,7 +166,7 @@ debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 position = Vector2(248, -76)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/Other/Wall1"]
-position = Vector2(512, 675)
+position = Vector2(526.5, 634.75)
 shape = SubResource("RectangleShape2D_adf8g")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
@@ -270,23 +268,6 @@ position = Vector2(985, 861)
 
 [node name="Spawn3" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1418, 856)
-
-[node name="EnemySpawnPoints" type="Node" parent="."]
-
-[node name="EnemySpawn1" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(632, 155)
-
-[node name="EnemySpawn2" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(1460, 229)
-
-[node name="EnemySpawn3" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(1419, 864)
-
-[node name="EnemySpawn4" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(611, 882)
-
-[node name="EnemySpawn5" type="Marker2D" parent="EnemySpawnPoints"]
-position = Vector2(1022, 861)
 
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
 [connection signal="body_entered" from="Doors/LeftDoorUp" to="." method="_on_left_door_up_body_entered"]
