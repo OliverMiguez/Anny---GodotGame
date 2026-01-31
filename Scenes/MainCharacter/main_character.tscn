@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=61 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dy2s574dxbvka" path="res://Scripts/MainCharacter/States/CrouchingState.gd" id="11_7tkxx"]
 [ext_resource type="Script" uid="uid://c155xdk1v514i" path="res://Scripts/MainCharacter/States/JumpingState.gd" id="12_l6ccf"]
 [ext_resource type="Script" uid="uid://d4nbwpn5km5yg" path="res://Scripts/MainCharacter/States/RollingState.gd" id="14_nlix5"]
+[ext_resource type="Script" uid="uid://cnq563rgh3dwe" path="res://Scripts/MainCharacter/States/PlanchaState.gd" id="18_b45ms"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cri0l"]
 atlas = ExtResource("2_gy7ys")
@@ -384,30 +385,33 @@ father = NodePath("..")
 animation_player = NodePath("../MainCharacterAnimations")
 current_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "crouch_state", "jump_state", "roll_state", "father")]
+[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "crouch_state", "jump_state", "roll_state", "plancha_state", "father")]
 script = ExtResource("8_vyxe4")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
+plancha_state = NodePath("../Plancha")
 father = NodePath("../..")
 
-[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "crouch_state", "jump_state", "roll_state")]
+[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "crouch_state", "jump_state", "roll_state", "plancha_state")]
 script = ExtResource("9_vyxe4")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
+plancha_state = NodePath("../Plancha")
 
-[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "crouch_state", "jump_state", "roll_state")]
+[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "crouch_state", "jump_state", "roll_state", "plancha_state")]
 script = ExtResource("9_7tkxx")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
+plancha_state = NodePath("../Plancha")
 
 [node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "jump_state", "roll_state")]
 script = ExtResource("11_7tkxx")
@@ -430,7 +434,11 @@ walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 
-[node name="Plancha" type="Node" parent="FSM"]
+[node name="Plancha" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state")]
+script = ExtResource("18_b45ms")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
 
 [node name="Shoot" type="Node" parent="FSM"]
 

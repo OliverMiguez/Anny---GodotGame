@@ -14,10 +14,12 @@ func state_process(_delta: float) -> void:
 	var is_crouching = Input.is_action_pressed("AbajoP1")
 	var is_rolling = Input.is_action_just_pressed("AbajoP1")
 	
+	
 	if not father.is_on_floor():
 		next_state = jump_state
 		return
-		
+	
+
 	if not is_zero_approx(father.velocity.x):
 		if is_running:
 			next_state = run_state

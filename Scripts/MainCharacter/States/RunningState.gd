@@ -5,6 +5,7 @@ extends "res://Scripts/GeneralStates/Util/State.gd"
 @export var crouch_state:State
 @export var jump_state:State
 @export var roll_state:State
+@export var plancha_state:State
 
 func on_enter():
 	animation_player.play("Run")
@@ -14,9 +15,14 @@ func state_process(_delta: float) -> void:
 	var is_running = Input.is_action_pressed("CorrerP1")
 	var is_crouching = Input.is_action_pressed("AbajoP1")
 	var is_rolling = Input.is_action_just_pressed("AbajoP1")
+	var is_jumping = Input.is_action_just_pressed("ArribaP1")
 	
-	if not father.is_on_floor():
+	if not father.is_on_floor() and is_jumping and direction != 0 :
 		next_state = jump_state
+		return
+		
+	if is_running and is_rolling and direction != 0:
+		next_state = plancha_state
 		return
 
 	if is_zero_approx(father.velocity.x):

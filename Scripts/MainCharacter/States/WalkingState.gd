@@ -17,7 +17,7 @@ func state_process(_delta: float) -> void:
 	if not father.is_on_floor():
 		next_state = jump_state
 		return
-	
+		
 	if is_zero_approx(father.velocity.x):
 		if is_crouching:
 			next_state = crouch_state

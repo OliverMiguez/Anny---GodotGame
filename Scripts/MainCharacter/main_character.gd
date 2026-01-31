@@ -2,27 +2,20 @@ extends CharacterBody2D
 class_name MainCharacter
 
 const WALING_SPEED = 100 # Velocidad del player
+const PLANCHA_FORCE = Vector2(300,-300)
 const JUMP_FORCE = Vector2(320,-400) # Fuerza con la que salta el player 
 const RUNNING_SPEED = 200 # Velocidad cuando el player está en el estado de correr
 const ROLLING_SPEED = 300 # Velocidad de rodar
-
 const  GRAVITY_VALUE = 1000.0 # Fuerza de gravedad
 
 @onready var main_character_animations = $MainCharacterAnimations # Animaciones del MainCharacter 
 @onready var main_character_collision = $MainCharacterCollision # Colisión del player
-
 @onready var jump_sound = $JumpSound # Sonido que hace cuando salta
-
 @onready var plancha_cooldown: Timer = $Plancha_cooldown
-var can_jump = true # Para evitar saltar infinitamente
+@onready var ammo_spawn_point = $AmmoSpawnPoint # Posición en la que spawnea la bala
 
 var ammo_packed_scene = preload("res://Scenes/MainCharacter/Ammo/ammo.tscn") # PackedSecne
-# Nodo de la bala (para poder instanciar la bala)
-var ammo_scene: Ammo 
-
-# Posición en la que spawnea la bala
-@onready var ammo_spawn_point = $AmmoSpawnPoint
-
+var ammo_scene: Ammo # Nodo de la bala (para poder instanciar la bala)
 
 ##Función que se ejecuta en cada frame 
 func _physics_process(delta):
@@ -30,7 +23,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		gravity(delta)
 		
-	movement_manage()
+	movement_manage() # Administra velocidades y movimientos del player, según los Inputs introducidos
 	move_and_slide() # Permite el movimiento en el player (OBLIGATORIO)
 	flip_animation() # Gira el sprite del player según su movimiento
 
@@ -50,9 +43,9 @@ func movement_manage():
 			velocity.y = JUMP_FORCE.y
 			return
 		# Plancha
-		elif is_running and is_down_just_pressed and direction != 0:
-			velocity.x = direction * JUMP_FORCE.x
-			velocity.y = JUMP_FORCE.y
+		elif is_running and is_down and direction != 0:
+			velocity.x = direction * PLANCHA_FORCE.x
+			velocity.y = PLANCHA_FORCE.y
 			return # Para no sobrescribir la velocidad
 		# Rodar
 		elif is_down_just_pressed and direction != 0:
@@ -98,15 +91,6 @@ func flip_animation():
 		main_character_animations.flip_h = true
 		main_character_collision.position.x = 4.5
 
-
-# Función que llama el estado "Plancha" al terminar
-func start_plancha_cooldown():
-	can_jump = false # Deshabilita la habilidad
-	plancha_cooldown.start()
-
-## Cooldown para la plancha, para evitar errores
-func _on_plancha_cooldown_timeout() -> void:
-	can_jump = true
 
 ## Para hacer referencia del MainCharacter en otros scripts
 func MainCharacter():
