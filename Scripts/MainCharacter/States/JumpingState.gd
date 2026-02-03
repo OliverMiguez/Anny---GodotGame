@@ -11,6 +11,7 @@ func on_enter():
 	animation_player.play("Jump")
 	jump_sound.play()
 
+
 func state_process(_delta: float) -> void:
 	var is_running = Input.is_action_pressed("CorrerP1")
 	var is_crouching = Input.is_action_pressed("AbajoP1")

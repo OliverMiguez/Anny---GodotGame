@@ -1,15 +1,16 @@
 extends CharacterBody2D
 class_name MainCharacter
 
-const WALING_SPEED = 100 # Velocidad del player
-const JUMP_FORCE = Vector2(320,-400) # Fuerza con la que salta el player 
-const RUNNING_SPEED = 200 # Velocidad cuando el player está en el estado de correr
-const ROLLING_SPEED = 300 # Velocidad de rodar
+const WALING_SPEED = 150 # Velocidad del player
+const JUMP_FORCE = Vector2(200,-400) # Fuerza con la que salta el player 
+const RUNNING_SPEED = 250 # Velocidad cuando el player está en el estado de correr
+const ROLLING_SPEED = 200 # Velocidad de rodar
 
 const  GRAVITY_VALUE = 1000.0 # Fuerza de gravedad
 
-@onready var main_character_animations = $MainCharacterAnimations # Animaciones del MainCharacter 
+@onready var main_character_animations: AnimatedSprite2D = $MainCharacterAnimations # Animaciones del MainCharacter 
 @onready var main_character_collision = $MainCharacterCollision # Colisión del player
+@onready var state_machine: Node = $FSM
 
 @onready var jump_sound = $JumpSound # Sonido que hace cuando salta
 
@@ -23,59 +24,38 @@ var ammo_scene: Ammo
 # Posición en la que spawnea la bala
 @onready var ammo_spawn_point = $AmmoSpawnPoint
 
+var can_move = true
 
 ##Función que se ejecuta en cada frame 
 func _physics_process(delta):
 	# Aplica gravedad al player  cuando no este en el suelo
 	if not is_on_floor():
 		gravity(delta)
-		
-	movement_manage()
+	
+	state_machine._physics_process(delta)
+	
+	if can_move:
+		handle_movement()
+	
 	move_and_slide() # Permite el movimiento en el player (OBLIGATORIO)
 	flip_animation() # Gira el sprite del player según su movimiento
+	handle_combat()
 
-## Movimientos del player
-func movement_manage():
+func handle_movement():
 	var direction = Input.get_axis("IzquierdaP1","DerechaP1")
-	var is_running = Input.is_action_pressed("CorrerP1")
-	var is_down = Input.is_action_pressed("AbajoP1")
-	var is_down_just_pressed = Input.is_action_just_pressed("AbajoP1")
 	var is_jumping = Input.is_action_just_pressed("ArribaP1")
-		
-	# Acciones especiales
-	if is_on_floor():
-		# Saltar
-		if is_jumping:
-			velocity.x = direction * JUMP_FORCE.x
-			velocity.y = JUMP_FORCE.y
-			return
-		# Plancha
-		elif is_running and is_down_just_pressed and direction != 0:
-			velocity.x = direction * JUMP_FORCE.x
-			velocity.y = JUMP_FORCE.y
-			return # Para no sobrescribir la velocidad
-		# Rodar
-		elif is_down_just_pressed and direction != 0:
-			velocity.x = direction * ROLLING_SPEED
-			return
-		# Agacharse
-		elif is_down and direction == 0:
-			velocity.x = 0
-			return
-			
-	# Bug fix (Arriba y Abajo a la vez)
-	if Input.is_action_pressed("ArribaP1") and is_down:
-		velocity.x = 100
-		return
 	
-	# Movimiento Normal
+	if is_jumping:
+		velocity.y = JUMP_FORCE.y
+	
 	if direction != 0:
-		 # Revisa si esta corriendo o andando
-		var current_WALING_SPEED = RUNNING_SPEED if is_running else WALING_SPEED
-		velocity.x = direction *  current_WALING_SPEED
+		var is_running = Input.is_action_pressed("CorrerP1")
+		var current_speed = RUNNING_SPEED if is_running else WALING_SPEED
+		velocity.x = direction * current_speed
 	else:
-			# Freno automático
-			velocity.x = move_toward(velocity.x, 0, WALING_SPEED)
+		velocity.x = move_toward(velocity.x, 0, WALING_SPEED)
+	
+	
 
 ## Administra el sistema de combate del player
 func handle_combat():
@@ -89,12 +69,10 @@ func gravity(delta):
 	
 ## Gira el sprite de la animación
 func flip_animation():
-	var direction = Input.get_axis("IzquierdaP1","DerechaP1")
-
-	if direction > 0:
+	if velocity.x > 0:
 		main_character_animations.flip_h = false
 		main_character_collision.position.x = -4.5
-	elif direction < 0:
+	elif velocity.x < 0:
 		main_character_animations.flip_h = true
 		main_character_collision.position.x = 4.5
 
