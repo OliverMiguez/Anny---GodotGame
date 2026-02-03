@@ -24,7 +24,6 @@ var ammo_scene: Ammo
 # Posición en la que spawnea la bala
 @onready var ammo_spawn_point = $AmmoSpawnPoint
 
-
 var can_move = true
 
 ##Función que se ejecuta en cada frame 

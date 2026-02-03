@@ -46,7 +46,6 @@ func _ready():
 	prueba_musica.play() # Inicia la musica
 	start_round() # Inicia la ronda
 
-	
 	# Señal que recibe si el enemigo o enemigos mueren(para aumentar ronda)
 	RoundManager.cambio_ronda.connect(_on_RoundManager_cambio_ronda) # deprecada
 	
