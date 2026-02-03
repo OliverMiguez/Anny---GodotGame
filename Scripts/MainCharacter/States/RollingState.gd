@@ -33,8 +33,8 @@ func _on_animation_finished():
 		next_state = idle_state
 
 func on_exit():
-	father.can_move = true
-
+	#father.can_move = true
+	pass
 ## Activa un cooldown para volver a ejecutar la funcion
 func _on_roll_timer_cooldown_timeout() -> void:
 	if can_rol == false:

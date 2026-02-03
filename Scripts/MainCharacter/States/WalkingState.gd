@@ -11,7 +11,7 @@ func on_enter():
 
 func state_process(_delta: float) -> void:
 	var is_running = Input.is_action_pressed("CorrerP1")
-	var is_crouching = Input.is_action_pressed("AbajoP1")
+	var is_crouching = Input.is_action_just_pressed("AbajoP1")
 	#var is_rolling = Input.is_action_just_pressed("AbajoP1")
 
 	if not father.is_on_floor():
@@ -28,6 +28,7 @@ func state_process(_delta: float) -> void:
 	
 	if is_running:
 		next_state = run_state
+		return
 	else:
 		if is_crouching:
 			next_state = roll_state
