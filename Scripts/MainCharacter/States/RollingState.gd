@@ -10,18 +10,18 @@ var can_rol:bool = true
 @export var crouch_state:State
 
 func on_enter():
-	if can_rol == true:
-		father.can_move = false
-		
-		father.velocity.x = (
-		1 if father.main_character_animations.flip_h == false else -1
-	) * father.ROLLING_SPEED
+	pass
+	#if can_rol == true:
+		#father.can_move = false
+		#
+		#father.velocity.x = (
+		#1 if father.main_character_animations.flip_h == false else -1
+	#) * father.ROLLING_SPEED
+	#
+		#animation_player.play("Roll")
+	#else:
+		#return
 	
-		animation_player.play("Roll")
-	else:
-		return
-	
-
 func state_process(_delta: float) -> void:
 	# No need for logic here as the state changes on animation_finished
 	pass
