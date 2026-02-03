@@ -385,24 +385,22 @@ father = NodePath("..")
 animation_player = NodePath("../MainCharacterAnimations")
 current_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "crouch_state", "jump_state", "roll_state", "plancha_state", "father")]
+[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "crouch_state", "jump_state", "roll_state", "father")]
 script = ExtResource("8_vyxe4")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
-plancha_state = NodePath("../Plancha")
 father = NodePath("../..")
 
-[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "crouch_state", "jump_state", "roll_state", "plancha_state")]
+[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "crouch_state", "jump_state", "roll_state")]
 script = ExtResource("9_vyxe4")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
-plancha_state = NodePath("../Plancha")
 
 [node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "crouch_state", "jump_state", "roll_state", "plancha_state")]
 script = ExtResource("9_7tkxx")
@@ -413,13 +411,12 @@ jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
 plancha_state = NodePath("../Plancha")
 
-[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "jump_state", "roll_state", "plancha_state")]
+[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "jump_state", "roll_state")]
 script = ExtResource("11_7tkxx")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
-plancha_state = NodePath("../Plancha")
 
 [node name="Jump" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state")]
 script = ExtResource("12_l6ccf")
@@ -435,12 +432,10 @@ walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 
-[node name="Plancha" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state")]
+[node name="Plancha" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "jump_state")]
 script = ExtResource("18_b45ms")
 idle_state = NodePath("../Idle")
-walk_state = NodePath("../Walk")
-run_state = NodePath("../Run")
-crouch_state = NodePath("../Crouch")
+jump_state = NodePath(".")
 
 [node name="Shoot" type="Node" parent="FSM"]
 
@@ -455,6 +450,7 @@ one_shot = true
 [node name="AmmoSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(11, 0)
 
+[connection signal="animation_finished" from="MainCharacterAnimations" to="FSM/Rol" method="_on_animation_finished"]
 [connection signal="animation_finished" from="MainCharacterAnimations" to="FSM/Plancha" method="_on_main_character_animations_animation_finished"]
 [connection signal="timeout" from="RollTimerCooldown" to="FSM/Rol" method="_on_roll_timer_cooldown_timeout"]
-[connection signal="timeout" from="Plancha_cooldown" to="." method="_on_plancha_cooldown_timeout"]
+[connection signal="timeout" from="Plancha_cooldown" to="FSM/Plancha" method="_on_plancha_cooldown_timeout"]

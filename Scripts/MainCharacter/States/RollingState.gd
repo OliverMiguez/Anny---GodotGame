@@ -11,28 +11,30 @@ var can_rol:bool = true
 
 func on_enter():
 	if can_rol == true:
+		father.can_move = false
+		
+		father.velocity.x = (
+		1 if father.main_character_animations.flip_h == false else -1
+	) * father.ROLLING_SPEED
+	
 		animation_player.play("Roll")
 	else:
 		return
 	
 
 func state_process(_delta: float) -> void:
-	if animation_player.is_playing() and animation_player.animation == "Roll":
+	# No need for logic here as the state changes on animation_finished
+	pass
+
+func _on_animation_finished():
+	if animation_player.animation == "Roll":
 		can_rol = false
 		roll_timer_cooldown.start()
-		return 
-
-	var direction = Input.get_axis("IzquierdaP1", "DerechaP1")
-	
-	if direction != 0:
-		if Input.is_action_pressed("CorrerP1"):
-			next_state = run_state
-		else:
-			next_state = walk_state
-	else:
+		father.can_move = true
 		next_state = idle_state
-	
-	return
+
+func on_exit():
+	father.can_move = true
 
 ## Activa un cooldown para volver a ejecutar la funcion
 func _on_roll_timer_cooldown_timeout() -> void:

@@ -29,6 +29,6 @@ func state_process(_delta: float) -> void:
 	if is_running:
 		next_state = run_state
 	else:
-		if is_rolling:
+		if is_crouching:
 			next_state = roll_state
 			return

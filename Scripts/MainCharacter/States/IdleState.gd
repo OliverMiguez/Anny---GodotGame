@@ -5,7 +5,6 @@ extends "res://Scripts/GeneralStates/Util/State.gd"
 @export var crouch_state:State
 @export var jump_state:State
 @export var roll_state:State
-@export var plancha_state:State
 
 func on_enter():
 	animation_player.play("Idle")
@@ -20,10 +19,7 @@ func state_process(_delta: float) -> void:
 		return
 		
 	if not is_zero_approx(father.velocity.x):
-		if is_running and is_rolling:
-			next_state = plancha_state
-			return
-		elif is_running:
+		if is_running:
 			next_state = run_state
 			return
 		else:
