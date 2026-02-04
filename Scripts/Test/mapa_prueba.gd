@@ -118,7 +118,7 @@ func victoria():
 ## Puertas
 func _on_left_door_up_body_entered(body: Node2D) -> void:
 	body.position = door_1_left_down.position
-	
+
 func _on_right_door_down_body_entered(body: Node2D) -> void:
 	body.position = door_3_right_up.position
 

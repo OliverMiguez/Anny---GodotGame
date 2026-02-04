@@ -55,8 +55,6 @@ func handle_movement():
 	else:
 		velocity.x = move_toward(velocity.x, 0, WALING_SPEED)
 	
-	
-
 ## Administra el sistema de combate del player
 func handle_combat():
 	if Input.is_action_just_pressed("DispararP1"):
