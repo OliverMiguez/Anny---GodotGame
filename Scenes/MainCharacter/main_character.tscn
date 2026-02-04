@@ -519,5 +519,5 @@ position = Vector2(11, 0)
 
 [connection signal="animation_finished" from="MainCharacterAnimations" to="FSM/Rol" method="_on_animation_finished"]
 [connection signal="animation_finished" from="MainCharacterAnimations" to="FSM/Plancha" method="_on_main_character_animations_animation_finished"]
-[connection signal="timeout" from="RollTimerCooldown" to="FSM/Rol" method="_on_roll_timer_cooldown_timeout"]
+[connection signal="timeout" from="RollTimerCooldown" to="FSM/Walk" method="_on_roll_timer_cooldown_timeout"]
 [connection signal="timeout" from="Plancha_cooldown" to="FSM/Plancha" method="_on_plancha_cooldown_timeout"]

@@ -1,6 +1,5 @@
 extends "res://Scripts/GeneralStates/Util/State.gd"
 
-var can_rol:bool = true
 
 @onready var roll_timer_cooldown: Timer = $"../../RollTimerCooldown"
 
@@ -25,8 +24,6 @@ func state_process(_delta: float) -> void:
 
 func _on_animation_finished():
 	print("Ejecutando _on_animation_finished")
-	can_rol = false
-	roll_timer_cooldown.start()
 	father.can_move = true
 	next_state = idle_state
 	print("[ROLL]: Cambiando a idle")
@@ -34,8 +31,3 @@ func _on_animation_finished():
 
 func on_exit():
 	father.can_move = true
-
-## Activa un cooldown para volver a ejecutar la funcion
-func _on_roll_timer_cooldown_timeout() -> void:
-	if can_rol == false:
-		can_rol = true

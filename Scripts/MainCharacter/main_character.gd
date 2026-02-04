@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name MainCharacter
 
 const WALING_SPEED = 150 # Velocidad del player
-const JUMP_FORCE = Vector2(200,-400) # Fuerza con la que salta el player 
+const JUMP_FORCE = Vector2(260,-400) # Fuerza con la que salta el player 
 const RUNNING_SPEED = 250 # Velocidad cuando el player está en el estado de correr
 const ROLLING_SPEED = 200 # Velocidad de rodar
 
