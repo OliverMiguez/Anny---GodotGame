@@ -6,7 +6,7 @@ extends "res://Scripts/GeneralStates/Util/State.gd"
 @export var idle_state:State
 @export var jump_state:State
 func on_enter():
-	
+	print("Actualmente en Plancha")
 	plancha_cooldown.start()
 	father.can_move = false
 	

@@ -8,6 +8,7 @@ extends "res://Scripts/GeneralStates/Util/State.gd"
 @export var crouch_state:State
 
 func on_enter():
+	print("Actualmente en Jump")
 	animation_player.play("Jump")
 	jump_sound.play()
 

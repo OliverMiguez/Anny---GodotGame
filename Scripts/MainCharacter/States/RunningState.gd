@@ -8,6 +8,7 @@ extends "res://Scripts/GeneralStates/Util/State.gd"
 @export var plancha_state:State
 
 func on_enter():
+	print("Actualmente en Run")
 	animation_player.play("Run")
 
 func state_process(_delta: float) -> void:

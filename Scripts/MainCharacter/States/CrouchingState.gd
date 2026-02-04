@@ -6,6 +6,7 @@ extends "res://Scripts/GeneralStates/Util/State.gd"
 @export var roll_state:State
 
 func on_enter():
+	print("Actualmente en Crouch")
 	animation_player.play("Crouch")
 
 func state_process(_delta: float) -> void:
