@@ -19,4 +19,5 @@ func on_enter():
 	print("State Enter: ", self.name)
 	
 func on_exit():
-	print("State Exit: ", self.name)
+	#print("State Exit: ", self.name)
+	pass

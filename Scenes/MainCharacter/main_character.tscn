@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=70 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://c155xdk1v514i" path="res://Scripts/MainCharacter/States/JumpingState.gd" id="12_l6ccf"]
 [ext_resource type="Script" uid="uid://d4nbwpn5km5yg" path="res://Scripts/MainCharacter/States/RollingState.gd" id="14_nlix5"]
 [ext_resource type="Script" uid="uid://cnq563rgh3dwe" path="res://Scripts/MainCharacter/States/PlanchaState.gd" id="18_b45ms"]
+[ext_resource type="Script" uid="uid://bt8xmgsai1rqq" path="res://Scripts/MainCharacter/States/ShootingState.gd" id="19_1eljo"]
+[ext_resource type="Script" uid="uid://dvbjwirnwolqm" path="res://Scripts/MainCharacter/States/WaitingShootingState.gd" id="20_qv7m8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cri0l"]
 atlas = ExtResource("2_gy7ys")
@@ -163,6 +165,18 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("9_b45ms")
 region = Rect2(32, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpgdm"]
+atlas = ExtResource("9_b45ms")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3oa0"]
+atlas = ExtResource("9_b45ms")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpbpt"]
+atlas = ExtResource("9_b45ms")
+region = Rect2(0, 0, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_b841a"]
 atlas = ExtResource("3_ka8x8")
 region = Rect2(0, 0, 32, 32)
@@ -177,6 +191,22 @@ region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l6ccf"]
 atlas = ExtResource("3_ka8x8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jiv2u"]
+atlas = ExtResource("9_b45ms")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nno33"]
+atlas = ExtResource("9_b45ms")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdc66"]
+atlas = ExtResource("9_b45ms")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57ru0"]
+atlas = ExtResource("9_b45ms")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ygope"]
@@ -334,10 +364,24 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7vxhh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpgdm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3oa0")
 }],
 "loop": false,
 "name": &"Shoot",
-"speed": 6.0
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpbpt")
+}],
+"loop": true,
+"name": &"WaitingShoot",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -355,6 +399,23 @@ animations = [{
 "loop": true,
 "name": &"Walk",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jiv2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nno33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mdc66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57ru0")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6ccf"]
@@ -367,7 +428,7 @@ script = ExtResource("1_i00kt")
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_ygope")
-animation = &"Roll"
+animation = &"WaitingShoot"
 autoplay = "Idle"
 
 [node name="MainCharacterCollision" type="CollisionShape2D" parent="."]
@@ -437,7 +498,13 @@ script = ExtResource("18_b45ms")
 idle_state = NodePath("../Idle")
 jump_state = NodePath(".")
 
-[node name="Shoot" type="Node" parent="FSM"]
+[node name="Shoot" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("19_1eljo")
+idle_state = NodePath("../Idle")
+
+[node name="WaitingShooting" type="Node" parent="FSM" node_paths=PackedStringArray("walking_state")]
+script = ExtResource("20_qv7m8")
+walking_state = NodePath("../Walk")
 
 [node name="RollTimerCooldown" type="Timer" parent="."]
 wait_time = 0.5
