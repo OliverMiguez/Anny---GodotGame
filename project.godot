@@ -23,6 +23,7 @@ buses/default_bus_layout="res://AudioBus/default_bus_layout.tres"
 [autoload]
 
 RoundManager="*res://Scripts/Globals/RoundManager.gd"
+DoorsManager="*res://Scripts/Globals/DoorsManager.gd"
 
 [display]
 
