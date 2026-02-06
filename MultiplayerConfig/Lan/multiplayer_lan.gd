@@ -1,3 +1,6 @@
+"""
+Clase para la conexión de diferentes jugadores
+"""
 extends Control
 var peer = ENetMultiplayerPeer.new()
 @export var player_scene =preload("res://Scenes/MainCharacter/main_character.tscn")
