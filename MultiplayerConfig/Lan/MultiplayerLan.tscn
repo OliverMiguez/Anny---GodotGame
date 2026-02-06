@@ -13,9 +13,9 @@ script = ExtResource("1_qiggy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 919.0
+offset_left = 63.0
 offset_top = 7.0
-offset_right = 963.0
+offset_right = 107.0
 offset_bottom = 73.0
 
 [node name="Host" type="Button" parent="VBoxContainer"]
@@ -29,9 +29,6 @@ text = "Join"
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://24wdatym248p")
 spawn_path = NodePath("..")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(828, 452)
 
 [connection signal="pressed" from="VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="VBoxContainer/Join" to="." method="_on_join_pressed"]

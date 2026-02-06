@@ -24,7 +24,6 @@ buses/default_bus_layout="res://AudioBus/default_bus_layout.tres"
 
 RoundManager="*res://Scripts/Globals/RoundManager.gd"
 DoorsManager="*res://Scripts/Globals/DoorsManager.gd"
-NetworkUi="*res://Config/Lan Config/Demo/network_ui.gd"
 
 [display]
 
