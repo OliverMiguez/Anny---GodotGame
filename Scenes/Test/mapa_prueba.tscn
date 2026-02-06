@@ -59,6 +59,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
 
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
+visible = false
 position = Vector2(464, 130)
 
 [node name="MusicTest" type="AudioStreamPlayer2D" parent="."]
