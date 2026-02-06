@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://24wdatym248p"]
+[gd_scene load_steps=71 format=3 uid="uid://24wdatym248p"]
 
 [ext_resource type="Script" uid="uid://geoojyf7jgb2" path="res://Scripts/MainCharacter/main_character.gd" id="1_i00kt"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="2_cctys"]
@@ -422,7 +422,13 @@ animations = [{
 radius = 2.5
 height = 18.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qv7m8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player1" type="CharacterBody2D"]
+scale = Vector2(3, 3)
 script = ExtResource("1_i00kt")
 
 [node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
@@ -516,6 +522,9 @@ one_shot = true
 
 [node name="AmmoSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(11, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_qv7m8")
 
 [connection signal="animation_finished" from="MainCharacterAnimations" to="FSM/Rol" method="_on_animation_finished"]
 [connection signal="animation_finished" from="MainCharacterAnimations" to="FSM/Plancha" method="_on_main_character_animations_animation_finished"]

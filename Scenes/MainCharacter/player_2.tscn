@@ -398,30 +398,27 @@ jump_state = NodePath("../Jump")
 shoot_state = NodePath("../Shoot")
 father = NodePath("../..")
 
-[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "roll_state", "shoot_state", "father")]
+[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "roll_state", "father")]
 script = ExtResource("13_5hudf")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
-shoot_state = NodePath("../Shoot")
 father = NodePath("../..")
 
-[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "plancha_state", "shoot_state", "father")]
+[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "plancha_state", "father")]
 script = ExtResource("14_34do7")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
 plancha_state = NodePath("../Plancha")
-shoot_state = NodePath("../Shoot")
 father = NodePath("../..")
 
-[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "jump_state", "roll_state", "shoot_state", "father")]
+[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "jump_state", "roll_state", "father")]
 script = ExtResource("15_8lck2")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
-shoot_state = NodePath("../Shoot")
 father = NodePath("../..")
 
 [node name="Jump" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "father")]
@@ -437,12 +434,9 @@ run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 father = NodePath("../..")
 
-[node name="Plancha" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state", "jump_state", "father")]
+[node name="Plancha" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "jump_state", "father")]
 script = ExtResource("18_1vb5k")
 idle_state = NodePath("../Idle")
-walk_state = NodePath("../Walk")
-run_state = NodePath("../Run")
-crouch_state = NodePath("../Crouch")
 jump_state = NodePath("../Jump")
 father = NodePath("../..")
 

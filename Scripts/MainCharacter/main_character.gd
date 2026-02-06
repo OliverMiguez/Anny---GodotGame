@@ -26,20 +26,26 @@ var ammo_scene: Ammo
 
 var can_move = true
 
+
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+
 ##Función que se ejecuta en cada frame 
 func _physics_process(delta):
-	# Aplica gravedad al player  cuando no este en el suelo
-	if not is_on_floor():
-		gravity(delta)
-	
-	state_machine._physics_process(delta)
-	
-	if can_move:
-		handle_movement()
-	
+	if is_multiplayer_authority():
+		# Aplica gravedad al player  cuando no este en el suelo
+		if not is_on_floor():
+			gravity(delta)
+		
+		state_machine._physics_process(delta)
+		
+		if can_move:
+			handle_movement()
+		
+		flip_animation() # Gira el sprite del player según su movimiento
+		handle_combat()
 	move_and_slide() # Permite el movimiento en el player (OBLIGATORIO)
-	flip_animation() # Gira el sprite del player según su movimiento
-	handle_combat()
+
 
 func handle_movement():
 	var direction = Input.get_axis("IzquierdaP1","DerechaP1")
