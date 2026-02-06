@@ -426,6 +426,24 @@ height = 18.0
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("MainCharacterAnimations:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("MainCharacterAnimations:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("MainCharacterAnimations:flip_v")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("MainCharacterCollision:disabled")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("MainCharacterCollision:one_way_collision")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("MainCharacterCollision:one_way_collision_margin")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="Player1" type="CharacterBody2D"]
 scale = Vector2(3, 3)
