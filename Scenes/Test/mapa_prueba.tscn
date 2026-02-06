@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://bondak2y8miye"]
+[gd_scene load_steps=19 format=3 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
 [ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/Map.png" id="2_0swn8"]
 [ext_resource type="Texture2D" uid="uid://b64hkho4prp4o" path="res://Art/MapArt/City/Sprite-Sheet.jpg" id="2_fub7l"]
 [ext_resource type="PackedScene" uid="uid://24wdatym248p" path="res://Scenes/MainCharacter/main_character.tscn" id="3_rmeiw"]
+[ext_resource type="PackedScene" uid="uid://dflqdxl58wgbf" path="res://MultiplayerConfig/Lan/MultiplayerLan.tscn" id="5_rmeiw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swn8"]
 size = Vector2(1430.5, 53)
@@ -59,7 +60,6 @@ texture = ExtResource("2_0swn8")
 
 [node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
 position = Vector2(464, 130)
-scale = Vector2(3, 3)
 
 [node name="MusicTest" type="AudioStreamPlayer2D" parent="."]
 autoplay = true
@@ -268,6 +268,10 @@ position = Vector2(985, 861)
 
 [node name="Spawn3" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1418, 856)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MultiplayerLan" parent="CanvasLayer" instance=ExtResource("5_rmeiw")]
 
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
 [connection signal="body_entered" from="Doors/LeftDoorUp" to="." method="_on_left_door_up_body_entered"]

@@ -1,10 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dflqdxl58wgbf"]
+[gd_scene load_steps=2 format=3 uid="uid://dflqdxl58wgbf"]
 
 [ext_resource type="Script" uid="uid://dxyelgu8yuxjv" path="res://MultiplayerConfig/Lan/multiplayer_lan.gd" id="1_qiggy"]
-[ext_resource type="Texture2D" uid="uid://oxny6h5cytiq" path="res://icon.svg" id="2_qiggy"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4opq2"]
-size = Vector2(2595, 171)
 
 [node name="MultiplayerLan" type="Control"]
 layout_mode = 3
@@ -33,17 +29,6 @@ text = "Join"
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://24wdatym248p")
 spawn_path = NodePath("..")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(997, 903)
-scale = Vector2(21.632813, 1)
-texture = ExtResource("2_qiggy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1026.5, 922.5)
-shape = SubResource("RectangleShape2D_4opq2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(828, 452)
