@@ -45,7 +45,7 @@ func handle_movement():
 	var direction = Input.get_axis("IzquierdaP1","DerechaP1")
 	var is_jumping = Input.is_action_just_pressed("ArribaP1")
 	
-	if is_jumping:
+	if is_jumping and is_on_floor():
 		velocity.y = JUMP_FORCE.y
 	
 	if direction != 0:

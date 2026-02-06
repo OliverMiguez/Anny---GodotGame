@@ -30,7 +30,7 @@ size = Vector2(130.5, 782.5)
 size = Vector2(133, 893.625)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adf8g"]
-size = Vector2(21, 344.5)
+size = Vector2(48, 344.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkxpx"]
 size = Vector2(4, 109)
@@ -166,7 +166,7 @@ debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 position = Vector2(248, -76)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/Other/Wall1"]
-position = Vector2(526.5, 634.75)
+position = Vector2(518, 634.75)
 shape = SubResource("RectangleShape2D_adf8g")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 

@@ -1,7 +1,6 @@
 extends "res://Scripts/GeneralStates/Util/State.gd"
 
 @onready var jump_sound: AudioStreamPlayer2D = $"../../JumpSound"
-
 @export var idle_state:State
 @export var walk_state:State
 @export var run_state:State
