@@ -23,12 +23,17 @@ buses/default_bus_layout="res://AudioBus/default_bus_layout.tres"
 [autoload]
 
 RoundManager="*res://Scripts/Globals/RoundManager.gd"
+DoorsManager="*res://Scripts/Globals/DoorsManager.gd"
 
 [display]
 
 window/size/viewport_width=1908
 window/size/viewport_height=964
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/easy_peasy_multiplayer/plugin.cfg")
 
 [file_customization]
 
