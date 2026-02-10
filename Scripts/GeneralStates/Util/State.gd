@@ -5,7 +5,7 @@ class_name State
 @export var next_state: State = null #en reposo no hay estado siguiente
 
 @export var father:Node #aqui va la clase que tenga el padre
-@export var animation_player:AnimatedSprite2D #aqui va la clase que tenga el padre
+@export var animation_player:AnimationPlayer #aqui va la clase que tenga el padre
 
 
 #Estas funciones las tienen TODOS los estados.

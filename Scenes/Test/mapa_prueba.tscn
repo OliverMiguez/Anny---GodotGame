@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bondak2y8miye"]
+[gd_scene format=3 uid="uid://bondak2y8miye"]
 
 [ext_resource type="Script" uid="uid://56t5chyavf8x" path="res://Scripts/Test/mapa_prueba.gd" id="1_rmeiw"]
 [ext_resource type="Texture2D" uid="uid://djl2pfsg8i1x3" path="res://Art/MapArt/Map.png" id="2_0swn8"]
 [ext_resource type="Texture2D" uid="uid://b64hkho4prp4o" path="res://Art/MapArt/City/Sprite-Sheet.jpg" id="2_fub7l"]
 [ext_resource type="PackedScene" uid="uid://24wdatym248p" path="res://Scenes/MainCharacter/main_character.tscn" id="3_rmeiw"]
-[ext_resource type="PackedScene" uid="uid://dflqdxl58wgbf" path="res://MultiplayerConfig/Lan/MultiplayerLan.tscn" id="5_rmeiw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swn8"]
 size = Vector2(1430.5, 53)
@@ -45,192 +44,192 @@ size = Vector2(2.5, 85.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fub7l"]
 size = Vector2(5, 79)
 
-[node name="MapaPrueba" type="Node2D"]
+[node name="MapaPrueba" type="Node2D" unique_id=173036617]
 position = Vector2(-11, 32)
 script = ExtResource("1_rmeiw")
 
-[node name="SpriteSheet" type="Sprite2D" parent="."]
+[node name="SpriteSheet" type="Sprite2D" parent="." unique_id=261648531]
 position = Vector2(959.99994, 446.00003)
 scale = Vector2(3.0220127, 3.2352026)
 texture = ExtResource("2_fub7l")
 
-[node name="Map" type="Sprite2D" parent="."]
+[node name="Map" type="Sprite2D" parent="." unique_id=1412099224]
 position = Vector2(981, 470.00003)
 scale = Vector2(3, 3)
 texture = ExtResource("2_0swn8")
 
-[node name="MainCharacter" parent="." instance=ExtResource("3_rmeiw")]
+[node name="MainCharacter" parent="." unique_id=1810434170 instance=ExtResource("3_rmeiw")]
 visible = false
 position = Vector2(464, 130)
 
-[node name="MusicTest" type="AudioStreamPlayer2D" parent="."]
+[node name="MusicTest" type="AudioStreamPlayer2D" parent="." unique_id=1407545720]
 autoplay = true
 
-[node name="Collisions" type="Node" parent="."]
+[node name="Collisions" type="Node" parent="." unique_id=1924595021]
 
-[node name="Floors" type="Node" parent="Collisions"]
+[node name="Floors" type="Node" parent="Collisions" unique_id=575103036]
 
-[node name="GeneralFloor" type="Node" parent="Collisions/Floors"]
+[node name="GeneralFloor" type="Node" parent="Collisions/Floors" unique_id=1084918248]
 
-[node name="Floor1" type="StaticBody2D" parent="Collisions/Floors/GeneralFloor"]
+[node name="Floor1" type="StaticBody2D" parent="Collisions/Floors/GeneralFloor" unique_id=829414990]
 position = Vector2(986, 698)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/GeneralFloor/Floor1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/GeneralFloor/Floor1" unique_id=1162139189]
 position = Vector2(-18, 268)
 shape = SubResource("RectangleShape2D_0swn8")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
-[node name="Other" type="Node" parent="Collisions/Floors"]
+[node name="Other" type="Node" parent="Collisions/Floors" unique_id=1818863693]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Collisions/Floors/Other"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Collisions/Floors/Other" unique_id=569092302]
 position = Vector2(-10, 13)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D" unique_id=1295725040]
 position = Vector2(538.5, 424.5)
 shape = SubResource("RectangleShape2D_kmekn")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="Collisions/Floors/Other"]
+[node name="StaticBody2D2" type="StaticBody2D" parent="Collisions/Floors/Other" unique_id=591126891]
 position = Vector2(-10, 13)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D2" unique_id=912503301]
 position = Vector2(537, 216)
 shape = SubResource("RectangleShape2D_84ol0")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41568628)
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="Collisions/Floors/Other"]
+[node name="StaticBody2D3" type="StaticBody2D" parent="Collisions/Floors/Other" unique_id=759277308]
 position = Vector2(-10, 13)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3" unique_id=710516733]
 position = Vector2(1514, 319)
 shape = SubResource("RectangleShape2D_mm8s7")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3" unique_id=486897131]
 position = Vector2(1521, 470)
 shape = SubResource("RectangleShape2D_mm8s7")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3" unique_id=1248598418]
 position = Vector2(1297, 470)
 shape = SubResource("RectangleShape2D_mm8s7")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3" unique_id=1274359528]
 position = Vector2(1491, 651)
 shape = SubResource("RectangleShape2D_mm8s7")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3"]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D3" unique_id=458168617]
 position = Vector2(1298, 651)
 shape = SubResource("RectangleShape2D_mm8s7")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="Collisions/Floors/Other"]
+[node name="StaticBody2D4" type="StaticBody2D" parent="Collisions/Floors/Other" unique_id=1858205730]
 position = Vector2(-10, 13)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D4" unique_id=168056263]
 position = Vector2(1193, 304.5)
 shape = SubResource("RectangleShape2D_myp8n")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
-[node name="StaticBody2D5" type="StaticBody2D" parent="Collisions/Floors/Other"]
+[node name="StaticBody2D5" type="StaticBody2D" parent="Collisions/Floors/Other" unique_id=183630386]
 position = Vector2(-10, 13)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Floors/Other/StaticBody2D5" unique_id=1252596218]
 position = Vector2(351, 686.5)
 shape = SubResource("RectangleShape2D_i2jc8")
 debug_color = Color(0.9019608, 0.30980393, 0, 0.41960785)
 
-[node name="Walls" type="Node" parent="Collisions"]
+[node name="Walls" type="Node" parent="Collisions" unique_id=664787363]
 
-[node name="ExternalColision" type="Node" parent="Collisions/Walls"]
+[node name="ExternalColision" type="Node" parent="Collisions/Walls" unique_id=2056974967]
 
-[node name="Right_wall" type="StaticBody2D" parent="Collisions/Walls/ExternalColision"]
+[node name="Right_wall" type="StaticBody2D" parent="Collisions/Walls/ExternalColision" unique_id=485462511]
 position = Vector2(488, -39)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/ExternalColision/Right_wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/ExternalColision/Right_wall" unique_id=1047931679]
 position = Vector2(1240, 589)
 shape = SubResource("RectangleShape2D_rmeiw")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
-[node name="Left_wall" type="StaticBody2D" parent="Collisions/Walls/ExternalColision"]
+[node name="Left_wall" type="StaticBody2D" parent="Collisions/Walls/ExternalColision" unique_id=482160197]
 position = Vector2(488, -33)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/ExternalColision/Left_wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/ExternalColision/Left_wall" unique_id=1469989513]
 position = Vector2(-268, 527)
 shape = SubResource("RectangleShape2D_mh7lf")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
-[node name="Other" type="Node" parent="Collisions/Walls"]
+[node name="Other" type="Node" parent="Collisions/Walls" unique_id=1107099216]
 
-[node name="Wall1" type="StaticBody2D" parent="Collisions/Walls/Other"]
+[node name="Wall1" type="StaticBody2D" parent="Collisions/Walls/Other" unique_id=2083421947]
 position = Vector2(237, -44)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/Other/Wall1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Walls/Other/Wall1" unique_id=684295627]
 position = Vector2(518, 634.75)
 shape = SubResource("RectangleShape2D_adf8g")
 debug_color = Color(0.90326786, 0.30820343, 0, 0.41960785)
 
-[node name="Doors" type="Node" parent="."]
+[node name="Doors" type="Node" parent="." unique_id=975592851]
 
-[node name="LeftDoorUp" type="Area2D" parent="Doors"]
+[node name="LeftDoorUp" type="Area2D" parent="Doors" unique_id=593658682]
 position = Vector2(-10, 9)
 collision_layer = 8
 
-[node name="LeftDoorUpCollision" type="CollisionShape2D" parent="Doors/LeftDoorUp"]
+[node name="LeftDoorUpCollision" type="CollisionShape2D" parent="Doors/LeftDoorUp" unique_id=1837249589]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
 position = Vector2(300, 156)
 shape = SubResource("RectangleShape2D_jkxpx")
 
-[node name="RightDoorDown" type="Area2D" parent="Doors"]
+[node name="RightDoorDown" type="Area2D" parent="Doors" unique_id=1026557563]
 position = Vector2(-10, 9)
 
-[node name="RightDoorDownCollision" type="CollisionShape2D" parent="Doors/RightDoorDown"]
+[node name="RightDoorDownCollision" type="CollisionShape2D" parent="Doors/RightDoorDown" unique_id=1116818096]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
 position = Vector2(1655.5, 887.25)
 shape = SubResource("RectangleShape2D_llg6g")
 
-[node name="RightDoorUp" type="Area2D" parent="Doors"]
+[node name="RightDoorUp" type="Area2D" parent="Doors" unique_id=1538469370]
 modulate = Color(1, 1, 0, 1)
 position = Vector2(-9, 9)
 
-[node name="RightDoorUpCollision" type="CollisionShape2D" parent="Doors/RightDoorUp"]
+[node name="RightDoorUpCollision" type="CollisionShape2D" parent="Doors/RightDoorUp" unique_id=120258137]
 modulate = Color(0.2509804, 0, 0.73333335, 1)
 position = Vector2(1627.25, 271.25)
 shape = SubResource("RectangleShape2D_ujbic")
 
-[node name="Markers" type="Node" parent="Doors"]
+[node name="Markers" type="Node" parent="Doors" unique_id=1346471299]
 
-[node name="Marker1LeftDown" type="Marker2D" parent="Doors/Markers"]
+[node name="Marker1LeftDown" type="Marker2D" parent="Doors/Markers" unique_id=1587900983]
 position = Vector2(399, 879)
 
-[node name="Marker2LeftUp" type="Marker2D" parent="Doors/Markers"]
+[node name="Marker2LeftUp" type="Marker2D" parent="Doors/Markers" unique_id=1759485336]
 position = Vector2(351, 151)
 
-[node name="Marker3RightUp" type="Marker2D" parent="Doors/Markers"]
+[node name="Marker3RightUp" type="Marker2D" parent="Doors/Markers" unique_id=1099596991]
 position = Vector2(1583, 256)
 
-[node name="Marker4RightDown" type="Marker2D" parent="Doors/Markers"]
+[node name="Marker4RightDown" type="Marker2D" parent="Doors/Markers" unique_id=1404632841]
 position = Vector2(1607, 870)
 
-[node name="Marker2D" type="Marker2D" parent="Doors"]
+[node name="Marker2D" type="Marker2D" parent="Doors" unique_id=713531534]
 position = Vector2(614, 833)
 
-[node name="Area2D" type="Area2D" parent="Doors"]
+[node name="Area2D" type="Area2D" parent="Doors" unique_id=1364664943]
 position = Vector2(-13, 10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/Area2D" unique_id=803286417]
 position = Vector2(348.5, 888.5)
 shape = SubResource("RectangleShape2D_fub7l")
 
-[node name="Objects" type="Node" parent="."]
+[node name="Objects" type="Node" parent="." unique_id=1677936218]
 
-[node name="Box" type="Node" parent="Objects"]
+[node name="Box" type="Node" parent="Objects" unique_id=1696823891]
 
-[node name="DEBUG" type="Node" parent="."]
+[node name="DEBUG" type="Node" parent="." unique_id=1432294935]
 
-[node name="RondaActual" type="Label" parent="DEBUG"]
+[node name="RondaActual" type="Label" parent="DEBUG" unique_id=1001198783]
 offset_left = 908.0
 offset_top = 164.0
 offset_right = 948.0
@@ -238,21 +237,21 @@ offset_bottom = 260.0
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 70
 
-[node name="DeathButtonPlayer" type="Button" parent="DEBUG"]
+[node name="DeathButtonPlayer" type="Button" parent="DEBUG" unique_id=607831626]
 offset_left = 10.0
 offset_top = 56.0
 offset_right = 149.0
 offset_bottom = 87.0
 text = "MATA AL PLAYER"
 
-[node name="DeathButtonEnemy" type="Button" parent="DEBUG"]
+[node name="DeathButtonEnemy" type="Button" parent="DEBUG" unique_id=568274403]
 offset_left = 5.0
 offset_top = 20.0
 offset_right = 195.0
 offset_bottom = 51.0
 text = "MATA A LOS ENEMIGOS"
 
-[node name="PosPlayer" type="Label" parent="DEBUG"]
+[node name="PosPlayer" type="Label" parent="DEBUG" unique_id=220231370]
 offset_left = 380.0
 offset_top = 3.0
 offset_right = 630.0
@@ -260,25 +259,16 @@ offset_bottom = 113.0
 theme_override_font_sizes/font_size = 50
 text = "pos player"
 
-[node name="SpawnPoints" type="Node" parent="."]
+[node name="SpawnPoints" type="Node" parent="." unique_id=738378669]
 
-[node name="Spawn1" type="Marker2D" parent="SpawnPoints"]
+[node name="Spawn1" type="Marker2D" parent="SpawnPoints" unique_id=163844490]
 position = Vector2(1243, 245)
 
-[node name="Spawn2" type="Marker2D" parent="SpawnPoints"]
+[node name="Spawn2" type="Marker2D" parent="SpawnPoints" unique_id=1469815443]
 position = Vector2(985, 861)
 
-[node name="Spawn3" type="Marker2D" parent="SpawnPoints"]
+[node name="Spawn3" type="Marker2D" parent="SpawnPoints" unique_id=1240115914]
 position = Vector2(1418, 856)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MultiplayerLan" parent="CanvasLayer" instance=ExtResource("5_rmeiw")]
-offset_left = 601.0
-offset_top = 214.0
-offset_right = 601.0
-offset_bottom = 214.0
-metadata/_edit_use_anchors_ = true
 
 [connection signal="finished" from="MusicTest" to="." method="_on_prueba_musica_finished"]
 [connection signal="body_entered" from="Doors/LeftDoorUp" to="." method="_on_left_door_up_body_entered"]

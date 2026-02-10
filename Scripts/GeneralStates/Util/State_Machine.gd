@@ -1,7 +1,7 @@
 extends Node
 
 @export var father : Node #el tipo del padre
-@export var animation_player:AnimatedSprite2D
+@export var animation_player:AnimationPlayer
 
 
 @export var current_state:State

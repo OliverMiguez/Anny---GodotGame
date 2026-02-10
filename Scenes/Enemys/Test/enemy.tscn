@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://7q8wr7ety064"]
+[gd_scene format=3 uid="uid://7q8wr7ety064"]
 
 [ext_resource type="Script" uid="uid://b53yptk637k1e" path="res://Scripts/Test/Enemy/enemy.gd" id="1_5ujov"]
 [ext_resource type="Texture2D" uid="uid://vbuq6wcagru1" path="res://Art/MainCharacter/Idle/MainCharater-Idle.png" id="1_80308"]
@@ -80,34 +80,34 @@ height = 18.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ujov"]
 size = Vector2(15, 22)
 
-[node name="Enemy" type="CharacterBody2D" groups=["Enemigos"]]
+[node name="Enemy" type="CharacterBody2D" unique_id=63534735 groups=["Enemigos"]]
 scale = Vector2(3, 3)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_5ujov")
 
-[node name="LabelLife" type="Label" parent="."]
+[node name="LabelLife" type="Label" parent="." unique_id=902651778]
 offset_left = -19.0
 offset_top = -30.0
 offset_right = 15.0
 offset_bottom = -7.0
 text = "Vida"
 
-[node name="EnemyAnimations" type="AnimatedSprite2D" parent="."]
+[node name="EnemyAnimations" type="AnimatedSprite2D" parent="." unique_id=1188272838]
 sprite_frames = SubResource("SpriteFrames_31s23")
 animation = &"Idle"
 autoplay = "Idle"
 
-[node name="EnemyCollision" type="CollisionShape2D" parent="."]
+[node name="EnemyCollision" type="CollisionShape2D" parent="." unique_id=2132494969]
 position = Vector2(-4, 7)
 shape = SubResource("CapsuleShape2D_74ebr")
 debug_color = Color(0.6147076, 0.35900617, 1, 0.41960785)
 
-[node name="HitBox" type="Area2D" parent="." groups=["Enemigos"]]
+[node name="HitBox" type="Area2D" parent="." unique_id=1134986400 groups=["Enemigos"]]
 collision_layer = 2
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=677438104]
 position = Vector2(-4.5, 5)
 shape = SubResource("RectangleShape2D_5ujov")
 debug_color = Color(0.5885618, 0, 0.10899121, 0.41960785)

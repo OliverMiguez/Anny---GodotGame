@@ -8,7 +8,7 @@ const ROLLING_SPEED = 200 # Velocidad de rodar
 
 const  GRAVITY_VALUE = 1000.0 # Fuerza de gravedad
 
-@onready var main_character_animations: AnimatedSprite2D = $MainCharacterAnimations # Animaciones del MainCharacter 
+@onready var main_character_animations: AnimationPlayer = $AnimationPlayer # Animaciones del MainCharacter 
 @onready var main_character_collision = $MainCharacterCollision # Colisión del player
 @onready var state_machine: Node = $FSM
 
@@ -25,6 +25,15 @@ var ammo_scene: Ammo
 @onready var ammo_spawn_point = $AmmoSpawnPoint
 
 var can_move = true
+
+
+@onready var main_charater_idle: Sprite2D = $MainCharaterIdle
+@onready var main_character_walk: Sprite2D = $MainCharacterWalk
+@onready var main_character_jump: Sprite2D = $MainCharacterJump
+@onready var main_character_crouch: Sprite2D = $MainCharacterCrouch
+@onready var main_character_roll: Sprite2D = $MainCharacterRoll
+@onready var main_character_plancha: Sprite2D = $MainCharacterPlancha
+
 
 
 func _enter_tree() -> void:
@@ -74,12 +83,23 @@ func gravity(delta):
 ## Gira el sprite de la animación
 func flip_animation():
 	if velocity.x > 0:
-		main_character_animations.flip_h = false
-		main_character_collision.position.x = -4.5
+		#main_character_animations.flip_h = false
+		#main_character_collision.position.x = -4.5
+		main_charater_idle.flip_h = false
+		main_character_walk.flip_h = false
+		main_character_jump.flip_h = false
+		main_character_crouch.flip_h = false
+		main_character_roll.flip_h = false
+		main_character_plancha.flip_h = false
 	elif velocity.x < 0:
-		main_character_animations.flip_h = true
-		main_character_collision.position.x = 4.5
-
+		#main_character_animations.flip_h = true
+		#main_character_collision.position.x = 4.5
+		main_charater_idle.flip_h = true
+		main_character_walk.flip_h = true
+		main_character_jump.flip_h = true
+		main_character_crouch.flip_h = true
+		main_character_roll.flip_h = true
+		main_character_plancha.flip_h = true
 
 # Función que llama el estado "Plancha" al terminar
 func start_plancha_cooldown():

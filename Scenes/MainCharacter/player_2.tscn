@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bvs27arf5ypjj"]
+[gd_scene format=3 uid="uid://bvs27arf5ypjj"]
 
 [ext_resource type="Script" uid="uid://bgvvj5ygvmuca" path="res://Scripts/MainCharacter/player_2.gd" id="1_t0uwg"]
 [ext_resource type="Texture2D" uid="uid://cyima13s8unkp" path="res://Art/MainCharacter/Crouch/main-character-crouch.png" id="2_t0uwg"]
@@ -362,34 +362,34 @@ animations = [{
 radius = 2.5
 height = 18.0
 
-[node name="Player2" type="CharacterBody2D"]
+[node name="Player2" type="CharacterBody2D" unique_id=1447000937]
 modulate = Color(1, 0.12941177, 1, 1)
 scale = Vector2(3, 3)
 script = ExtResource("1_t0uwg")
 metadata/_custom_type_script = "uid://geoojyf7jgb2"
 
-[node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="."]
+[node name="MainCharacterAnimations" type="AnimatedSprite2D" parent="." unique_id=71389754]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_hgrn4")
 animation = &"Shoot"
 autoplay = "Idle"
 
-[node name="MainCharacterCollision" type="CollisionShape2D" parent="."]
+[node name="MainCharacterCollision" type="CollisionShape2D" parent="." unique_id=1031885100]
 position = Vector2(-4.5, 5)
 shape = SubResource("CapsuleShape2D_cwawi")
 
-[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="." unique_id=1199159825]
 stream = ExtResource("10_y4ys6")
 volume_db = -12.117
 bus = &"JumpSound"
 
-[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("father", "animation_player", "current_state")]
+[node name="FSM" type="Node" parent="." unique_id=702263609 node_paths=PackedStringArray("father", "animation_player", "current_state")]
 script = ExtResource("11_hgrn4")
 father = NodePath("..")
 animation_player = NodePath("../MainCharacterAnimations")
 current_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "run_state", "crouch_state", "jump_state", "shoot_state", "father")]
+[node name="Idle" type="Node" parent="FSM" unique_id=654857367 node_paths=PackedStringArray("walk_state", "run_state", "crouch_state", "jump_state", "shoot_state", "father")]
 script = ExtResource("12_cwawi")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
@@ -398,7 +398,7 @@ jump_state = NodePath("../Jump")
 shoot_state = NodePath("../Shoot")
 father = NodePath("../..")
 
-[node name="Walk" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "roll_state", "father")]
+[node name="Walk" type="Node" parent="FSM" unique_id=896979496 node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "roll_state", "father")]
 script = ExtResource("13_5hudf")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
@@ -406,7 +406,7 @@ jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
 father = NodePath("../..")
 
-[node name="Run" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "plancha_state", "father")]
+[node name="Run" type="Node" parent="FSM" unique_id=1225456170 node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "plancha_state", "father")]
 script = ExtResource("14_34do7")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
@@ -414,19 +414,19 @@ jump_state = NodePath("../Jump")
 plancha_state = NodePath("../Plancha")
 father = NodePath("../..")
 
-[node name="Crouch" type="Node" parent="FSM" node_paths=PackedStringArray("walk_state", "jump_state", "roll_state", "father")]
+[node name="Crouch" type="Node" parent="FSM" unique_id=1165503783 node_paths=PackedStringArray("walk_state", "jump_state", "roll_state", "father")]
 script = ExtResource("15_8lck2")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
 roll_state = NodePath("../Rol")
 father = NodePath("../..")
 
-[node name="Jump" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "father")]
+[node name="Jump" type="Node" parent="FSM" unique_id=890343007 node_paths=PackedStringArray("idle_state", "father")]
 script = ExtResource("16_rcag3")
 idle_state = NodePath("../Idle")
 father = NodePath("../..")
 
-[node name="Rol" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state", "father")]
+[node name="Rol" type="Node" parent="FSM" unique_id=1912789153 node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "crouch_state", "father")]
 script = ExtResource("17_3nmlc")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
@@ -434,29 +434,29 @@ run_state = NodePath("../Run")
 crouch_state = NodePath("../Crouch")
 father = NodePath("../..")
 
-[node name="Plancha" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "jump_state", "father")]
+[node name="Plancha" type="Node" parent="FSM" unique_id=52698967 node_paths=PackedStringArray("idle_state", "jump_state", "father")]
 script = ExtResource("18_1vb5k")
 idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jump")
 father = NodePath("../..")
 
-[node name="Shoot" type="Node" parent="FSM" node_paths=PackedStringArray("idle_state", "father")]
+[node name="Shoot" type="Node" parent="FSM" unique_id=440419205 node_paths=PackedStringArray("idle_state", "father")]
 script = ExtResource("19_tpthl")
 idle_state = NodePath("../Idle")
 father = NodePath("../..")
 
-[node name="RollTimer" type="Timer" parent="."]
+[node name="RollTimer" type="Timer" parent="." unique_id=2117942166]
 wait_time = 0.5
 one_shot = true
 
-[node name="Plancha_cooldown" type="Timer" parent="."]
+[node name="Plancha_cooldown" type="Timer" parent="." unique_id=390116807]
 wait_time = 2.0
 one_shot = true
 
-[node name="AmmoSpawnPoint" type="Marker2D" parent="."]
+[node name="AmmoSpawnPoint" type="Marker2D" parent="." unique_id=34637420]
 position = Vector2(11, 0)
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1029709972]
 offset_left = -9.333334
 offset_top = -29.666668
 offset_right = 30.666666
