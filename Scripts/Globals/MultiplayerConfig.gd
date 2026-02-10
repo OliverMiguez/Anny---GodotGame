@@ -73,6 +73,6 @@ func register_player(name: String):
 	rpc("sync_players", players)
 
 # Iniciar juego (lo ejecuta el host)
-@rpc("authority")
+@rpc("any_peer")
 func start_game():
 	get_tree().change_scene_to_file("res://Scenes/Test/mapa_prueba.tscn")
