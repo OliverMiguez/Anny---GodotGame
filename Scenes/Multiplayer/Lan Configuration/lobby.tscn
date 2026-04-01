@@ -1,9 +1,36 @@
 [gd_scene format=3 uid="uid://c7mrgr138wip4"]
 
-[node name="Network" type="Control"]
+[ext_resource type="Script" uid="uid://dmdu37jnpxpjk" path="res://Scripts/MultiplayerConfig/lobby.gd" id="1_n2cly"]
+
+[node name="Lobby" type="Control" unique_id=1815180699]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_n2cly")
+
+[node name="Label" type="Label" parent="." unique_id=35693940]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Jugadores conectados: "
+
+[node name="start_button" type="Button" parent="." unique_id=1846037034]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 167.0
+offset_right = 163.0
+offset_bottom = 198.0
+text = "Start"
+
+[node name="players_box" type="VBoxContainer" parent="." unique_id=1252096615]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 38.0
+offset_right = 243.0
+offset_bottom = 156.0
+
+[connection signal="pressed" from="start_button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="start_button" to="." method="_on_start_button_pressed"]

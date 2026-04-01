@@ -1,34 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://dflqdxl58wgbf"]
+[gd_scene format=3 uid="uid://dflqdxl58wgbf"]
 
 [ext_resource type="Script" uid="uid://dxyelgu8yuxjv" path="res://MultiplayerConfig/Lan/multiplayer_lan.gd" id="1_qiggy"]
 
-[node name="MultiplayerLan" type="Control"]
+[node name="MultiplayerLan" type="Control" unique_id=1610556275]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -43.0
+offset_right = -20.0
+offset_bottom = -43.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qiggy")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Label" type="Label" parent="." unique_id=887139978]
 layout_mode = 0
-offset_left = 63.0
-offset_top = 7.0
-offset_right = 107.0
-offset_bottom = 73.0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 180
+text = "Creación de servidor"
 
-[node name="Host" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Host"
-
-[node name="Join" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Join"
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1232089019]
 _spawnable_scenes = PackedStringArray("uid://24wdatym248p")
 spawn_path = NodePath("..")
 
-[connection signal="pressed" from="VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="VBoxContainer/Join" to="." method="_on_join_pressed"]
+[node name="Host" type="Button" parent="." unique_id=1240825879]
+layout_mode = 0
+offset_left = 787.0
+offset_top = 340.0
+offset_right = 999.0
+offset_bottom = 445.0
+text = "Host"
+
+[node name="Join" type="Button" parent="." unique_id=540333855]
+layout_mode = 0
+offset_left = 786.0
+offset_top = 479.0
+offset_right = 997.0
+offset_bottom = 586.0
+text = "Join"
+
+[node name="IP" type="LineEdit" parent="." unique_id=319843945]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.17400001
+anchor_bottom = 0.14
+offset_left = 741.0
+offset_top = 643.0
+offset_right = 741.008
+offset_bottom = 668.04
+
+[node name="NameInput" type="LineEdit" parent="." unique_id=544642193]
+layout_mode = 0
+offset_left = 1027.0
+offset_top = 483.0
+offset_right = 1253.0
+offset_bottom = 582.0
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]

@@ -29,7 +29,7 @@ var ronda_actual = 1
 # Precargamos un objeto para ver el funcionamiento del spawneo aleatorio controlado(DEBUG)
 # Para spawnear un objeto en x punto del mapa que yo quiera aleatoriamente(Marker2d)
 var box_packed_scene = preload("res://Scenes/Objects/Box/box.tscn") # No es un nodo, es un PackedScene
-
+var player_scene = preload("res://Scenes/MainCharacter/main_character.tscn")
 # Valor aleatorio en el que spawneará el objeto o enemigo
 var valor_spawneo_obtenido = 0
 
@@ -43,6 +43,15 @@ var valor_spawneo_obtenido = 0
 
 
 func _ready():
+	
+	if multiplayer.is_server():
+		for id in MultiplayerConfig.players.keys():
+			var player = player_scene.instantiate()
+			player.name = str(id)
+			player.set_multiplayer_authority(id)
+			add_child(player)
+
+	
 	prueba_musica.play() # Inicia la musica
 	start_round() # Inicia la ronda
 
